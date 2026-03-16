@@ -1,10 +1,18 @@
+aid: oracle-partitioning
 name: Oracle Partitioning
-description: Oracle Partitioning enables tables and indexes to be partitioned into smaller, more manageable pieces, improving performance, availability, and manageability of large database objects.
-image: https://www.oracle.com/a/ocom/img/cb71-oracle-database.jpg
-url: https://www.oracle.com/database/technologies/partitioning.html
-created: 2024-01-01 00:00:00+00:00
-modified: 2024-01-01 00:00:00+00:00
-specificationVersion: '0.18'
+description: >-
+  Oracle Partitioning enables tables and indexes to be partitioned into smaller,
+  more manageable pieces, improving performance, availability, and manageability
+  of large database objects.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/oracle-partitioning/refs/heads/main/apis.yml
+created: '2024-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis:
 - name: Oracle Database REST API - Partitioning
   description: REST API endpoints for managing and monitoring Oracle Database partitioning operations
@@ -68,9 +76,8 @@ common:
 - type: Privacy Policy
   url: https://www.oracle.com/legal/privacy/
 maintainers:
-- FN: Oracle Corporation
-  email: info@oracle.com
-  url: https://www.oracle.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 tags:
 - database
 - partitioning
