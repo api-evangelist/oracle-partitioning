@@ -23,11 +23,9 @@ apis:
     humanURL: https://docs.oracle.com/en/database/oracle/oracle-database/
     properties:
       - type: Documentation
-        url: 
-          https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-concepts.html
+        url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-concepts.html
       - type: OpenAPI
-        url: 
-          https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
       - type: Swagger
         url: https://your-oracle-instance.com:8443/ords/swagger-ui.html
     contact:
@@ -44,8 +42,7 @@ apis:
       - type: Documentation
         url: https://docs.oracle.com/en/database/oracle/sql-developer/
       - type: Tutorial
-        url: 
-          https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html
+        url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html
   - name: Oracle Cloud Infrastructure Database API - Partitioning
     description: >-
       OCI API for managing partitioned databases in Oracle Cloud.
@@ -65,11 +62,9 @@ apis:
         url: https://www.oracle.com/support/
 common:
   - type: Getting Started
-    url: 
-      https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-intro.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-intro.html
   - type: Best Practices
-    url: 
-      https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-strategies.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-strategies.html
   - type: White Papers
     url: https://www.oracle.com/technetwork/database/options/partitioning/
   - type: Pricing
@@ -77,8 +72,7 @@ common:
   - type: Support
     url: https://support.oracle.com
   - type: Authentication
-    url: 
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/19.2/orrst/authentication.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/19.2/orrst/authentication.html
   - type: Status
     url: https://status.oracle.com
   - type: Terms of Service
@@ -89,14 +83,14 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 tags:
-  - database
-  - partitioning
-  - oracle
-  - performance
-  - scalability
+  - Composite-Partitioning
+  - Database
+  - Hash-Partitioning
+  - Interval-Partitioning
+  - List-Partitioning
+  - Oracle
+  - Partitioning
+  - Performance
+  - Range-Partitioning
+  - Scalability
   - VLDB
-  - range-partitioning
-  - list-partitioning
-  - hash-partitioning
-  - composite-partitioning
-  - interval-partitioning
