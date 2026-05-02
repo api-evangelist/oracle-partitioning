@@ -1,23 +1,43 @@
 # Oracle Partitioning (oracle-partitioning)
+
 Oracle Partitioning enables tables and indexes to be partitioned into smaller, more manageable pieces, improving performance, availability, and manageability of large database objects.
 
-**URL:** [Visit APIs.json URL](https://www.oracle.com/database/technologies/partitioning.html)
+**APIs.json:** [apis.yml](https://raw.githubusercontent.com/api-evangelist/oracle-partitioning/refs/heads/main/apis.yml)
 
-## Tags:
+## Scope
 
- - database, partitioning, oracle, performance, scalability, VLDB, range-partitioning, list-partitioning, hash-partitioning, composite-partitioning, interval-partitioning
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Composite-Partitioning
+- Database
+- Hash-Partitioning
+- Interval-Partitioning
+- List-Partitioning
+- Oracle
+- Partitioning
+- Performance
+- Range-Partitioning
+- Scalability
+- VLDB
 
 ## Timestamps
 
-- **Created:** 2024-01-01 00:00:00+00:00 
-- **Modified:** 2024-01-01 00:00:00+00:00 
+- **Created:** 2024-01-01
+- **Modified:** 2026-03-16
 
 ## APIs
 
 ### Oracle Database REST API - Partitioning
-REST API endpoints for managing and monitoring Oracle Database partitioning operations
 
-**Human URL:** [https://docs.oracle.com/en/database/oracle/oracle-database/](https://docs.oracle.com/en/database/oracle/oracle-database/)
+REST API endpoints for managing and monitoring Oracle Database partitioning operations.
+
+**Human URL:** https://docs.oracle.com/en/database/oracle/oracle-database/
+
+**Base URL:** https://your-oracle-instance.com:8443/ords
 
 #### Properties
 
@@ -26,9 +46,12 @@ REST API endpoints for managing and monitoring Oracle Database partitioning oper
 - [Swagger](https://your-oracle-instance.com:8443/ords/swagger-ui.html)
 
 ### Oracle SQL Developer REST Services - Partitioning
-REST services for partition management through SQL Developer
 
-**Human URL:** [https://www.oracle.com/database/sqldeveloper/](https://www.oracle.com/database/sqldeveloper/)
+REST services for partition management through SQL Developer.
+
+**Human URL:** https://www.oracle.com/database/sqldeveloper/
+
+**Base URL:** https://your-oracle-instance.com/ords
 
 #### Properties
 
@@ -36,9 +59,12 @@ REST services for partition management through SQL Developer
 - [Tutorial](https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html)
 
 ### Oracle Cloud Infrastructure Database API - Partitioning
-OCI API for managing partitioned databases in Oracle Cloud
 
-**Human URL:** [https://www.oracle.com/cloud/](https://www.oracle.com/cloud/)
+OCI API for managing partitioned databases in Oracle Cloud.
+
+**Human URL:** https://www.oracle.com/cloud/
+
+**Base URL:** https://database.{region}.oraclecloud.com
 
 #### Properties
 
@@ -60,6 +86,6 @@ OCI API for managing partitioned databases in Oracle Cloud
 
 ## Maintainers
 
-**FN:** Oracle Corporation
+**FN:** Kin Lane
 
-**Email:** info@oracle.com
+**Email:** kin@apievangelist.com
