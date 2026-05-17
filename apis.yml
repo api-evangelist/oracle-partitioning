@@ -61,7 +61,7 @@ apis:
         email: cloud-support@oracle.com
         url: https://www.oracle.com/support/
 common:
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-intro.html
   - type: Best Practices
     url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-strategies.html
@@ -73,11 +73,11 @@ common:
     url: https://support.oracle.com
   - type: Authentication
     url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/19.2/orrst/authentication.html
-  - type: Status
+  - type: StatusPage
     url: https://status.oracle.com
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.oracle.com/legal/terms.html
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.oracle.com/legal/privacy/
 maintainers:
   - FN: Kin Lane
