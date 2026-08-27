@@ -1,0 +1,99 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-partitioning-ords-database-api-openapi.json
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+contract:
+  title: Oracle REST Data Services API
+  version: 2026.03.26
+  openapi: 3.0.0
+format: mixed
+rfc9457:
+  used: true
+  media_type: application/problem+json
+  coverage: 43 of the 62 declared 4xx responses use application/problem+json; the remaining 19 (all on the Transactional
+    Event Queues surface) use application/json.
+  deviation: 'The problem body is an Oracle-flavored RFC 9457 shape: it uses "code" and "message" where RFC 9457 names
+    "title" and "detail". "type" and "instance" match the RFC. Treat it as RFC 9457-inspired, not RFC 9457-conformant.'
+envelopes:
+- name: ORDSErrorResponse
+  media_type: application/problem+json
+  occurrences: 34
+  required:
+  - code
+  - message
+  - type
+  - instance
+  fields:
+    code: string — Oracle error code
+    message: string — human-readable message (RFC 9457 "detail" equivalent)
+    type: string — URI identifying the problem type
+    instance: string — URI of the specific occurrence
+    diagnosticTrace: string — optional diagnostic trace
+    stackTrace: string — optional stack trace
+- name: ErrorObject
+  media_type: application/problem+json
+  occurrences: 9
+  required: []
+  fields:
+    code: string
+    message: string
+    type: string
+    instance: string
+  note: Slimmer variant used by the Data Guard surface; no required[] declared.
+- name: SQL ERROR MESSAGE
+  media_type: application/json
+  occurrences: 20
+  required: []
+  fields:
+    SQL ERROR MESSAGE: string — raw ORA- text from the database
+  note: Used by the Transactional Event Queues (TxEventQ) surface. The database error is passed through verbatim; there
+    is no code/type/instance.
+problem_types:
+- status: 400
+  title: Bad Request
+  detail: The request was malformed, or a required parameter or body property was missing, wrongly typed, or invalid
+    for the target database object.
+  remediation: Correct the offending parameter or body property and retry. When the body carries "SQL ERROR MESSAGE",
+    read the ORA- text it contains — the failure is a database error surfaced through the API, not a transport error.
+  occurrences: 43
+  media_types:
+    application/problem+json: 24
+    application/json: 19
+  example:
+    path: /database/dataguard/configuration/
+    method: post
+    summary: Add a configuration
+- status: 404
+  title: Not Found
+  detail: The addressed resource does not exist, or the caller is not permitted to observe that it exists.
+  remediation: Verify the path parameters (database, owner, object name) and that the target schema is REST-enabled and
+    in scope for the connection pool.
+  occurrences: 19
+  media_types:
+    application/json: 1
+    application/problem+json: 18
+  example:
+    path: /database/txeventq/consumers/{group_name}/instances/{instance}
+    method: delete
+    summary: Delete Consumer Instance
+- status: 409
+  title: Conflict
+  detail: The request conflicts with the current state of the target resource — most often an object with that name already
+    exists.
+  remediation: Re-read the resource state and retry with a name/state consistent with it, or address the existing object
+    directly.
+  occurrences: 1
+  media_types:
+    application/problem+json: 1
+  example:
+    path: /vecdb/vector-tables/
+    method: post
+    summary: Create a vector table.
+gaps:
+- No 5xx response is declared on any of the 352 operations in the contract. Server-side failure modes are therefore not
+  machine-readable and an agent cannot distinguish a retryable 503 from a permanent failure from the spec alone.
+- Three different error envelopes coexist in one contract, so a client must branch on media type and surface before it
+  can read an error.
+- The 4xx responses that DO carry problem+json do not declare enumerated "type" URIs, so there is no registry of problem
+  types to match on.

@@ -1,0 +1,60 @@
+generated: '2026-08-27'
+method: searched
+source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Versioning, deprecation and operational-status posture for Oracle Partitioning and for the ORDS
+  Database API through which its metadata is read.
+versioning:
+  scheme: 'release-train (ORDS quarterly) + Oracle Database release'
+  api_version_in_url: false
+  url_segment: stable
+  current_contract_version: '2026.03.26'
+  current_ords_release: '26.1.0'
+  release_cadence: 'quarterly — 25.4 January 2026, 26.1 April 2026'
+  note: >-
+    The URL carries the literal segment "stable" rather than a version, so a client cannot pin a
+    contract. The contract in force is whatever the operator's ORDS build ships.
+deprecation:
+  policy_published: true
+  policy_style: 'advance notice in the release notes, one to three releases ahead'
+  headers:
+    sunset: false
+    deprecation: false
+    note: 'Neither RFC 8594 Sunset nor the Deprecation header is emitted or documented.'
+  spec_deprecations:
+    count: 0
+    note: 'No operation in the 352-operation contract carries deprecated: true.'
+  announced:
+    - change: 'ORDS will add support for Tomcat 10 and WebLogic 15 and will no longer run on older versions.'
+      effective_release: '26.4'
+      effective_window: 'planned for Winter 2026'
+      announced_in: '26.1.0 release notes'
+      audience: 'Tomcat and WebLogic administrators'
+      source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+  product_lifecycle:
+    note: >-
+      Oracle Partitioning itself is governed by Oracle Lifetime Support (Premier / Extended /
+      Sustaining) attached to the Oracle Database release it is licensed against, not by an API
+      deprecation policy.
+status_page:
+  published: true
+  url: https://ocistatus.oraclecloud.com/
+  scope: 'Oracle Cloud Infrastructure services, including the Database services'
+  note: >-
+    This is the OCI status page. There is no status page for Oracle Partitioning as an option, and
+    none is possible: a customer-installed database option has no shared service to report on. The
+    previously recorded https://status.oracle.com did not respond to a probe on 2026-08-27 and has
+    been replaced with the reachable OCI page.
+  probed: { url: 'https://ocistatus.oraclecloud.com/', status: 200 }
+security_alerts:
+  published: true
+  url: https://www.oracle.com/security-alerts/
+  cadence: 'quarterly Critical Patch Update'
+  probed: { url: 'https://www.oracle.com/security-alerts/', status: 200 }
+sla:
+  published: false
+  note: >-
+    No SLA applies to a licensed database option running on customer or customer-tenancy
+    infrastructure. OCI service-level agreements cover the managed database services separately.

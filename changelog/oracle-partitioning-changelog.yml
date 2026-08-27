@@ -1,0 +1,48 @@
+generated: '2026-08-27'
+method: searched
+source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Dated release history for Oracle REST Data Services, the component that publishes the OpenAPI
+  contract in this repo. Oracle publishes no changelog for the Partitioning option itself — a
+  database option changes with the Oracle Database release it ships in, and those changes are
+  documented in the VLDB and Partitioning Guide per database version rather than as a dated feed.
+scheme: 'semantic-ish release train MAJOR.MINOR.PATCH.BUILD, quarterly'
+current_version: 26.1.0
+current_date: '2026-04'
+window: 'most recent two published releases'
+entries:
+  - version: 26.1.0
+    date: '2026-04'
+    breaking: false
+    highlights:
+      - 'VecDB developer REST APIs added (requires Oracle AI Database 26ai / 23.26.1): vector similarity search, vector table CRUD, vector index lifecycle management, ONNX transformer model management.'
+      - 'ORDS now supports loading new database pools at runtime without a restart.'
+      - 'AutoREST tables and views with vector columns support vector search via POST /vectorSearch.'
+      - 'ORDS Export APIs now emit DROP statements for modules, privileges and roles deleted in the source environment, improving CI/CD parity.'
+      - 'New MongoDB API configuration setting: mongo.legacyUuidRepresentation.'
+      - 'OpenTelemetry metrics: additional spans and finer-grained response-time breakdowns (get-services, get-metadata, schema-check, sql-exec, gen-result); response times batched to the OCI Metrics service.'
+      - 'SQL Developer Web: vector database development interface; About window reports both software and repository versions and warns on mismatch.'
+    deprecations:
+      - 'Advance notice: from ORDS 26.4 (planned Winter 2026) ORDS adds Tomcat 10 / WebLogic 15 support and drops older container versions.'
+    fixes_noted:
+      - 'Route-matching conflict producing a 404 between specific and parameterized ORDS templates sharing a prefix.'
+      - 'SQL Developer Web reported wrong procedure arguments; the corresponding DB API endpoint _/db-api/stable/database/objects/arguments was also wrong.'
+      - 'NLS date/time session parameters not honored after ALTER SESSION SET NLS_...'
+      - 'ORDS upgrade with --bequeath-connect failed on Oracle Database 19c.'
+    source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+  - version: 25.4.0.364.1739
+    date: '2026-01'
+    breaking: false
+    highlights:
+      - 'ords-metrics utility updated with new JMX configuration options, enhanced metric dimensions, and configuration with the OCI Logging Service.'
+      - 'Data Pump APIs support the keep_master parameter on db-api/database/datapump/import and .../export.'
+    fixes_noted:
+      - 'Bug 38740206 — REST handlers resolved to an incorrect endpoint within the same database.'
+      - 'Bug 37979736 — PL/SQL Gateway proxy user failures no longer leak pool-specific and target schema details in error messages.'
+      - 'Bug 38406575 — failed Basic Dynamic Authentication attempts wrote multiple UNIFIED_AUDIT_TRAIL entries, locking out some users.'
+    source: https://www.oracle.com/tools/ords/ords-relnotes-25.4.0.html
+partitioning_note: >-
+  None of the changes above touches the partitioning surface. The two partition endpoints
+  (/database/objects/partitions/) have been stable across the releases inspected.

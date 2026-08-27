@@ -1,0 +1,154 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-partitioning-ords-database-api-openapi.json
+docs: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Cross-cutting runtime semantics for the Oracle REST Data Services (ORDS) Database API, the
+  machine-readable surface through which Oracle Partitioning metadata is read. Derived from the
+  published contract (Oracle REST Data Services API 2026.03.26, OpenAPI 3.0.0, 261 paths /
+  352 operations) and the ORDS documentation.
+authentication:
+  styles:
+    - { scheme: BasicAuth, type: http, note: 'HTTP Basic against a database or ORDS-managed user' }
+    - { scheme: BearerAuth, type: http, note: 'Bearer JWT' }
+    - { scheme: OAuth2, type: oauth2, flows: [implicit, authorizationCode, clientCredentials], authorizationUrl: /oauth/auth, tokenUrl: /oauth/token }
+  note: >-
+    The OAuth2 endpoints are declared as RELATIVE paths (/oauth/auth, /oauth/token) because ORDS is
+    customer-deployed; they resolve against the operator's own ORDS host. The contract declares no
+    top-level security[] requirement and enumerates no scopes.
+  authorization_model: >-
+    Effective authorization is Oracle Database role based, not scope based. Individual operations
+    state their requirement in prose — e.g. "A client requires SQL Administrator or SQL Developer
+    role to invoke this service" on the partitions endpoints. That requirement is in the description
+    text, not in a machine-readable security block, so an agent cannot pre-check it.
+  see: authentication/oracle-partitioning-authentication.yml
+pagination:
+  style: limit-offset with a hasMore flag
+  request_params:
+    - { name: limit, in: query, type: integer, description: The maximum number of records to return }
+    - { name: q, in: query, type: object, description: 'ORDS filter object — filtering and ordering across pages' }
+  response_fields:
+    - { name: items, type: array, description: The page of records }
+    - { name: hasMore, type: boolean, description: Indicates if there are more records to be retrieved }
+    - { name: limit, type: integer, description: The actual page size limit applied by the server }
+    - { name: offset, type: integer, description: The actual index from which the item resources are returned }
+    - { name: count, type: integer, description: Total number of records in the current response }
+    - { name: links, type: array, description: 'LinkRelation objects {rel, href} for next/prev/self traversal' }
+  coverage: 'limit is declared on 63 operations; q on 59'
+  note: >-
+    offset is returned in the response envelope but is not declared as a request parameter in the
+    contract. Page traversal is expected to follow links[] rel=next rather than to construct an
+    offset, which is the correct agent behaviour here.
+filtering:
+  param: q
+  style: 'ORDS filter object — a JSON query document in the query string'
+  supports: [predicate filtering, ordering]
+  examples_in_spec: [FilterCriteria, OrderByProperty, FilterAndOrder]
+field_expansion:
+  supported: false
+  note: No expand/fields/sparse-fieldset parameter appears anywhere in the contract.
+metadata:
+  supported: false
+  note: No customer-settable metadata bag on any resource.
+request_id_tracing:
+  supported: partial
+  note: >-
+    No request-id request or response header is declared in the contract. ORDS does emit
+    OpenTelemetry spans for API response times (get-services, get-metadata, schema-check, sql-exec,
+    gen-result) as of release 26.1, and it batches API response times to the OCI Metrics service —
+    so tracing exists at the deployment level rather than as a per-response correlation header.
+  source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+versioning:
+  scheme: 'Path-segment "stable" plus a calendar-dated contract version'
+  contract_version: '2026.03.26'
+  path_pattern: 'https://<server>/<context-root>/<database>/<schema>/_/db-api/stable/<service-path>'
+  source: 'info.description of the published contract'
+  note: >-
+    The API document is versioned by ORDS RELEASE (26.1, 25.4, ...), not by a version in the URL.
+    The URL carries the literal segment "stable". A caller therefore cannot pin a contract version
+    from the request; the contract in force is whatever the operator's ORDS build ships.
+error_envelope:
+  shapes: [ORDSErrorResponse, ErrorObject, 'SQL ERROR MESSAGE']
+  media_types: [application/problem+json, application/json]
+  rfc9457: 'inspired, not conformant — uses code/message where the RFC names title/detail'
+  see: errors/oracle-partitioning-problem-types.yml
+rate_limit_signaling:
+  headers_declared: []
+  note: >-
+    The contract declares no rate-limit response headers and Oracle publishes no request quota for
+    the ORDS Database API. ORDS is customer-deployed, so throughput is bounded by the operator's
+    connection pool sizing rather than by a vendor limit.
+  see: rate-limits/oracle-partitioning-rate-limits.yml
+response_headers_declared:
+  - { name: Location, occurrences: 3, note: On resource-creating operations }
+  - { name: ETag, occurrences: 1 }
+  - { name: DG-STATUS, occurrences: 18, note: Data Guard surface only; vendor-specific }
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  evidence: >-
+    No Idempotency-Key, Idempotency-Token or equivalent parameter or header appears in any of the
+    352 operations, and the ORDS documentation defines no replay-safe retry mechanism. Of the
+    116 write operations (54 POST, 24 PUT, 35 DELETE, 3 PATCH), the PUTs and DELETEs are naturally
+    idempotent by HTTP semantics; the POSTs are not, and a retried POST after a timeout can create
+    a second object.
+  agent_guidance: >-
+    Treat every POST on this API as at-most-once. Before retrying a POST that timed out, re-read the
+    collection to check whether the object was created. ETag is returned on exactly one operation,
+    so optimistic concurrency is not a general option here either.
+dry_run_mode:
+  supported: false
+  evidence: No dry-run, validate-only, preview or simulate parameter appears in the contract.
+reversibility:
+  grade: documented
+  rationale: >-
+    Reversal paths exist for several write surfaces and are named in the contract, but Oracle
+    publishes no time-bounded window for any of them, so this cannot be graded verified. Where the
+    docs state a window is absent, that absence is recorded rather than a window being invented.
+  write_surface_present: true
+  surfaces:
+    - surface: Partitioning itself (the option this repo profiles)
+      reversal: 'none over REST'
+      window: null
+      note: >-
+        The ORDS Database API exposes partitions READ-ONLY (two GET operations). There is no
+        create/split/merge/exchange/drop over REST, therefore no reversal over REST either.
+        Partition maintenance is SQL DDL, which is implicitly committed and NOT transactionally
+        reversible — ALTER TABLE ... DROP PARTITION cannot be rolled back. Oracle's own published
+        partitioning skill documents the safe alternatives (EXCHANGE PARTITION with a staging table,
+        which is reversible by exchanging back; and Flashback, bounded by the database UNDO
+        retention the operator configures).
+      docs: https://github.com/oracle/skills/blob/main/db/design/partitioning-strategy.md
+    - surface: Pluggable Database Lifecycle Management
+      reversal: 'DELETE /database/pdbs/{pdb_name} reverses a create; open/close state changes are reversible via the status endpoints'
+      operationId: null
+      window: null
+      note: 'Contract declares no operationIds on these paths, so only path+method can be cited.'
+    - surface: Pluggable Database Snapshot Carousel
+      reversal: 'Restore from a PDB snapshot'
+      window: null
+      note: >-
+        The retention of the snapshot carousel is a database configuration value set by the
+        operator (MAX_PDB_SNAPSHOTS), not a value Oracle publishes as an API window.
+    - surface: Data Guard
+      reversal: 'Switchover / failover reversal via the Data Guard configuration endpoints'
+      window: null
+    - surface: Vector tables (VecDB)
+      reversal: 'DELETE on the created vector table / model reverses the corresponding POST'
+      window: null
+      note: 'Hard delete, no restore window is published.'
+  na: false
+  agent_guidance: >-
+    No published reversal window exists anywhere on this surface. An agent must not assume a
+    grace period on any destructive operation, and must not treat a partition DDL operation
+    issued outside this API as undoable.
+cross_links:
+  errors: errors/oracle-partitioning-problem-types.yml
+  lifecycle: lifecycle/oracle-partitioning-lifecycle.yml
+  authentication: authentication/oracle-partitioning-authentication.yml
+  rate_limits: rate-limits/oracle-partitioning-rate-limits.yml
+  data_model: data-model/oracle-partitioning-data-model.yml

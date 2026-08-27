@@ -1,0 +1,54 @@
+generated: '2026-08-27'
+method: searched
+source: https://www.oracle.com/database/free/
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Free and no-cost environments in which Oracle Partitioning behaviour can be exercised. There is no
+  test-mode/live-mode key split here — Oracle Partitioning is a database option, not a hosted API
+  with credentials — so this artifact records the free database environments a developer or an agent
+  can actually stand up, not test cards or magic tokens. No test values are published by Oracle for
+  this surface and none were invented.
+test_live_split:
+  applicable: false
+  note: 'No test/live key prefixes or modes exist. Authentication is a database credential or an OCI IAM principal.'
+environments:
+  - name: Always Free Autonomous AI Database
+    kind: hosted
+    cost: 'Always Free tier of Oracle Cloud Infrastructure'
+    url: https://www.oracle.com/database/free/
+    note: 'Runs Oracle AI Database 26ai. Bundled with other Always Free OCI services (Object Storage, Block Volume).'
+  - name: Oracle AI Database Free — container image
+    kind: local-container
+    cost: free
+    url: https://www.oracle.com/database/free/
+    platforms: [Linux x86-64, Linux Arm, macOS (Docker, Arm and Intel), Windows x64]
+    note: 'Local Oracle AI Database 26ai for development. The definitive way to rehearse partition DDL before running it anywhere real.'
+  - name: freesql.com
+    kind: hosted-sql-sandbox
+    cost: free
+    url: https://freesql.com
+    note: >-
+      Oracle-provided free SQL sandbox, usable without launching a GUI. Named on Oracle's own free
+      database page as the browser-based place to develop SQL.
+  - name: Oracle Live SQL
+    kind: hosted-sql-sandbox
+    cost: free
+    url: https://livesql.oracle.com/
+    probed: { url: 'https://livesql.oracle.com/', status: 403, note: 'bot challenge to a scripted client; the site is live for a browser' }
+  - name: Exadata Database Service / Exadata Cloud@Customer developer licenses
+    kind: hosted
+    cost: 'no-additional-cost developer licenses on existing platforms'
+    url: https://www.oracle.com/database/free/
+fixtures:
+  published: false
+  note: 'Oracle publishes no fixture set, seed dataset, trigger tooling or time-simulation ("test clock") facility for partitioning.'
+time_simulation:
+  published: false
+  note: >-
+    Relevant because interval partitioning creates partitions as data crosses a date boundary. There
+    is no vendor time-simulation tool; the standard practice is to insert rows with future dates.
+rehearsal_guidance: >-
+  This is the substitute for a dry-run mode, which the API does not have. Partition maintenance DDL
+  is implicitly committed and not transactionally reversible, so the container image above is the
+  only safe place to rehearse a SPLIT, MERGE, EXCHANGE or DROP before running it against real data.

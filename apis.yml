@@ -1,9 +1,14 @@
 aid: oracle-partitioning
 name: Oracle Partitioning
-description: >-
-  Oracle Partitioning enables tables and indexes to be partitioned into smaller,
-  more manageable pieces, improving performance, availability, and manageability
-  of large database objects.
+description: 'Oracle Partitioning is a licensed option of Oracle Database Enterprise Edition that divides
+  large tables and indexes into smaller, independently manageable segments called partitions, accessed
+  transparently through the table name. It delivers partition pruning (the optimizer eliminates irrelevant
+  partitions from query plans), partition-wise parallel operations, and partition maintenance as atomic
+  DDL — archiving or purging a partition instead of deleting rows. Strategies include range, interval,
+  list, hash, reference, composite and auto-partitioning. It is not a standalone API product: partitions
+  are CREATED and MAINTAINED through SQL DDL, and READ over REST through two Data Dictionary endpoints
+  of the Oracle REST Data Services (ORDS) Database API, which is the machine-readable contract captured
+  in this repository.'
 type: Index
 accessModel:
   pricing: freemium
@@ -20,93 +25,172 @@ accessModel:
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-partitioning.png
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/oracle-partitioning/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/oracle-partitioning/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-03-16'
+modified: '2026-08-27'
 specificationVersion: '0.23'
 apis:
-  - name: Oracle Database REST API - Partitioning
-    description: >-
-      REST API endpoints for managing and monitoring Oracle Database partitioning
-      operations.
-    image: https://www.oracle.com/a/ocom/img/cb71-oracle-database.jpg
-    baseURL: https://your-oracle-instance.com:8443/ords
-    humanURL: https://docs.oracle.com/en/database/oracle/oracle-database/
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-concepts.html
-      - type: OpenAPI
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      - type: Swagger
-        url: https://your-oracle-instance.com:8443/ords/swagger-ui.html
-    contact:
-      - FN: Oracle Support
-        email: support@oracle.com
-        url: https://support.oracle.com
-  - name: Oracle SQL Developer REST Services - Partitioning
-    description: >-
-      REST services for partition management through SQL Developer.
-    image: https://www.oracle.com/a/ocom/img/sql-dev.jpg
-    baseURL: https://your-oracle-instance.com/ords
-    humanURL: https://www.oracle.com/database/sqldeveloper/
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/en/database/oracle/sql-developer/
-      - type: Tutorial
-        url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html
-  - name: Oracle Cloud Infrastructure Database API - Partitioning
-    description: >-
-      OCI API for managing partitioned databases in Oracle Cloud.
-    image: https://www.oracle.com/a/ocom/img/oci-logo.png
-    baseURL: https://database.{region}.oraclecloud.com
-    humanURL: https://www.oracle.com/cloud/
-    properties:
-      - type: Documentation
-        url: https://docs.oracle.com/en-us/iaas/api/#/en/database/
-      - type: OpenAPI
-        url: https://docs.oracle.com/en-us/iaas/api/swagger/database.json
-      - type: SDKs
-        url: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/sdks.htm
-    contact:
-      - FN: Oracle Cloud Support
-        email: cloud-support@oracle.com
-        url: https://www.oracle.com/support/
-common:
-  - type: DomainSecurity
-    url: security/oracle-partitioning-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/oracle
-  - type: GettingStarted
-    url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-intro.html
-  - type: Best Practices
-    url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-strategies.html
-  - type: White Papers
-    url: https://www.oracle.com/technetwork/database/options/partitioning/
-  - type: Pricing
-    url: https://www.oracle.com/database/technologies/partitioning/pricing.html
-  - type: Support
+- name: Oracle REST Data Services Database API — Partitioning
+  description: The Oracle REST Data Services (ORDS) Database API. Its Data Dictionary tag exposes Oracle
+    Partitioning metadata read-only via GET /database/objects/partitions/ and GET /database/objects/partitions/{table_owner},{table_name},{partition_name},
+    projecting DBA_TAB_PARTITIONS / ALL_TAB_PARTITIONS over REST. ORDS is customer-deployed, so the base
+    URL is templated on the operator's own host.
+  image: https://www.oracle.com/a/ocom/img/cb71-oracle-database.jpg
+  baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
+  humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+  properties:
+  - type: OpenAPI
+    url: openapi/oracle-partitioning-ords-database-api-openapi.json
+  - type: Overlay
+    url: overlays/oracle-partitioning-ords-database-api-overlay.yaml
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+  - type: APIReference
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+  - type: ErrorCatalog
+    url: errors/oracle-partitioning-problem-types.yml
+  - type: DataModel
+    url: data-model/oracle-partitioning-data-model.yml
+  contact:
+  - FN: Oracle Support
+    email: support@oracle.com
     url: https://support.oracle.com
-  - type: Authentication
-    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/19.2/orrst/authentication.html
-  - type: StatusPage
-    url: https://status.oracle.com
-  - type: TermsOfService
-    url: https://www.oracle.com/legal/terms.html
-  - type: PrivacyPolicy
-    url: https://www.oracle.com/legal/privacy/
+- name: Oracle SQL Developer REST Services - Partitioning
+  description: Oracle SQL Developer Web and SQLcl, the SQL surfaces through which partitions are actually
+    created and maintained. Partition DDL — CREATE TABLE ... PARTITION BY, ALTER TABLE ... SPLIT/MERGE/EXCHANGE/DROP
+    PARTITION — has no REST operation in any Oracle contract and is issued here.
+  image: https://www.oracle.com/a/ocom/img/sql-dev.jpg
+  baseURL: https://{server}/{context-root}
+  humanURL: https://www.oracle.com/database/sqldeveloper/
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en/database/oracle/sql-developer/
+  - type: CLI
+    url: cli/oracle-partitioning-cli.yml
+  - type: Tutorial
+    url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html
+- name: Oracle Cloud Infrastructure Database API - Partitioning
+  description: The Oracle Cloud Infrastructure Database API, which manages the DB systems, Autonomous
+    Databases and Exadata infrastructure that host partitioned databases. It manages the database service,
+    not individual partitions.
+  image: https://www.oracle.com/a/ocom/img/oci-logo.png
+  baseURL: https://database.{region}.oraclecloud.com
+  humanURL: https://www.oracle.com/cloud/
+  properties:
+  - type: Documentation
+    url: https://docs.oracle.com/en-us/iaas/api/
+  - type: SDKs
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdks.htm
+  contact:
+  - FN: Oracle Cloud Support
+    email: cloud-support@oracle.com
+    url: https://www.oracle.com/support/
+common:
+- type: Website
+  url: https://www.oracle.com/database/technologies/partitioning.html
+- type: OpenAPI
+  url: openapi/oracle-partitioning-ords-database-api-openapi.json
+- type: Overlay
+  url: overlays/oracle-partitioning-ords-database-api-overlay.yaml
+- type: MCPServer
+  url: mcp/oracle-partitioning-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/oracle-partitioning-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/oracle-partitioning-llms.txt
+- type: Packages
+  url: packages/oracle-partitioning-packages.yml
+- type: SDKs
+  url: packages/oracle-partitioning-packages.yml
+- type: CLI
+  url: cli/oracle-partitioning-cli.yml
+- type: Sandbox
+  url: sandbox/oracle-partitioning-sandbox.yml
+- type: Conventions
+  url: conventions/oracle-partitioning-conventions.yml
+- type: ErrorCatalog
+  url: errors/oracle-partitioning-problem-types.yml
+- type: DataModel
+  url: data-model/oracle-partitioning-data-model.yml
+- type: Conformance
+  url: conformance/oracle-partitioning-conformance.yml
+- type: Lifecycle
+  url: lifecycle/oracle-partitioning-lifecycle.yml
+- type: ChangeLog
+  url: changelog/oracle-partitioning-changelog.yml
+- type: Deprecation
+  url: lifecycle/oracle-partitioning-lifecycle.yml
+- type: StatusPage
+  url: https://ocistatus.oraclecloud.com/
+- type: Plans
+  url: plans/oracle-partitioning-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/oracle-partitioning-rate-limits.yml
+- type: FinOps
+  url: finops/oracle-partitioning-finops.yml
+- type: Authentication
+  url: authentication/oracle-partitioning-authentication.yml
+- type: OAuthScopes
+  url: scopes/oracle-partitioning-scopes.yml
+- type: DomainSecurity
+  url: security/oracle-partitioning-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/oracle-partitioning-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.oracle.com/corporate/security-practices/assurance/vulnerability/
+- type: Compliance
+  url: https://www.oracle.com/corporate/cloud-compliance/
+- type: DeveloperPortal
+  url: https://developer.oracle.com/
+- type: Documentation
+  url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-concepts.html
+- type: APIReference
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+- type: GettingStarted
+  url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-intro.html
+- type: GitHubOrganization
+  url: https://github.com/oracle
+- type: White Papers
+  url: https://www.oracle.com/technetwork/database/options/partitioning/
+- type: Pricing
+  url: https://www.oracle.com/a/ocom/docs/corporate/pricing/technology-price-list-070617.pdf
+- type: SignUp
+  url: https://signup.cloud.oracle.com/
+- type: Support
+  url: https://support.oracle.com
+- type: TermsOfService
+  url: https://www.oracle.com/legal/terms/
+- type: PrivacyPolicy
+  url: https://www.oracle.com/legal/privacy/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 tags:
-  - Composite-Partitioning
-  - Database
-  - Hash-Partitioning
-  - Interval-Partitioning
-  - List-Partitioning
-  - Oracle
-  - Partitioning
-  - Performance
-  - Range-Partitioning
-  - Scalability
-  - VLDB
+- Agent Skills
+- Composite-Partitioning
+- Data Dictionary
+- Database
+- Enterprise Edition Option
+- Hash-Partitioning
+- Interval-Partitioning
+- List-Partitioning
+- MCP
+- ORDS
+- Oracle
+- Oracle Database
+- Partitioning
+- Performance
+- Range-Partitioning
+- SQL
+- Scalability
+- Table Partitioning
+- VLDB
+x-enrichment:
+  date: '2026-08-27'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
+x-parent: oracle
+x-relationship: product

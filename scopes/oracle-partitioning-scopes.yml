@@ -1,0 +1,33 @@
+generated: '2026-08-27'
+method: searched
+source: openapi/oracle-partitioning-ords-database-api-openapi.json + https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html
+schemes:
+- name: OAuth2
+  source: openapi/oracle-partitioning-ords-database-api-openapi.json
+  flows:
+  - flow: implicit
+    authorizationUrl: /oauth/auth
+  - flow: authorizationCode
+    authorizationUrl: /oauth/auth
+    tokenUrl: /oauth/token
+  - flow: clientCredentials
+    tokenUrl: /oauth/token
+scopes: []
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+docs: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html
+scope_count: 0
+finding: Oracle publishes NO OAuth scope reference for this API and the contract enumerates zero scopes across all three
+  declared flows. This is not a harvesting gap — it is the provider's model. Authorization on the REST surface is Oracle
+  Database ROLE based (SQL Administrator / SQL Developer), stated in operation prose rather than as scopes.
+scopes_elsewhere:
+  surface: ORDS MCP endpoint
+  note: The one place ORDS does use OAuth scopes is the MCP endpoint, where a per-pool mcp.scope setting names the scope
+    required to reach that database connection pool. The scope VALUES are chosen by the operator, not published by Oracle,
+    so there is no fixed scope list to record. When mcp.security.jwt.profile.role.claim.name is configured, ORDS switches
+    from scope mode to role mode entirely.
+  settings:
+  - mcp.scope
+  - mcp.role
+  - mcp.security.jwt.profile.role.claim.name
+  source: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html

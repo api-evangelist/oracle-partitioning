@@ -1,0 +1,127 @@
+generated: '2026-08-27'
+method: searched
+source: https://www.oracle.com/mcp/
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+name: Oracle AI Database MCP Servers
+description: >-
+  Oracle publishes three first-party MCP servers for Oracle AI Database, all of which reach
+  partitioned tables the same way a DBA does — by executing SQL against the database. There is no
+  partitioning-specific MCP server; partitioning is a database option, and the agent surface for it
+  is the general database MCP surface plus Oracle's published partitioning-strategy skill.
+deployment:
+  mode: both
+  endpoint: 'https://<ords-host>/mcp'
+  install: 'sql -mcp'
+  package: https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/
+  auth: oauth
+  verified: searched
+  note: >-
+    The remote endpoint is TEMPLATED on purpose. ORDS is customer-deployed, so there is no Oracle-hosted
+    URL an agent can call: the /mcp endpoint lives on the operator's own ORDS host and is served only
+    by ORDS STANDALONE deployments (not Tomcat or WebLogic). It is disabled by default and must be
+    turned on with `ords --config /path/to/conf config set --global feature.mcp true`. No endpoint URL
+    was invented here; the pattern is Oracle's own.
+servers:
+  - name: ORDS MCP Server
+    mode: remote
+    transport: streaming HTTPS
+    endpoint: 'https://<ords-host>/mcp'
+    endpoint_kind: templated-customer-host
+    enabled_by_default: false
+    enable: 'ords --config /path/to/conf config set --global feature.mcp true'
+    config_property: feature.mcp
+    auth: 'OAuth 2.0 Bearer JWT'
+    auth_discovery: >-
+      On an unauthenticated request to /mcp, ORDS returns 401 Unauthorized with a WWW-Authenticate
+      challenge pointing at the well-known metadata endpoint, which the client uses to discover the
+      token endpoint and continue the OAuth 2.0 flow.
+    auth_settings:
+      - mcp.security.jwt.profile.issuer
+      - mcp.security.jwt.profile.audience
+      - mcp.security.jwt.profile.jwk.url
+      - mcp.security.jwt.profile.authorization.server.url
+      - mcp.security.jwt.profile.role.claim.name
+    authorization_modes: [scope, role]
+    authorization_note: >-
+      Pool-level settings mcp.scope / mcp.role decide which database connection pools a caller can
+      reach. A pool configured for MCP is reserved exclusively for MCP and is not used for REST URL
+      mapping.
+    constraints:
+      - Supported only in ORDS standalone deployments; /mcp is unavailable on Tomcat and WebLogic.
+      - Only direct database pools are eligible; proxy pools using ORDS_PUBLIC_USER are not.
+      - The pool credential user executes every MCP tool request, so least privilege is the operator's job.
+    auditing:
+      - 'V$SESSION.MODULE is populated with the LLM name and V$SESSION.ACTION with the MCP tool name.'
+      - 'Every interaction and SQL execution is recorded in the DBTOOLS$MCP_LOG table.'
+      - 'All LLM-generated SQL carries a /* LLM in use ... */ comment marker.'
+    docs: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/orddg/using-ords-model-context-protocol-mcp.html
+    config_docs: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html
+  - name: Oracle SQLcl MCP Server
+    mode: local-stdio
+    transport: stdio
+    install: 'sql -mcp'
+    package: https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/
+    requires: 'SQLcl 25.2 or later; Java 17 or later; Oracle Database 12c or later'
+    auth: 'SQLcl named connections (local wallet / saved connections)'
+    cost: free
+    note: >-
+      Built into SQLcl. It runs on the developer's own machine and no data is sent to Oracle by
+      SQLcl. This is a local surface: a human installs and runs it before any agent can use it.
+    docs: https://docs.oracle.com/en/database/oracle/sql-developer-command-line/25.3/sqcug/using-oracle-sqlcl-mcp-server.html
+    skill: skills/oracle-partitioning-sqlcl-mcp-server.md
+  - name: OCI Database Tools MCP Server
+    mode: remote
+    transport: managed serverless (OCI)
+    endpoint: null
+    endpoint_note: >-
+      Oracle describes this as a managed, serverless MCP service provisioned per Database Tools
+      Connection in the customer's own OCI tenancy. No fixed public endpoint URL is published, and
+      none was invented here.
+    auth: 'OCI IAM (role-based access control)'
+    cost: 'zero cost (per Oracle)'
+    availability: 'OCI, and OCI on Azure, AWS and GCP'
+    docs: https://www.oracle.com/mcp/
+tools:
+  status: partial
+  method: searched
+  source: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/orddg/using-ords-model-context-protocol-mcp.html
+  note: >-
+    Tool names below are the ones Oracle names in prose in the ORDS Developer Guide. The live
+    tools/list manifest was NOT retrieved: there is no Oracle-hosted /mcp endpoint to POST to
+    (every deployment is a customer host), so input schemas require authenticated introspection
+    against an operator's own ORDS instance. Names and purposes only — no schemas are asserted.
+  server: ORDS MCP Server
+  items:
+    - name: database_list
+      purpose: Discover the databases (MCP-enabled connection pools) the caller is authorized to access.
+      detail_option: 'Returns db.description when the client requests detailed information.'
+      inputSchema: unknown-auth-gated
+    - name: sql_run
+      purpose: Execute SQL or PL/SQL statements against an authorized database.
+      inputSchema: unknown-auth-gated
+    - name: schema metadata inspection
+      purpose: Retrieve schema metadata with configurable levels of detail.
+      inputSchema: unknown-auth-gated
+      note: >-
+        Oracle documents this capability but the exact tool name could not be confirmed from a
+        retrievable page (the subsection is rendered client-side), so it is recorded descriptively
+        rather than guessed.
+  sqlcl_tools:
+    server: Oracle SQLcl MCP Server
+    source: https://github.com/oracle/skills/blob/main/db/sqlcl/sqlcl-mcp-server.md
+    items:
+      - { name: list-connections, purpose: List SQLcl named connections }
+      - { name: connect, purpose: Switch to a named connection }
+      - { name: run-sql, purpose: Run SQL or PL/SQL }
+      - { name: run-sqlcl, purpose: Run a native SQLcl command }
+partitioning_relevance: >-
+  Partition maintenance (SPLIT, MERGE, EXCHANGE, DROP, MOVE) is SQL DDL, so it reaches an agent
+  through sql_run / run-sql rather than through a dedicated tool. Oracle's own destructive-operation
+  guard skill (db/agent/destructive-op-guards.md) and its partitioning-strategy skill are the
+  published guardrails for that path.
+probes:
+  - { url: 'https://www.oracle.com/mcp/', status: 200, note: 'Three servers enumerated; 403 to a default crawler UA, 200 with a browser UA.' }
+  - { url: 'https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html', status: 200 }
+  - { url: 'https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/orddg/using-ords-model-context-protocol-mcp.html', status: 200 }
+  - { url: 'https://docs.oracle.com/en/database/oracle/sql-developer-command-line/25.3/sqcug/using-oracle-sqlcl-mcp-server.html', status: 200 }

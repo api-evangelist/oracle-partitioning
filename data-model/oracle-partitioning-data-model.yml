@@ -1,0 +1,89 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-partitioning-ords-database-api-openapi.json
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Entity-relationship graph for the partitioning-relevant slice of the Oracle REST Data Services
+  Database API. Derived from the Data Dictionary tag of the contract, whose read-only operations
+  project the Oracle data dictionary views (DBA_TAB_PARTITIONS / ALL_TAB_PARTITIONS, DBA_TABLES,
+  DBA_INDEXES, DBA_TABLESPACES) over REST. All fields below are taken verbatim from the OpenAPI
+  component schemas; nothing is inferred.
+scope:
+  note: >-
+    Oracle Partitioning is a licensed Oracle Database Enterprise Edition option, not a standalone
+    product with its own API. Its state is CREATED and ALTERED through SQL DDL
+    (PARTITION BY RANGE/LIST/HASH/REFERENCE, ALTER TABLE ... SPLIT/MERGE/DROP/EXCHANGE PARTITION),
+    and it is READ over REST through the ORDS Database API Data Dictionary endpoints modelled here.
+    That read/write asymmetry is the defining fact about this entity graph.
+entities:
+  - name: Partition
+    schema: DatabaseObjectsPartitionsItem
+    backing_view: DBA_TAB_PARTITIONS / ALL_TAB_PARTITIONS (role dependent at runtime)
+    identity:
+      composite_key: [table_owner, table_name, partition_name]
+      path: /database/objects/partitions/{table_owner},{table_name},{partition_name}
+    operations:
+      - { method: GET, path: /database/objects/partitions/, summary: Get all partitions in the database }
+      - { method: GET, path: '/database/objects/partitions/{table_owner},{table_name},{partition_name}', summary: Get a partition }
+    fields:
+      - { name: table_owner, type: string, note: Owner of the table }
+      - { name: table_name, type: string, note: Name of the table }
+      - { name: partition_name, type: string, note: Name of the partition }
+      - { name: composite, type: string, note: 'YES when the table is composite-partitioned' }
+      - { name: subpartition_count, type: integer, note: Number of subpartitions when composite }
+      - { name: high_value, type: number, note: Partition bound value expression }
+      - { name: high_value_length, type: integer }
+      - { name: partition_position, type: integer, note: Position of the partition within the table }
+      - { name: tablespace_name, type: string, note: Tablespace containing the partition }
+      - { name: compression, type: string }
+      - { name: logging, type: string }
+      - { name: pct_free, type: integer }
+      - { name: pct_used, type: integer }
+      - { name: ini_trans, type: integer }
+      - { name: max_trans, type: integer }
+      - { name: initial_extent, type: integer }
+      - { name: next_extent, type: integer }
+      - { name: min_extent, type: integer }
+      - { name: max_extent, type: integer }
+      - { name: max_size, type: integer }
+      - { name: pct_increase, type: integer }
+      - { name: freelists, type: integer }
+      - { name: freelist_groups, type: integer }
+    note: >-
+      The schema itself states "the list of attributes may vary depending on database version",
+      so a client must treat the object as open rather than closed.
+  - name: Table
+    schema: DatabaseObjectsTablesItem
+    identity: { composite_key: [owner, table_name], path: '/database/objects/tables/{owner},{table_name}' }
+    operations:
+      - { method: GET, path: /database/objects/tables/, summary: Get all tables }
+      - { method: GET, path: '/database/objects/tables/{owner},{table_name}', summary: Get a specific table }
+  - name: Index
+    schema: DatabaseObjectsIndexesItem
+    identity: { composite_key: [owner, index_name], path: '/database/objects/indexes/{owner},{index_name}' }
+    operations:
+      - { method: GET, path: /database/objects/indexes/, summary: Get all indexes }
+      - { method: GET, path: '/database/objects/indexes/{owner},{index_name}', summary: Get a specific index }
+  - name: Tablespace
+    schema: DatabaseTablespacesItem
+    identity: { key: tablespace_name, path: '/database/tablespaces/{tablespace_name}' }
+    operations:
+      - { method: GET, path: /database/tablespaces/, summary: Get all tablespaces }
+      - { method: GET, path: '/database/tablespaces/{tablespace_name}', summary: Get a specific tablespace }
+  - name: Column
+    schema: DatabaseObjectsColumnsItem
+    identity: { composite_key: [owner, table_name, column_name], path: '/database/objects/columns/{owner},{table_name},{column_name}' }
+    note: The partition key of a partitioned table is one of these columns; the contract does not flag which.
+relationships:
+  - { from: Partition, to: Table, type: belongs_to, via: 'table_owner + table_name', confidence: high, evidence: 'DatabaseObjectsPartitionsItem.table_owner / .table_name are the identity of DatabaseObjectsTablesItem' }
+  - { from: Table, to: Partition, type: has_many, via: 'table_owner + table_name', confidence: high, evidence: 'partitions collection is filterable by owner/table via the q parameter' }
+  - { from: Partition, to: Tablespace, type: belongs_to, via: tablespace_name, confidence: high, evidence: 'DatabaseObjectsPartitionsItem.tablespace_name is the identity of DatabaseTablespacesItem' }
+  - { from: Tablespace, to: Partition, type: has_many, via: tablespace_name, confidence: high }
+  - { from: Partition, to: Partition, type: has_many, via: subpartition_count, confidence: medium, evidence: 'composite=YES with subpartition_count>0 implies subpartitions; the contract exposes no subpartition endpoint, so the children are not addressable over REST' }
+  - { from: Table, to: Column, type: has_many, via: 'owner + table_name', confidence: high }
+  - { from: Table, to: Index, type: has_many, via: owner, confidence: medium, evidence: 'derived from the shared owner key; the contract does not declare the join explicitly' }
+gaps:
+  - No subpartition endpoint exists, so composite partitioning is observable only as a count.
+  - No endpoint reports the partitioning TYPE (RANGE/LIST/HASH/REFERENCE/INTERVAL/AUTO) or the partition key column; that lives in DBA_PART_TABLES, which the contract does not project.
+  - There is no write path. A partition cannot be created, split, merged, exchanged, moved or dropped through this API.

@@ -101,13 +101,13 @@ REST API endpoints for managing and monitoring Oracle Database partitioning oper
 
 **Human URL:** https://docs.oracle.com/en/database/oracle/oracle-database/
 
-**Base URL:** https://your-oracle-instance.com:8443/ords
+**Base URL:** https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
 
 #### Properties
 
 - [Documentation](https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-concepts.html)
 - [OpenAPI](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/)
-- [Swagger](https://your-oracle-instance.com:8443/ords/swagger-ui.html)
+- [Swagger](https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html)
 
 ### Oracle SQL Developer REST Services - Partitioning
 
@@ -115,7 +115,7 @@ REST services for partition management through SQL Developer.
 
 **Human URL:** https://www.oracle.com/database/sqldeveloper/
 
-**Base URL:** https://your-oracle-instance.com/ords
+**Base URL:** https://{server}/{context-root}
 
 #### Properties
 

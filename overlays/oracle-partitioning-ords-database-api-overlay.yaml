@@ -1,0 +1,96 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Oracle REST Data Services Database API
+  version: 1.0.0
+extends: ../openapi/oracle-partitioning-ords-database-api-openapi.json
+x-provenance:
+  generated: '2026-08-27'
+  method: generated
+  source: openapi/oracle-partitioning-ords-database-api-openapi.json
+  note: >-
+    Captures API Evangelist's enhancements to Oracle's published contract WITHOUT mutating it. Every
+    value written here is a measurement of the original document or a pointer to an artifact in this
+    repo — no operation, parameter, response or schema is added that Oracle does not publish. The
+    original spec at openapi/ remains byte-for-byte as retrieved from docs.oracle.com.
+actions:
+  - target: $.info
+    description: Record where this contract came from and what it does and does not cover for Oracle Partitioning.
+    update:
+      x-apievangelist-source: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/openapi.json
+      x-apievangelist-retrieved: '2026-08-27'
+      x-apievangelist-http-status: 200
+      x-apievangelist-scope-note: >-
+        Oracle Partitioning is a licensed Oracle Database Enterprise Edition option, not a standalone
+        API product. This contract is the Oracle REST Data Services Database API — the only published
+        machine-readable surface that reaches partitioning metadata. It exposes partitions READ-ONLY
+        via two GET operations under the Data Dictionary tag. Partition CREATION and MAINTENANCE are
+        SQL DDL and have no operation in this or any Oracle contract.
+      x-apievangelist-partition-operations:
+        - 'GET /database/objects/partitions/'
+        - 'GET /database/objects/partitions/{table_owner},{table_name},{partition_name}'
+  - target: $.info
+    description: Declare the deployment model, because it changes how every server URL should be read.
+    update:
+      x-deployment-model: customer-deployed
+      x-deployment-note: >-
+        ORDS is installed and operated by the customer. There is no vendor-hosted base URL for this
+        API. The base URL pattern, from Oracle's own info.description, is
+        https://<server>/<context root>/<my database>/<my schema>/_/db-api/stable/<service path>.
+  - target: $
+    description: >-
+      Record that the document declares no servers[] block, so a client must construct the base URL
+      from the operator's deployment. This is a finding, not a defect to be patched — writing a
+      concrete host here would be an invention.
+    update:
+      x-apievangelist-servers-absent: true
+      x-apievangelist-servers-note: >-
+        servers is null in the published document. API Evangelist deliberately does NOT supply one.
+  - target: $.components.securitySchemes.OAuth2
+    description: Note that the OAuth2 flows enumerate no scopes and that authorization is role based.
+    update:
+      x-apievangelist-scopes-enumerated: 0
+      x-apievangelist-authorization-model: >-
+        Effective authorization is Oracle Database role based (for example "SQL Administrator or SQL
+        Developer role" on the partitions endpoints), stated in operation descriptions rather than in
+        a machine-readable security block. See scopes/oracle-partitioning-scopes.yml.
+      x-apievangelist-endpoints-relative: true
+  - target: $.paths['/database/objects/partitions/'].get
+    description: Bind the partitions collection operation to the derived artifacts in this repo.
+    update:
+      x-apievangelist-artifacts:
+        data-model: data-model/oracle-partitioning-data-model.yml
+        conventions: conventions/oracle-partitioning-conventions.yml
+        skill: skills/oracle-partitioning-partitioning-strategy.md
+      x-apievangelist-backing-view: DBA_TAB_PARTITIONS / ALL_TAB_PARTITIONS
+      x-apievangelist-role-required: 'SQL Administrator or SQL Developer'
+      x-apievangelist-note: >-
+        The response schema does not report the partitioning TYPE (RANGE/LIST/HASH/REFERENCE/INTERVAL)
+        or the partition key column; those live in DBA_PART_TABLES, which this contract does not project.
+  - target: $.paths['/database/objects/partitions/{table_owner},{table_name},{partition_name}'].get
+    description: Bind the single-partition operation to the derived artifacts in this repo.
+    update:
+      x-apievangelist-artifacts:
+        data-model: data-model/oracle-partitioning-data-model.yml
+        skill: skills/oracle-partitioning-partitioning-strategy.md
+      x-apievangelist-identity: 'composite key table_owner,table_name,partition_name'
+      x-apievangelist-role-required: 'SQL Administrator or SQL Developer'
+  - target: $.components.schemas.ORDSErrorResponse
+    description: Record the RFC 9457 deviation so a client knows how to read the problem body.
+    update:
+      x-apievangelist-rfc9457: inspired-not-conformant
+      x-apievangelist-field-mapping:
+        code: 'RFC 9457 has no equivalent; Oracle error code'
+        message: 'RFC 9457 "detail"'
+        type: 'RFC 9457 "type"'
+        instance: 'RFC 9457 "instance"'
+      x-apievangelist-catalog: errors/oracle-partitioning-problem-types.yml
+  - target: $
+    description: Record the contract-level gaps an agent needs to know about before calling.
+    update:
+      x-apievangelist-gaps:
+        no-5xx-declared: 'No 5xx response is declared on any of the 352 operations, so server failure modes are not machine-readable.'
+        operationid-coverage: 'Only 70 of 352 operations declare an operationId, so most operations can only be cited by path+method.'
+        three-error-envelopes: 'ORDSErrorResponse, ErrorObject and a bare {"SQL ERROR MESSAGE"} object coexist; a client must branch on media type and surface.'
+        no-idempotency: 'No Idempotency-Key mechanism on any of the 54 POST operations.'
+        no-rate-limit-signal: 'No 429 response and no rate-limit headers anywhere in the contract.'
+        no-partition-write-path: 'Partitions are read-only over REST; all maintenance is SQL DDL with no reversal window.'

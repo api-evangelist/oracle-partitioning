@@ -1,0 +1,51 @@
+generated: '2026-08-27'
+method: probed
+source: 'live GET probes 2026-08-27 with a browser User-Agent'
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+note: >-
+  Nothing was found. Every /.well-known/ path probed on every host in this profile returned a
+  negative. NO WellKnown or SecurityTxt pointer is emitted in apis.yml as a result — this file
+  records a measured absence, not a served surface. www.oracle.com answers 403 to every
+  /.well-known/* path (an edge policy that refuses the path, not a document); docs.oracle.com
+  answers 404 with its standard HTML error page; the OCI Database regional endpoint answers a JSON
+  404 body {"code":"NotAuthorizedOrNotFound"}. The customer-hosted ORDS host has no fixed address to
+  probe. Notably, ORDS MCP itself relies on a well-known OAuth metadata endpoint served by the
+  OPERATOR's ORDS deployment, not by Oracle — so an absence here is expected rather than a defect.
+hosts:
+  - host: https://docs.oracle.com
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }
+  - host: https://www.oracle.com
+    documents:
+      - { path: /.well-known/security.txt, status: 403 }
+      - { path: /.well-known/openid-configuration, status: 403 }
+      - { path: /.well-known/oauth-authorization-server, status: 403 }
+      - { path: /.well-known/api-catalog, status: 403 }
+      - { path: /.well-known/ai-plugin.json, status: 403 }
+      - { path: /.well-known/agent-card.json, status: 403 }
+      - { path: /.well-known/agent.json, status: 403 }
+  - host: https://oracle.com
+    documents:
+      - { path: /.well-known/security.txt, status: 403 }
+      - { path: /.well-known/openid-configuration, status: 403 }
+      - { path: /.well-known/oauth-authorization-server, status: 403 }
+      - { path: /.well-known/api-catalog, status: 403 }
+      - { path: /.well-known/ai-plugin.json, status: 403 }
+      - { path: /.well-known/agent-card.json, status: 403 }
+      - { path: /.well-known/agent.json, status: 403 }
+  - host: https://database.us-ashburn-1.oraclecloud.com
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+      - { path: /.well-known/agent-card.json, status: 404 }
+      - { path: /.well-known/agent.json, status: 404 }

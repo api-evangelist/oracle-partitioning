@@ -1,0 +1,66 @@
+generated: '2026-08-27'
+method: searched
+source: https://github.com/oracle/skills
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Agent Skills PUBLISHED BY ORACLE, saved verbatim. Oracle maintains an open-source Agent Skills
+  collection at github.com/oracle/skills ("a curated, open-source collection of practical,
+  installable skills for working with Oracle technologies"), and one of them is dedicated to the
+  option this repo profiles. Nothing here was authored by API Evangelist — these are the provider's
+  own files, retrieved from raw.githubusercontent.com on 2026-08-27.
+upstream:
+  repo: https://github.com/oracle/skills
+  default_branch: main
+  license_file: https://github.com/oracle/skills/blob/main/LICENSE.txt
+  authoring_guide: https://github.com/oracle/skills/blob/main/SKILL_AUTHORING_GUIDE.md
+  retrieved: '2026-08-27'
+skills:
+  - name: Oracle Partitioning Strategy
+    file: oracle-partitioning-partitioning-strategy.md
+    upstream_path: db/design/partitioning-strategy.md
+    source: https://raw.githubusercontent.com/oracle/skills/main/db/design/partitioning-strategy.md
+    status: 200
+    bytes: 23130
+    method: searched
+    relevance: primary
+    covers:
+      - 'Range partitioning and interval partitioning (auto-created partitions)'
+      - 'List, hash, composite and reference partitioning'
+      - 'Partition pruning, partition-wise operations, partition maintenance'
+      - 'Licence check: SELECT value FROM v$option WHERE parameter = ''Partitioning'''
+      - 'Constraint rule: the primary key must include the partition key'
+    note: >-
+      This is the single most on-topic artifact in this repo. It is Oracle stating, for agents, how
+      to choose and implement a partitioning strategy — the thing the option is actually for.
+  - name: Oracle Database (root skill)
+    file: oracle-partitioning-SKILL.md
+    upstream_path: db/SKILL.md
+    source: https://raw.githubusercontent.com/oracle/skills/main/db/SKILL.md
+    status: 200
+    bytes: 4673
+    method: searched
+    relevance: context
+    note: 'The routing/entry skill for Oracle Database, under which the partitioning skill sits.'
+  - name: SQLcl MCP Server
+    file: oracle-partitioning-sqlcl-mcp-server.md
+    upstream_path: db/sqlcl/sqlcl-mcp-server.md
+    source: https://raw.githubusercontent.com/oracle/skills/main/db/sqlcl/sqlcl-mcp-server.md
+    status: 200
+    bytes: 17852
+    method: searched
+    relevance: agent-surface
+    note: >-
+      The agent access path for partition DDL. Partition maintenance has no REST operation, so it
+      reaches an agent as SQL through the SQLcl MCP server; this is Oracle's own instruction set
+      for that server. Cross-referenced from mcp/oracle-partitioning-mcp.yml.
+related_upstream_skills_not_copied:
+  note: >-
+    Directly relevant Oracle skills that live in the same upstream repo and are worth reading
+    alongside these three. Not copied here because they are not partitioning-specific.
+  items:
+    - { path: db/agent/destructive-op-guards.md, why: 'Guardrails for the DROP/TRUNCATE PARTITION class of operation, which has no reversal window.' }
+    - { path: db/agent/idempotency-patterns.md, why: 'The API declares no idempotency mechanism; this is Oracle''s guidance for the SQL layer.' }
+    - { path: db/agent/ora-error-catalog.md, why: 'ORA- error codes, which the TxEventQ error envelope passes through verbatim.' }
+    - { path: db/design/tablespace-design.md, why: 'Every partition names a tablespace; the two designs are decided together.' }
+    - { path: db/architecture/exadata-features.md, why: 'Partition pruning and storage indexes interact on Exadata.' }

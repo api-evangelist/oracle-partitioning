@@ -1,0 +1,128 @@
+generated: '2026-08-27'
+method: derived
+source: mcp/oracle-partitioning-mcp.yml + openapi/oracle-partitioning-ords-database-api-openapi.json
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Binding between Oracle's published MCP tools and the operations of the Oracle REST Data Services
+  Database API. The two surfaces are projections of the same database from the same vendor, but they
+  are NOT parallel: the MCP surface is a small generic SQL-execution surface, and the REST surface is
+  352 typed operations. Almost nothing binds one-to-one, and that divergence is the finding.
+surfaces:
+  openapi:
+    file: openapi/oracle-partitioning-ords-database-api-openapi.json
+    title: Oracle REST Data Services API
+    version: '2026.03.26'
+    paths: 261
+    operations: 352
+    gated: false
+    note: The contract itself is public on docs.oracle.com; calling it requires a customer ORDS deployment.
+  mcp:
+    url: 'https://<ords-host>/mcp'
+    gated: true
+    note: >-
+      Templated customer host, disabled by default, OAuth 2.0 Bearer JWT. No live tools/list was
+      retrievable, so tool input schemas are unknown and every binding below is by documented
+      semantics, not by schema comparison.
+  graphql:
+    present: false
+crosswalk:
+  - tool: database_list
+    category: discovery
+    rest: []
+    binding: none
+    confidence: high
+    note: >-
+      Lists MCP-enabled ORDS connection pools. The REST surface has no equivalent — pools are an
+      ORDS configuration concept exposed only to MCP. The closest REST analogue, /database/pdbs/,
+      lists pluggable databases, which is a different thing.
+  - tool: sql_run
+    category: execution
+    rest: []
+    binding: none
+    confidence: high
+    note: >-
+      VERIFIED ABSENT: the published contract declares no generic SQL-execution operation. Every one
+      of its 352 operations is typed, and the only statement-executing POSTs are the two RDF SPARQL
+      endpoints. ORDS does ship a REST Enabled SQL Service, but it lives on a different ORDS path
+      (/ords/{schema}/_/sql) and is not described by this document. This is the tool through which
+      ALL partition DDL reaches an agent — CREATE TABLE ... PARTITION BY, ALTER TABLE ...
+      SPLIT/MERGE/EXCHANGE/DROP PARTITION — and none of it has a typed REST operation to bind to.
+  - tool: schema metadata inspection
+    category: metadata
+    rest:
+      - 'GET /database/objects/'
+      - 'GET /database/objects/tables/'
+      - 'GET /database/objects/columns/'
+      - 'GET /database/objects/indexes/'
+      - 'GET /database/objects/partitions/'
+      - 'GET /database/objects/partitions/{table_owner},{table_name},{partition_name}'
+      - 'GET /database/tablespaces/'
+    binding: semantic
+    confidence: medium
+    note: >-
+      One MCP tool subsumes the whole Data Dictionary tag of the REST API (29 operations). This is
+      the partitioning-relevant row: the two partitions endpoints are the only typed partition
+      surface in either projection, and MCP reaches them as generic metadata rather than as a
+      partition-shaped tool.
+  - tool: list-connections
+    category: discovery
+    rest: []
+    binding: none
+    confidence: high
+    note: SQLcl-local concept (saved named connections on the developer's machine). No REST analogue.
+  - tool: connect
+    category: session
+    rest: []
+    binding: none
+    confidence: high
+    note: SQLcl-local. REST is stateless per request against a configured pool.
+  - tool: run-sql
+    category: execution
+    rest: []
+    binding: none
+    confidence: high
+    note: SQLcl equivalent of sql_run; same absence of a backing REST operation.
+  - tool: run-sqlcl
+    category: execution
+    rest: []
+    binding: none
+    confidence: high
+    note: >-
+      Runs native SQLcl commands (LIQUIBASE, DDL, DATAPUMP, FORMAT, ...). Several of these overlap
+      REST tags by outcome (Data Pump, DDL generation) but none is a call to this API.
+mcp_only:
+  - { tool: database_list, reason: 'ORDS connection-pool discovery is an MCP-layer concept with no REST projection.' }
+  - { tool: list-connections, reason: 'Local SQLcl connection store; no server-side equivalent.' }
+  - { tool: connect, reason: 'Stateful session switching; REST is stateless.' }
+  - { tool: run-sqlcl, reason: 'Executes SQLcl client commands, not database API operations.' }
+  - { tool: sql_run, reason: 'The contract declares no generic SQL-execution operation; the ORDS REST Enabled SQL Service is a separate, undescribed surface.' }
+  - { tool: run-sql, reason: 'Same as sql_run.' }
+rest_only:
+  - { area: Data Dictionary, operations: 29, note: 'Typed reads of tables, columns, indexes, PARTITIONS, tablespaces, synonyms, types, foreign keys, db links.' }
+  - { area: Pluggable Database Lifecycle Management, note: 'Create/open/close/clone/unplug PDBs — no MCP tool.' }
+  - { area: Pluggable Database Snapshot Carousel, note: 'Snapshot create/restore — no MCP tool.' }
+  - { area: Data Guard, note: 'Configuration, switchover, failover — no MCP tool.' }
+  - { area: Data Pump, note: 'Export/import jobs — no MCP tool (SQLcl reaches it via run-sqlcl instead).' }
+  - { area: Oracle Transactional Event Queues, note: 'Kafka-compatible topics, partitions, consumer groups — no MCP tool.' }
+  - { area: Performance / Monitoring / AWR, note: 'No MCP tool.' }
+  - { area: Scheduler, note: 'No MCP tool.' }
+  - { area: RDF Graph, note: 'No MCP tool.' }
+  - { area: 'Oracle APEX', note: 'No MCP tool.' }
+  - { area: 'Open Service Broker', note: 'No MCP tool.' }
+  - { area: 'VecDB / vector tables', note: 'Added in ORDS 26.1; no MCP tool.' }
+coverage:
+  mcp_tools_total: 7
+  mcp_tools_bound_to_rest: 1
+  mcp_tools_unbound: 6
+  rest_operations_total: 352
+  rest_operations_reachable_by_a_named_tool: 29
+  rest_operations_unbound: 323
+  partition_operations_total: 2
+  partition_operations_bound: 2
+  interpretation: >-
+    Only the Data Dictionary tag (29 of 352 operations, 8%) is reachable through a named MCP tool.
+    Everything else is reachable only as free-text SQL through sql_run — which is more powerful and
+    far less safe — and sql_run has no counterpart in the REST contract at all, so the two surfaces
+    do not converge. For an agent working on partitioning specifically, the read path is typed and
+    bounded (two GET operations) while the write path is unbounded SQL DDL with no reversal window.

@@ -1,0 +1,93 @@
+generated: '2026-08-27'
+method: searched
+source: 'registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org, api.nuget.org, proxy.golang.org, search.maven.org) queried 2026-08-27'
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+note: >-
+  Oracle Partitioning is a licensed Oracle Database option, not a product with its own client
+  library. There is no partitioning SDK and none was invented. Listed below are the first-party
+  Oracle libraries through which partitioning is actually reached: the Oracle Database drivers
+  (which execute the partition DDL and read the partitioned tables) and the OCI SDKs (which manage
+  the cloud database services those tables live in). Versions and dates are read from each
+  registry's metadata endpoint on the date above.
+packages:
+  - language: python
+    registry: pypi
+    name: oracledb
+    url: https://pypi.org/project/oracledb/
+    install: pip install oracledb
+    official: true
+    version: 4.0.2
+    published: '2026-07-14'
+    role: 'Oracle Database driver — issues partition DDL and DML from Python'
+  - language: javascript
+    registry: npm
+    name: oracledb
+    url: https://www.npmjs.com/package/oracledb
+    install: npm install oracledb
+    official: true
+    version: 7.0.1
+    published: '2026-07-15'
+    role: 'Oracle Database driver for Node.js'
+  - language: python
+    registry: pypi
+    name: oci
+    url: https://pypi.org/project/oci/
+    install: pip install oci
+    official: true
+    version: 2.185.0
+    published: '2026-08-25'
+    role: 'OCI SDK — includes the Database service client'
+  - language: javascript
+    registry: npm
+    name: oci-sdk
+    url: https://www.npmjs.com/package/oci-sdk
+    install: npm install oci-sdk
+    official: true
+    version: 2.140.0
+    published: '2026-08-25'
+    role: 'OCI SDK for TypeScript/JavaScript'
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/oracle/oci-go-sdk/v65
+    url: https://pkg.go.dev/github.com/oracle/oci-go-sdk/v65
+    install: go get github.com/oracle/oci-go-sdk/v65
+    official: true
+    version: v65.124.0
+    published: '2026-08-25'
+    role: 'OCI SDK for Go'
+  - language: java
+    registry: maven
+    name: com.oracle.oci.sdk:oci-java-sdk-database
+    url: https://central.sonatype.com/artifact/com.oracle.oci.sdk/oci-java-sdk-database
+    install: '<dependency><groupId>com.oracle.oci.sdk</groupId><artifactId>oci-java-sdk-database</artifactId><version>3.67.3</version></dependency>'
+    official: true
+    version: 3.67.3
+    published: '2025-06-24'
+    role: 'OCI SDK Database service client for Java'
+  - language: ruby
+    registry: rubygems
+    name: oci
+    url: https://rubygems.org/gems/oci
+    install: gem install oci
+    official: true
+    version: 2.24.0
+    published: '2026-07-28'
+    role: 'OCI SDK for Ruby'
+  - language: dotnet
+    registry: nuget
+    name: OCI.DotNetSDK.Database
+    url: https://www.nuget.org/packages/OCI.DotNetSDK.Database
+    install: dotnet add package OCI.DotNetSDK.Database
+    official: true
+    version: 145.0.0
+    published: null
+    note: >-
+      The NuGet flat-container index returned the version list but the registration blob did not
+      expose a publish date in the shape this pass reads, so the date is recorded as null rather
+      than guessed.
+currency_finding: >-
+  Every first-party library above is current — six of the eight published within the last six weeks.
+  There is no abandonment signal here. The OCI Java SDK Database artifact is the oldest at roughly
+  fourteen months, which is normal for a Maven-published service client that tracks the OCI API
+  rather than the release train of the SDK core.

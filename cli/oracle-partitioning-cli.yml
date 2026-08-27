@@ -1,0 +1,61 @@
+generated: '2026-08-27'
+method: searched
+source: https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  First-party Oracle command-line tools through which Oracle Partitioning is actually operated.
+  There is no partitioning-specific CLI; partition maintenance is SQL DDL issued through a SQL
+  client, and SQLcl is Oracle's modern one.
+tools:
+  - name: SQLcl
+    binary: sql
+    official: true
+    vendor: Oracle
+    url: https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/
+    docs: https://docs.oracle.com/en/database/oracle/sql-developer-command-line/
+    install:
+      - method: download
+        note: 'Free download from Oracle; a Java 17+ runtime is required.'
+      - method: bundled
+        note: 'Ships inside Oracle Database installations and Oracle Cloud Shell.'
+    role: >-
+      The primary partitioning surface. All partition DDL — CREATE TABLE ... PARTITION BY
+      RANGE/LIST/HASH/REFERENCE, ALTER TABLE ... ADD/SPLIT/MERGE/EXCHANGE/DROP/MOVE PARTITION —
+      is issued here.
+    command_groups:
+      - { group: connection, commands: [connect, disconnect, connmgr, net] }
+      - { group: sql-plsql-execution, commands: ['<any SQL or PL/SQL>', script, '@file'] }
+      - { group: ddl-and-schema, commands: [ddl, information, describe] }
+      - { group: data-movement, commands: [datapump, loadjava, load, unload] }
+      - { group: change-management, commands: [liquibase] }
+      - { group: formatting-and-output, commands: [format, 'set sqlformat', spool] }
+      - { group: diagnostics, commands: [awr, history, tnsping] }
+      - { group: agent-surface, commands: [mcp], note: 'sql -mcp starts the built-in SQLcl MCP Server (SQLcl 25.2+). See mcp/oracle-partitioning-mcp.yml.' }
+    key_flows:
+      - { name: Inspect a partitioned table, note: 'DESCRIBE plus a query against USER_/ALL_/DBA_TAB_PARTITIONS.' }
+      - { name: Generate partition DDL, note: 'The ddl command reproduces the full PARTITION BY clause of an existing table.' }
+      - { name: Version-control partition changes, note: 'liquibase captures partition DDL as a changeset.' }
+    published_skills:
+      - skills/oracle-partitioning-sqlcl-mcp-server.md
+  - name: OCI CLI
+    binary: oci
+    official: true
+    vendor: Oracle
+    url: https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm
+    role: >-
+      Manages the OCI Database services (DB systems, Autonomous Database, Exadata) that host
+      partitioned databases. It does not reach individual partitions.
+    command_groups:
+      - { group: db, commands: ['oci db system', 'oci db database', 'oci db autonomous-database', 'oci db backup', 'oci db data-guard-association'] }
+  - name: ORDS command line
+    binary: ords
+    official: true
+    vendor: Oracle
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+    role: >-
+      Installs, configures and runs ORDS — including enabling the MCP endpoint that exposes the
+      database to agents.
+    command_groups:
+      - { group: config, commands: ['ords config set --global feature.mcp true', 'ords config set', 'ords config list'] }
+      - { group: runtime, commands: ['ords serve', 'ords install', 'ords uninstall'] }

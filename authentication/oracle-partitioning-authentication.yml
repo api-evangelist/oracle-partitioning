@@ -1,0 +1,65 @@
+generated: '2026-08-27'
+method: searched
+source: openapi/oracle-partitioning-ords-database-api-openapi.json + https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orddg/developing-REST-applications.html
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+  - implicit
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/oracle-partitioning-ords-database-api-openapi.json
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/oracle-partitioning-ords-database-api-openapi.json
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: implicit
+    authorizationUrl: /oauth/auth
+    scopes: 0
+  - flow: authorizationCode
+    authorizationUrl: /oauth/auth
+    tokenUrl: /oauth/token
+    scopes: 0
+  - flow: clientCredentials
+    tokenUrl: /oauth/token
+    scopes: 0
+  sources:
+  - openapi/oracle-partitioning-ords-database-api-openapi.json
+docs: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orddg/developing-REST-applications.html
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+deployment_note: ORDS is customer-deployed, so the OAuth2 endpoints below are declared as RELATIVE paths in the contract
+  (/oauth/auth, /oauth/token). They resolve against the operator's own ORDS host; there is no Oracle-hosted authorization
+  server for this API.
+authorization_model:
+  style: Oracle Database role based, not scope based
+  evidence: Operation descriptions state the requirement in prose — the partitions endpoints read "A client requires
+    SQL Administrator or SQL Developer role to invoke this service." The contract declares no top-level security[] requirement
+    and enumerates no OAuth scopes, so an agent cannot pre-check authorization from the spec.
+  roles_seen_in_contract:
+  - SQL Administrator
+  - SQL Developer
+mcp_authentication:
+  endpoint: https://<ords-host>/mcp
+  scheme: OAuth 2.0 Bearer JWT
+  discovery: An unauthenticated request returns 401 with a WWW-Authenticate challenge pointing at the well-known metadata
+    endpoint, from which the client discovers the authorization server and token endpoint.
+  validation: issuer, audience and JWK-backed signature, configured via mcp.security.jwt.profile.*
+  modes:
+  - scope
+  - role
+  source: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html
+gaps:
+- No securitySchemes are APPLIED at the document level or on individual operations — they are declared in components
+  only, so the contract never states which scheme protects which operation.
+- No scopes are enumerated in any of the three OAuth2 flows.

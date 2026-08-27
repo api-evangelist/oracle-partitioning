@@ -1,0 +1,120 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-partitioning-ords-database-api-openapi.json
+provider: Oracle Partitioning
+providerId: oracle-partitioning
+description: >-
+  Cross-cutting and domain standard conformance for the Oracle REST Data Services Database API, the
+  published contract through which Oracle Partitioning metadata is read. Each entry cites the exact
+  location in the contract or the exact document that supports it.
+standards:
+  - id: openapi
+    name: OpenAPI Specification
+    version: 3.0.0
+    conforms: true
+    evidence: 'openapi: "3.0.0" at the document root; 261 paths, 352 operations, 228 component schemas.'
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: 'components.securitySchemes.OAuth2 declares implicit, authorizationCode and clientCredentials flows with authorizationUrl /oauth/auth and tokenUrl /oauth/token.'
+    caveat: 'No scopes are enumerated in any flow. Effective authorization is Oracle Database role based.'
+  - id: oauth2-protected-resource-metadata
+    name: 'OAuth 2.0 Protected Resource Metadata (RFC 9728) — via ORDS MCP'
+    conforms: true
+    evidence: >-
+      The ORDS MCP endpoint answers an unauthenticated request with 401 and a WWW-Authenticate
+      challenge pointing at the well-known metadata endpoint, which the client uses to discover the
+      authorization server. mcp.security.jwt.profile.authorization.server.url configures what that
+      metadata advertises.
+    source: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.2/ordig/configuring-model-context-protocol-mcp.html
+  - id: jwt
+    name: 'JSON Web Token (RFC 7519) + JWKS (RFC 7517)'
+    conforms: true
+    evidence: 'components.securitySchemes.BearerAuth (http/bearer); ORDS validates MCP bearer tokens against a configured issuer, audience and mcp.security.jwt.profile.jwk.url.'
+  - id: http-basic
+    name: 'HTTP Basic Authentication (RFC 7617)'
+    conforms: true
+    evidence: 'components.securitySchemes.BasicAuth (http/basic).'
+  - id: rfc9457
+    name: 'Problem Details for HTTP APIs (RFC 9457)'
+    conforms: false
+    partial: true
+    evidence: >-
+      43 of 62 declared 4xx responses use media type application/problem+json, but the body shape
+      (ORDSErrorResponse / ErrorObject) names its fields code and message where the RFC names title
+      and detail. type and instance match. RFC 9457-inspired, not conformant.
+    see: errors/oracle-partitioning-problem-types.yml
+  - id: pagination
+    name: 'Collection pagination'
+    conforms: true
+    evidence: 'limit query parameter on 63 operations; response envelope items/hasMore/limit/offset/count/links with LinkRelation {rel, href}.'
+    style: 'limit + hasMore + link relations (Oracle ORDS convention, not a published standard)'
+  - id: idempotency
+    name: 'Idempotency keys'
+    conforms: false
+    evidence: 'No Idempotency-Key or equivalent parameter or header appears in any of the 352 operations, and ORDS documents no replay-safe retry mechanism.'
+  - id: hateoas
+    name: 'Hypermedia link relations'
+    conforms: true
+    partial: true
+    evidence: 'Collection responses carry links[] of LinkRelation {rel, href} with rel and href both required. Individual item resources do not consistently carry them.'
+  - id: mcp
+    name: 'Model Context Protocol'
+    conforms: true
+    evidence: >-
+      Oracle ships three first-party MCP servers (ORDS streaming-HTTPS /mcp, SQLcl stdio, OCI
+      Database Tools managed) and states the ORDS endpoint is "fully OAuth compliant to the MCP
+      specification".
+    source: https://www.oracle.com/mcp/
+    see: mcp/oracle-partitioning-mcp.yml
+  - id: agent-skills
+    name: 'Agent Skills'
+    conforms: true
+    evidence: >-
+      Oracle publishes an open-source Agent Skills collection at github.com/oracle/skills, including
+      db/design/partitioning-strategy.md, which is directly about this option.
+    see: skills/_index.yml
+  - id: opentelemetry
+    name: OpenTelemetry
+    conforms: true
+    evidence: 'ORDS 26.1 emits OpenTelemetry spans for API response times (get-services, get-metadata, schema-check, sql-exec, gen-result).'
+    source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+  - id: kafka-protocol
+    name: 'Apache Kafka wire compatibility (Transactional Event Queues)'
+    conforms: true
+    partial: true
+    evidence: 'The contract exposes /database/txeventq/ topics, partitions, consumer-groups, offsets and lags — the Kafka object model — over REST. This is Oracle TxEventQ, not the Kafka binary protocol.'
+  - id: sparql
+    name: 'SPARQL 1.1 Protocol (W3C)'
+    conforms: true
+    evidence: 'POST /database/rdf/networks/{network_owner},{network_name}/models/{model_name}/sparql/1.1 — "Execute a SPARQL query or update".'
+    note: 'A genuine W3C domain standard declared by the contract itself, on the RDF Graph surface.'
+  - id: mongodb-api
+    name: 'MongoDB wire API compatibility'
+    conforms: true
+    partial: true
+    evidence: 'ORDS ships a MongoDB API with its own configuration settings (mongo.legacyUuidRepresentation added in 26.1).'
+    source: https://www.oracle.com/tools/ords/ords-relnotes-26.1.0.html
+  - id: open-service-broker
+    name: 'Open Service Broker API'
+    conforms: true
+    evidence: 'The contract declares an "Open Service Broker" tag with its own operations, implementing the OSB provisioning/binding model.'
+    note: 'A declared domain standard for platform service provisioning, read directly from the contract tags.'
+domain_standard:
+  market: 'Relational database management / very large database management'
+  finding: >-
+    Oracle Partitioning's own market has no interoperability standard to conform to. Partitioning
+    syntax is ISO SQL-adjacent but each vendor's PARTITION BY dialect is its own; there is no
+    OpenRTB, FHIR or SCIM equivalent for physical table partitioning, and none was invented to fill
+    the slot. The nearest genuine domain standards the CONTRACT declares are SPARQL 1.1 and the
+    Open Service Broker API, both on adjacent surfaces rather than on partitioning.
+  reward_only_note: 'Recorded as an honest absence for the partitioning surface itself.'
+compliance:
+  published: true
+  programs_url: https://www.oracle.com/corporate/cloud-compliance/
+  probed: { url: 'https://www.oracle.com/corporate/cloud-compliance/', status: 200 }
+  note: >-
+    Oracle publishes a cloud compliance program covering the OCI services that host partitioned
+    databases. The certifications listed there attach to Oracle Cloud services, not to the
+    Partitioning option, which is software a customer runs. Named certifications were not
+    transcribed here because the page enumerates them per service and per region.

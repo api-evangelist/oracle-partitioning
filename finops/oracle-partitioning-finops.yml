@@ -11,78 +11,75 @@ providerId: oracle-partitioning
 publisherName: Oracle Partitioning
 serviceCategory: API
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
 method: generated
-modified: '2026-05-04'
+modified: '2026-08-27'
 tags:
-  - Composite-Partitioning
-  - Database
-  - Hash-Partitioning
-  - Interval-Partitioning
-  - List-Partitioning
-  - Oracle
-  - Partitioning
-  - Performance
-  - Range-Partitioning
-  - Scalability
-  - VLDB
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Oracle Partitioning API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+- Composite-Partitioning
+- Database
+- Hash-Partitioning
+- Interval-Partitioning
+- List-Partitioning
+- Oracle
+- Partitioning
+- Performance
+- Range-Partitioning
+- Scalability
+- VLDB
+- FinOps
+- Cost Management
+- FOCUS
+description: FinOps framework definition for the Oracle Partitioning API surface. Provides a FOCUS-aligned mapping
+  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
 principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
+- name: Visibility
+  description: Make API consumption costs visible to engineering, product, and finance teams in near real-time.
+- name: Allocation
+  description: Tag every chargeable API call with the consuming team, environment, application, and feature so cost
+    can be allocated.
+- name: Optimization
+  description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce cost per
+    useful unit of work.
+- name: Accountability
+  description: Establish budget owners and chargeback or showback flows for each consuming team.
 domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+- name: Understand Usage and Cost
+  capabilities:
+  - Data Ingestion
+  - Allocation
+  - Reporting and Analytics
+  - Anomaly Management
+- name: Quantify Business Value
+  capabilities:
+  - Planning and Estimating
+  - Forecasting
+  - Budgeting
+  - Benchmarking
+  - Unit Economics
+- name: Optimize Usage and Cost
+  capabilities:
+  - Architecting for Cloud
+  - Rate Optimization
+  - Workload Optimization
+  - Cloud Sustainability
+  - Licensing and SaaS
+- name: Manage the FinOps Practice
+  capabilities:
+  - FinOps Practice Operations
+  - FinOps Education and Enablement
+  - Invoicing and Chargeback
+  - Onboarding Workloads
+  - Intersecting Disciplines
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Perpetual Licence
+  billingFrequency: One-time licence plus annual Software Update Licence & Support
   billingCurrency: USD
   chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  - Purchase
+  - Usage
+  - Tax
+  - Credit
+  - Adjustment
+  chargeFrequency: One-time and Recurring
 focusColumns:
   ServiceName: Oracle Partitioning
   ServiceCategory: Developer Tools / API
@@ -94,55 +91,59 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
+- name: api_requests
+  description: Count of billable API requests
+  unit: request
+  aggregation: sum
+  dimensions:
+  - api
+  - endpoint
+  - tier
+  - region
+  - consumer
+- name: data_egress
+  description: Bytes returned over the network in API responses
+  unit: GB
+  aggregation: sum
+  dimensions:
+  - api
+  - region
+  - consumer
+- name: compute_seconds
+  description: Server-side compute consumed by the request, where applicable
+  unit: second
+  aggregation: sum
+  dimensions:
+  - api
+  - endpoint
+  - tier
 apis:
-  - name: Oracle Database REST API - Partitioning
-    baseURL: https://your-oracle-instance.com:8443/ords
-    tags: []
-    serviceName: Oracle Database REST API - Partitioning
-    serviceCategory: API
-  - name: Oracle SQL Developer REST Services - Partitioning
-    baseURL: https://your-oracle-instance.com/ords
-    tags: []
-    serviceName: Oracle SQL Developer REST Services - Partitioning
-    serviceCategory: API
-  - name: Oracle Cloud Infrastructure Database API - Partitioning
-    baseURL: https://database.{region}.oraclecloud.com
-    tags: []
-    serviceName: Oracle Cloud Infrastructure Database API - Partitioning
-    serviceCategory: API
+- name: Oracle REST Data Services Database API — Partitioning
+  baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
+  tags: []
+  serviceName: Oracle REST Data Services Database API — Partitioning
+  serviceCategory: API
+- name: Oracle SQL Developer Web / SQLcl — Partitioning
+  baseURL: https://{server}/{context-root}
+  tags: []
+  serviceName: Oracle SQL Developer Web / SQLcl — Partitioning
+  serviceCategory: API
+- name: Oracle Cloud Infrastructure Database API - Partitioning
+  baseURL: https://database.{region}.oraclecloud.com
+  tags: []
+  serviceName: Oracle Cloud Infrastructure Database API - Partitioning
+  serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+- name: Cost per 1K Requests
+  metric: billed_cost / (api_requests / 1000)
+  target: TBD
+- name: Cost per Active Consumer
+  metric: billed_cost / active_consumers
+  target: TBD
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-provenance-note: '2026-08-27: baseURLs corrected from the placeholder host your-oracle-instance.com to Oracle''s
+  own published templated ORDS URL pattern, and the billing model corrected from the scaffold''s "Usage-Based" default
+  to the perpetual-licence model Oracle actually publishes for the Partitioning option. The meters and unitEconomics
+  below remain a generated FinOps scaffold and are NOT provider-published values.'
