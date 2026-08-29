@@ -10,6 +10,17 @@ description: 'Oracle Partitioning is a licensed option of Oracle Database Enterp
   of the Oracle REST Data Services (ORDS) Database API, which is the machine-readable contract captured
   in this repository.'
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
