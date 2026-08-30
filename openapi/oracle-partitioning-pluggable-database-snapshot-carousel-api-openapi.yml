@@ -1,0 +1,290 @@
+openapi: 3.2.0
+info:
+  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
+
+    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
+
+    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
+
+    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  version: 2026.03.26
+  title: Oracle REST Data Services Pluggable Database Snapshot Carousel API
+  contact:
+    name: Oracle REST Data Services
+    url: https://www.oracle.com/database/technologies/appdev/rest.html
+  x-summary: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
+tags:
+- name: Pluggable Database Snapshot Carousel
+  description: Services related to managing pluggable databases snapshots in an Oracle database instance.
+paths:
+  /database/snapshots/:
+    get:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: get all snapshots of the current pluggable databases
+      description: Returns all snapshot record. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '201':
+          description: Pdb snapshot in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+      x-internal-id: database-snapshots--get
+      x-filename-id: database-snapshots-get
+    post:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Create snapshot of the current pluggable databases, the name will be generated
+      description: Returns created snapshot record. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '201':
+          description: PDB snapshot in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+      x-internal-id: database-snapshots--post
+      x-filename-id: database-snapshots-post
+    put:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Configure automatic PDB snapshots.
+      description: Configure max snapshot and snapshot mode for the current PDB.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - maxSnapshot
+              - snapshotMode
+              properties:
+                maxSnapshot:
+                  type: integer
+                  description: Setting the maximum number of snapshots. 0 will drop all snapshots.
+                  enum:
+                  - CREATE
+                  - PLUG
+                snapshotMode:
+                  type: string
+                  description: Configure automatic PDB snapshots. it can be NONE, MANUAL or every n hours/minutes.
+            examples:
+              set_max_snapshot:
+                summary: This is an example request body to configure PDB snapshot
+                value:
+                  maxSnapshot: '8'
+              set_snapshot_max_mode:
+                summary: ' This is an example request body to configure PDB snapshot'
+                value:
+                  maxSnapshot: '8'
+                  snapshotMode: every 20 hours
+      responses:
+        '204':
+          description: Confirmation that snapshot setting has been updated.
+      x-internal-id: database-snapshots--put
+      x-filename-id: database-snapshots-put
+  /database/snapshots/{snapshot_name}:
+    get:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Get specific snapshot based on the name in current PDB
+      description: Returns a specific snapshot record. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: snapshot_name
+        in: path
+        description: Snapshot Name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: PDB snapshot in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotWithFileItem'
+      x-internal-id: database-snapshots-{snapshot_name}-get
+      x-filename-id: database-snapshots-snapshot_name-get
+    post:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Create snapshot of the current pluggable databases, the name will be {snapshotName}
+      description: Returns created snapshot record. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: snapshot_name
+        in: path
+        description: Snapshot Name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: PDB snapshot in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+      x-internal-id: database-snapshots-{snapshot_name}-post
+      x-filename-id: database-snapshots-snapshot_name-post
+    delete:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Delete the specified snapshot
+      description: Delete specified snapshot by snapshot name, A client requires System Administrator role to invoke this service.
+      parameters:
+      - name: snapshot_name
+        in: path
+        description: Snapshot Name.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Confirmation that the snapshot has been delete.
+      x-internal-id: database-snapshots-{snapshot_name}-delete
+      x-filename-id: database-snapshots-snapshot_name-delete
+  /database/snapshot_mode:
+    get:
+      tags:
+      - Pluggable Database Snapshot Carousel
+      summary: Get snapshot mode in current PDB
+      description: Returns a snapshot mode. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '201':
+          description: PDB snapshot mode in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotModeItem'
+      x-internal-id: database-snapshot_mode-get
+      x-filename-id: database-snapshot_mode-get
+components:
+  schemas:
+    DatabasePluggableSnapshotItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots associated with the current instance.
+      properties:
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
+          type: integer
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabasePluggableSnapshotModeItem:
+      type: object
+      description: This object describes Pluggable Database Snapshot mode associated with the current instance.
+      properties:
+        pdb_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        pdb_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_mode:
+          type: string
+          description: AUTO, MANUAL or NONE.
+        snapshot_interval:
+          type: integer
+          description: Pluggable database snapshot interval, in minutes.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabasePluggableSnapshotWithFileItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots and snapshot files associated with the current instance.
+      properties:
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
+          type: integer
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        snapshot_files:
+          type: string
+          description: The snapshot files.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth/auth
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: /oauth/auth
+          tokenUrl: /oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+externalDocs:
+  description: Oracle REST Data Services product documentation.
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/

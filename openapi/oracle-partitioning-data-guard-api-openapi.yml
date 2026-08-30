@@ -1,0 +1,808 @@
+openapi: 3.2.0
+info:
+  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
+
+    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
+
+    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
+
+    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  version: 2026.03.26
+  title: Oracle REST Data Services Data Guard API
+  contact:
+    name: Oracle REST Data Services
+    url: https://www.oracle.com/database/technologies/appdev/rest.html
+  x-summary: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
+tags:
+- name: Data Guard
+  description: Services related to Oracle Data Guard. The product must be installed in the Oracle database that ORDS is configured to use.
+paths:
+  /database/dataguard/configuration/:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the current broker configuration
+      description: All the broker configuration. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '200':
+          description: Information on a specific listener and service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationItem'
+      x-internal-id: database-dataguard-configuration--get
+      x-filename-id: database-dataguard-configuration-get
+    post:
+      tags:
+      - Data Guard
+      summary: Add a configuration
+      description: Add a configuration. A client requires SQL Administrator role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                primary_database:
+                  type: string
+                  description: Primary Database Name
+                primary_connection_identifier:
+                  type: string
+                  description: Connection string
+            examples:
+              enable_configuration:
+                summary: Add a configuration
+                value:
+                  primary_database: MYDB
+                  primary_connection_identifier: MYDB
+      responses:
+        '201':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-configuration--post
+      x-filename-id: database-dataguard-configuration-post
+    put:
+      tags:
+      - Data Guard
+      summary: Enable or disable a configuration
+      description: Depending on the operation property, the endpoint will enable or disable a configuration. A client requires SQL Administrator role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operation:
+                  type: string
+                  description: ENABLE, DISABLE
+                  default: ENABLE
+                  enum:
+                  - ENABLE
+                  - DISABLE
+            examples:
+              enable_configuration:
+                summary: Enable a configuration
+                value:
+                  operation: ENABLE
+      responses:
+        '200':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-configuration--put
+      x-filename-id: database-dataguard-configuration-put
+    delete:
+      tags:
+      - Data Guard
+      summary: Remove the configuration
+      description: Remove the configuration. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '200':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-configuration--delete
+      x-filename-id: database-dataguard-configuration-delete
+  /database/dataguard/configuration/properties/:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the current broker configuration properties
+      description: All the broker confguration properties. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '200':
+          description: Information on a specific listener and service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationPropertiesCollection'
+      x-internal-id: database-dataguard-configuration-properties--get
+      x-filename-id: database-dataguard-configuration-properties-get
+  /database/dataguard/configuration/properties/{property}:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the specified broker configuration property
+      description: Get the specified configuration property. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: property
+        in: path
+        description: Name of the property
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The property value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
+      x-internal-id: database-dataguard-configuration-properties-{property}-get
+      x-filename-id: database-dataguard-configuration-properties-property-get
+    put:
+      tags:
+      - Data Guard
+      summary: Alter a configuration property
+      description: Alter a configuration property. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: property
+        in: path
+        description: Name of the property
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  description: Value of the property
+            examples:
+              enable_configuration:
+                summary: Alter a configuration property
+                value:
+                  value: USER
+      responses:
+        '201':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-configuration-properties-{property}-put
+      x-filename-id: database-dataguard-configuration-properties-property-put
+  /database/dataguard/databases/:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the current broker configuration databases
+      description: Broker confguration databases. A client requires SQL Administrator role to invoke this service.
+      responses:
+        '200':
+          description: List of databases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationCollection'
+      x-internal-id: database-dataguard-databases--get
+      x-filename-id: database-dataguard-databases-get
+    post:
+      tags:
+      - Data Guard
+      summary: Add a database
+      description: Add a database. A client requires SQL Administrator role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database_name:
+                  type: string
+                  description: Name of the database to add
+                connection_identifier:
+                  type: string
+                  description: Connection identifier
+            examples:
+              enable_configuration:
+                summary: Add a database
+                value:
+                  database_name: MYDB
+                  connection_identifier: MYDB
+      responses:
+        '201':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-databases--post
+      x-filename-id: database-dataguard-databases-post
+  /database/dataguard/databases/{database}:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the current broker configuration database
+      description: All the broker confguration database. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Information on a specific database in the broker configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationItemLinks'
+      x-internal-id: database-dataguard-databases-{database}-get
+      x-filename-id: database-dataguard-databases-database-get
+    put:
+      tags:
+      - Data Guard
+      summary: Convert, enable, disable, or set the role of a database
+      description: Depending on the operation type, the endpoint will convert to physical, convert to snapshot, enable, disable, set as failover, set as switchover, or set as reinstate a database. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operation:
+                  type: string
+                  description: CONVERT, ENABLE or DISABLE, SET ROLE
+                  default: ENABLE
+                  enum:
+                  - CONVERT_TO_PHYSICAL
+                  - CONVERT_TO_SNAPSHOT
+                  - ENABLE
+                  - DISABLE
+                  - FAILOVER
+                  - SWITCHOVER
+                  - REINSTATE
+            examples:
+              enable_member:
+                summary: Enable a database
+                value:
+                  operation: ENABLE
+      responses:
+        '201':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-databases-{database}-put
+      x-filename-id: database-dataguard-databases-database-put
+    delete:
+      tags:
+      - Data Guard
+      summary: Delete the current database from the broker
+      description: Remove a database. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-databases-{database}-delete
+      x-filename-id: database-dataguard-databases-database-delete
+  /database/dataguard/databases/{database}/instances/:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the current broker database instances information
+      description: All the broker databases. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Information of all database instances.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardInstanceCollection'
+      x-internal-id: database-dataguard-databases-{database}-instances--get
+      x-filename-id: database-dataguard-databases-database-instances-get
+  /database/dataguard/databases/{database}/instances/{instance}:
+    delete:
+      tags:
+      - Data Guard
+      summary: Delete the Data Guard instance
+      description: Delete a Data Guard instance. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database Name
+        required: true
+        schema:
+          type: string
+      - name: instance
+        in: path
+        description: Instance name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-databases-{database}-instances-{instance}-delete
+      x-filename-id: database-dataguard-databases-database-instances-instance-delete
+  /database/dataguard/databases/{database}/properties/:
+    get:
+      tags:
+      - Data Guard
+      summary: Get the database Data Guard properties
+      description: Get database Data Guard properties. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Information on a specific database Data Guard properties.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationPropertiesCollection'
+      x-internal-id: database-dataguard-databases-{database}-properties--get
+      x-filename-id: database-dataguard-databases-database-properties-get
+  /database/dataguard/databases/{database}/properties/{property}:
+    get:
+      tags:
+      - Data Guard
+      summary: Get a database Data Guard property
+      description: Get a database Data Guard property. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database Name
+        required: true
+        schema:
+          type: string
+      - name: property
+        in: path
+        description: Property Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Information on a specific Data Guard property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
+      x-internal-id: database-dataguard-databases-{database}-properties-{property}-get
+      x-filename-id: database-dataguard-databases-database-properties-property-get
+    put:
+      tags:
+      - Data Guard
+      summary: Set the value of a database Data Guard property
+      description: Sets the value of a database Data Guard property. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: database
+        in: path
+        description: Database Name
+        required: true
+        schema:
+          type: string
+      - name: property
+        in: path
+        description: Property Nane
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  description: Value of the property to set
+                  default: ''
+            examples:
+              set_value:
+                summary: Sets a Value
+                value:
+                  value: '2'
+      responses:
+        '201':
+          description: Data Guard status
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+        '400':
+          description: Data Guard Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorObject'
+          headers:
+            DG-STATUS:
+              schema:
+                type: string
+              description: Status of the Data Guard operation.
+      x-internal-id: database-dataguard-databases-{database}-properties-{property}-put
+      x-filename-id: database-dataguard-databases-database-properties-property-put
+components:
+  schemas:
+    DataguardInstanceItem:
+      type: object
+      properties:
+        inst_id:
+          type: integer
+        instance_number:
+          type: integer
+        instance_name:
+          type: string
+        host_name:
+          type: string
+        version:
+          type: string
+        version_legacy:
+          type: string
+        version_full:
+          type: string
+        startup_time:
+          type: string
+          format: date-time
+        status:
+          type: string
+        parallel:
+          type: string
+        thread#:
+          type: integer
+        archiver:
+          type: string
+        log_switch_wait:
+          type: string
+        logins:
+          type: string
+        shutdown_pending:
+          type: string
+        database_status:
+          type: string
+        instance_role:
+          type: string
+        active_state:
+          type: string
+        blocked:
+          type: string
+        con_id:
+          type: integer
+        instance_mode:
+          type: string
+        edition:
+          type: string
+        family:
+          type: string
+        database_type:
+          type: string
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    ErrorObject:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        instance:
+          type: string
+    DataguardConfigurationPropertyItem:
+      type: object
+      properties:
+        property:
+          type: string
+        property_type:
+          type: string
+        value:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationItemLinks:
+      type: object
+      properties:
+        inst_id:
+          type: integer
+        database:
+          type: string
+        connection_identifier:
+          type: string
+        dataguard_role:
+          type: string
+        redo_source:
+          type: string
+        enabled:
+          type: string
+        status:
+          type: integer
+        severity:
+          type: string
+        status_message:
+          type: string
+        version:
+          type: string
+        con_id:
+          type: integer
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationPropertiesCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardInstanceCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardInstanceItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationItem:
+      type: object
+      properties:
+        inst_id:
+          type: integer
+        database:
+          type: string
+        connection_identifier:
+          type: string
+        dataguard_role:
+          type: string
+        redo_source:
+          type: string
+        enabled:
+          type: string
+        status:
+          type: integer
+        severity:
+          type: string
+        status_message:
+          type: string
+        version:
+          type: string
+        con_id:
+          type: integer
+    DataguardConfigurationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardConfigurationItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth/auth
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: /oauth/auth
+          tokenUrl: /oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+externalDocs:
+  description: Oracle REST Data Services product documentation.
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/

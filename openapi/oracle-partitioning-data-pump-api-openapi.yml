@@ -1,0 +1,462 @@
+openapi: 3.2.0
+info:
+  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
+
+    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
+
+    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
+
+    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  version: 2026.03.26
+  title: Oracle REST Data Services Data Pump API
+  contact:
+    name: Oracle REST Data Services
+    url: https://www.oracle.com/database/technologies/appdev/rest.html
+  x-summary: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
+tags:
+- name: Data Pump
+  description: Services related to Oracle Data Pump. Oracle Data Pump technology enables very high-speed movement of data and metadata from one database to another. Functionality may differ depending on the configuration and permissions the database user has.
+paths:
+  /database/datapump/export:
+    post:
+      tags:
+      - Data Pump
+      summary: Create an export data pump job
+      description: Create a Data Pump export job with the specified parameters and start it. Data and object structures can be exported to a directory in the Oracle database server or to Oracle Object Store. Refer to Oracle Data Pump documentation for a more detailed explanation of parameters. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                credential_name:
+                  type: string
+                  description: Specify the name of the credentials, owned by the database user, to be used to export to object storage.
+                datapump_dir:
+                  type: string
+                  description: Specify the database directory to use.
+                  default: DATA_PUMP_DIR
+                file_name:
+                  type: string
+                  description: The file name pattern to use for Data Pump export. Will default to a pattern with a timestamp in the name. Required when credential_name is specified. When credential_name is specified the file_name must be a URI format for an Oracle Object Store location.
+                filter:
+                  type: string
+                  description: The filter to apply to identify database objects for export. Required when job_mode is not FULL.
+                job_mode:
+                  type: string
+                  description: Specify the Data Pump job mode.
+                  default: SCHEMA
+                  enum:
+                  - FULL
+                  - SCHEMA
+                  - TABLE
+                  - TABLESPACE
+                threads:
+                  type: integer
+                  description: The maximum number of worker processes that can be used for the job. Set this parameter to adjust the amount of resources used for a job.
+                name_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Name Expression filter.
+                schema_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Schema Expression filter.
+                tablespace_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Tablespace Expression filter.
+                keep_master:
+                  type: integer
+                  description: 'indicates whether the Data Pump control job table should be deleted or retained at the end of an Oracle Data Pump job that completes successfully. '
+                  default: 1
+                  enum:
+                  - 0
+                  - 1
+            examples:
+              export_scott_tables:
+                summary: Export tables beginning with EMP, but not named EMP, from the SCOTT schema.
+                value:
+                  job_mode: TABLE
+                  name_expressions:
+                  - expression: '!=''EMP'''
+                  - expression: LIKE 'EMP%'
+                  schema_expressions:
+                  - expression: IN ('SCOTT')
+                  keep_master: 1
+      responses:
+        '201':
+          description: Description of the Data Pump export job that has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataPumpJobsItem'
+      x-internal-id: database-datapump-export-post
+      x-filename-id: database-datapump-export-post
+  /database/datapump/import:
+    post:
+      tags:
+      - Data Pump
+      summary: Create an import data pump job
+      description: Create a Data Pump import job with the specified parameters and start it. Data and object structures can be imported from a directory in the Oracle database server or from Oracle Object Store. Refer to Oracle Data Pump documentation for a more detailed explanation of parameters. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - file_name
+              properties:
+                credential_name:
+                  type: string
+                  description: Specify the name of the credential, owned by the database user, to be used to import from object storage.
+                datapump_dir:
+                  type: string
+                  description: Specify the database directory to use.
+                  default: DATA_PUMP_DIR
+                job_mode:
+                  type: string
+                  description: Specify the Data Pump job mode.
+                  default: SCHEMA
+                  enum:
+                  - FULL
+                  - SCHEMA
+                  - TABLE
+                  - TABLESPACE
+                threads:
+                  type: integer
+                  description: The maximum number of worker processes that can be used for the job. Set this parameter to adjust the amount of resources used for a job.
+                file_name:
+                  type: string
+                  description: The file name pattern to use for Data Pump import. Required when operation is IMPORT. When credential_name is specified the file_name must be a URI format for an Oracle Object Store location.
+                remap_schemas:
+                  type: array
+                  description: Used to define Remap Schema parameters for an import job.
+                  items:
+                    type: object
+                    required:
+                    - source
+                    - target
+                    properties:
+                      source:
+                        type: string
+                        description: Source schema to remap from.
+                      target:
+                        type: string
+                        description: Target schema to remap to.
+                name_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Name Expression filter.
+                schema_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Schema Expression filter.
+                tablespace_expressions:
+                  type: array
+                  description: Used to define Metadata Filter parameters for a Data Pump job.
+                  items:
+                    type: object
+                    required:
+                    - expression
+                    properties:
+                      expression:
+                        type: string
+                        description: An SQL clause to be used as a Tablespace Expression filter.
+                keep_master:
+                  type: integer
+                  description: The maximum number of worker processes that can be used for the job. Set this parameter to adjust the amount of resources used for a job.
+                  default: 1
+                  enum:
+                  - 0
+                  - 1
+            examples:
+              import_scott_to_hr:
+                summary: Import objects from the USERS tablespace and remap SCOTT schema objects to HR schema.
+                value:
+                  job_mode: SCHEMA
+                  file_name: EXPDAT%U2SCOTT.DMP
+                  tablespace_expressions:
+                  - expression: = 'USERS'
+                  remap_schemas:
+                  - source: SCOTT
+                    target: HR
+                  keep_master: 1
+      responses:
+        '201':
+          description: Description of the Data Pump import job that has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataPumpJobsItem'
+      x-internal-id: database-datapump-import-post
+      x-filename-id: database-datapump-import-post
+  /database/datapump/jobs/:
+    get:
+      tags:
+      - Data Pump
+      summary: Get all data pump jobs
+      description: Describes all Data Pump jobs in the database. Uses DBA_DATAPUMP_JOBS view. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: All Data Pump jobs in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataPumpJobs'
+      x-internal-id: database-datapump-jobs--get
+      x-filename-id: database-datapump-jobs-get
+  /database/datapump/jobs/{owner_name},{job_name}/:
+    get:
+      tags:
+      - Data Pump
+      summary: Get a specific data pump job
+      description: Describes a specific Data Pump job in the database. Uses DBA_DATAPUMP_JOBS view. When the specified job is a Data Pump Export job, the response contains links to the log and export files. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      parameters:
+      - name: owner_name
+        in: path
+        description: Owner of the Data Pump job.
+        required: true
+        schema:
+          type: string
+      - name: job_name
+        in: path
+        description: Name of the Data Pump job.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Details of the Data Pump job. For an EXPORT job, this will also include links to log and export files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataPumpJobsItem'
+      x-internal-id: database-datapump-jobs-{owner_name},{job_name}--get
+      x-filename-id: database-datapump-jobs-owner_name-job_name-get
+  /database/datapump/jobs/{owner_name},{job_name}/{filename}:
+    get:
+      tags:
+      - Data Pump
+      summary: Get a file for a specific data pump job
+      description: Returns the log or export file for the given data pump job. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      parameters:
+      - name: owner_name
+        in: path
+        description: Owner of the Data Pump job.
+        required: true
+        schema:
+          type: string
+      - name: job_name
+        in: path
+        description: Name of the Data Pump job.
+        required: true
+        schema:
+          type: string
+      - name: filename
+        in: path
+        description: Name of the file associated with the Data Pump job.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested file for the Data Pump job. Log files are text/plain. Export file are application/vnd.tcpdump.pcap.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/vnd.tcpdump.pcap:
+              schema:
+                type: string
+                format: binary
+      x-internal-id: database-datapump-jobs-{owner_name},{job_name}-{filename}-get
+      x-filename-id: database-datapump-jobs-owner_name-job_name-filename-get
+components:
+  schemas:
+    DataPumpJobsItem:
+      type: object
+      description: This object represents a specified Data Pump job in the database.
+      properties:
+        owner_name:
+          type: string
+          description: User that initiated the job.
+        job_name:
+          type: string
+          description: User-supplied name for the job (or the default name generated by the server).
+        operation:
+          type: string
+          description: Type of job.
+        job_mode:
+          type: string
+          description: Mode of job.
+        state:
+          type: string
+          description: Current job state.
+        degree:
+          type: integer
+          description: Number of worker processes performing the operation.
+        attached_sessions:
+          type: integer
+          description: Number of sessions attached to the job.
+        datapump_sessions:
+          type: integer
+          description: Number of Data Pump sessions participating in the job.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    DataPumpJobs:
+      type: object
+      description: DBA_DATAPUMP_JOBS identifies all active Data Pump jobs in the database, regardless of their state, on an instance (or on all instances for Real Application Clusters). It also show all Data Pump master tables not currently associated with an active job.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPumpJobsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    Filter:
+      type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
+  examples:
+    FilterCriteria:
+      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
+      value:
+        SALARY: 1000
+    OrderByProperty:
+      summary: Order by with literals.
+      value:
+        $orderby:
+          SALARY: ASC
+          ENAME: DESC
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
+  parameters:
+    Filter:
+      name: q
+      in: query
+      description: Filtering is the process of limiting a collection resource by using a per-request dynamic filter definition across multiple page resources, where each page contains a subset of items found in the complete collection. Filtering enables efficient traversal of large collections.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Filter'
+      examples:
+        FilterCriteriaExample:
+          $ref: '#/components/examples/FilterCriteria'
+        OrderByPropertyExample:
+          $ref: '#/components/examples/OrderByProperty'
+        FilterAndOrderExample:
+          $ref: '#/components/examples/FilterAndOrder'
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        format: int32
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth/auth
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: /oauth/auth
+          tokenUrl: /oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+externalDocs:
+  description: Oracle REST Data Services product documentation.
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/

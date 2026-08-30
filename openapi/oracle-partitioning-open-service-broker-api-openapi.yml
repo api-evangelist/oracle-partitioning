@@ -1,0 +1,272 @@
+openapi: 3.2.0
+info:
+  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
+
+    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
+
+    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
+
+    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  version: 2026.03.26
+  title: Oracle REST Data Services Open Service Broker API
+  contact:
+    name: Oracle REST Data Services
+    url: https://www.oracle.com/database/technologies/appdev/rest.html
+  x-summary: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
+tags:
+- name: Open Service Broker
+  description: Services related to the Open Service Broker compliant implementation that ORDS provides.
+paths:
+  /openservicebroker/v2/catalog:
+    get:
+      tags:
+      - Open Service Broker
+      summary: Get the catalog of services that the service broker offers
+      description: Returns the Open Service Broker catalog for the associated database pool.
+      parameters:
+      - $ref: '#/components/parameters/OpenServiceBrokerAPIVersion'
+      - $ref: '#/components/parameters/OpenServiceBrokerRequestIdentity'
+      - $ref: '#/components/parameters/OpenServiceBrokerOriginatingIdentity'
+      responses:
+        '200':
+          description: List of all services available on the Service Broker.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenServiceBrokerCatalog'
+      x-internal-id: openservicebroker-v2-catalog-get
+      x-filename-id: openservicebroker-v2-catalog-get
+  /openservicebroker/v2/service_instances/{instance_id}:
+    delete:
+      tags:
+      - Open Service Broker
+      summary: Deprovision a service instance
+      description: This service exists to satisfy Open Service Broker orphan mitigation flows. Service instances are not persisted by ORDS. As a result, there are no objects to delete.
+      parameters:
+      - $ref: '#/components/parameters/OpenServiceBrokerAPIVersion'
+      - $ref: '#/components/parameters/OpenServiceBrokerRequestIdentity'
+      - $ref: '#/components/parameters/OpenServiceBrokerOriginatingIdentity'
+      - name: instance_id
+        in: path
+        description: Instance id of instance to provision.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Confirmation that the service instance does not exist in ORDS. There is no content returned.
+      x-internal-id: openservicebroker-v2-service_instances-{instance_id}-delete
+      x-filename-id: openservicebroker-v2-service_instances-instance_id-delete
+    put:
+      tags:
+      - Open Service Broker
+      summary: Provision a service instance
+      description: When the Service Broker receives a provision request from the Platform, it MUST take whatever action is necessary to create a new resource, according to the Service Plan specified.
+      parameters:
+      - $ref: '#/components/parameters/OpenServiceBrokerAPIVersion'
+      - $ref: '#/components/parameters/OpenServiceBrokerRequestIdentity'
+      - $ref: '#/components/parameters/OpenServiceBrokerOriginatingIdentity'
+      - name: instance_id
+        in: path
+        description: Instance id of instance to provision.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceInstanceProvisionRequest'
+      responses:
+        '201':
+          description: Confirmation that the corresponding Service Plan action was carried out.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceInstanceProvision'
+      x-internal-id: openservicebroker-v2-service_instances-{instance_id}-put
+      x-filename-id: openservicebroker-v2-service_instances-instance_id-put
+components:
+  schemas:
+    OpenServiceBrokerService:
+      type: object
+      description: This object is a list of all services available on the Service Broker.
+      properties:
+        name:
+          type: string
+          description: The name of the Service Offering.
+        id:
+          type: string
+          description: An identifier used to correlate this Service Offering in future requests to the Service Broker. This MUST be globally unique such that Platforms (and their users) MUST be able to assume that seeing the same value (no matter what Service Broker uses it) will always refer to this Service Offering.
+        description:
+          type: string
+          description: A short description of the service.
+        bindable:
+          type: boolean
+          description: Specifies whether Service Instances of the service can be bound to applications. This specifies the default for all Service Plans of this Service Offering.
+        tags:
+          type: array
+          description: Tags provide a flexible mechanism to expose a classification, attribute, or base technology of a service, enabling equivalent services to be swapped out without changes to dependent logic in applications, buildpacks, or other services.
+          items:
+            type: string
+        metadata:
+          type: object
+          description: An opaque object of metadata for a Service Offering which aid in the display of catalog data. See [Service Metadata Conventions](https://github.com/openservicebrokerapi/servicebroker/blob/master/profile.md#service-metadata) for more details.
+          properties:
+            displayName:
+              type: string
+              description: The name of the service to be displayed in graphical clients.
+            documentationUrl:
+              type: string
+              description: Link to documentation page for the service.
+            imageUrl:
+              type: string
+              description: TThe URL to an image or a data URL containing an image.
+            longDescription:
+              type: string
+              description: Long description of the Service Offering.
+            providerDisplayName:
+              type: string
+              description: The name of the upstream entity providing the actual service.
+            supportUrl:
+              type: string
+              description: Link to support page for the service.
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenServiceBrokerPlan'
+    OpenServiceBrokerSchemas:
+      type: object
+      description: Schema definitions for Service Instances for the Service Plan. Note that Service Bindings not defined in this release.
+      properties:
+        service_instance:
+          $ref: '#/components/schemas/OpenServiceBrokerServiceInstanceSchema'
+    ServiceInstanceProvision:
+      type: object
+      description: The response for successfully provisioning a service instance will vary.
+    OpenServiceBrokerServiceInstanceSchema:
+      type: object
+      description: The schema definitions for creating and updating a Service Instance.
+      properties:
+        create:
+          $ref: '#/components/schemas/OpenServiceBrokerSchemaParameters'
+    OpenServiceBrokerCatalog:
+      type: object
+      description: This object is a list of all services available on the Service Broker.
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenServiceBrokerService'
+    OpenServiceBrokerPlan:
+      type: object
+      description: The representation of the costs and benefits for a given variant of the Service Offering, potentially as a tier.
+      properties:
+        name:
+          type: string
+          description: The name of the Service Plan.
+        id:
+          type: string
+          description: An identifier used to correlate this Plan in future requests to the Service Broker. This MUST be globally unique such that Platforms (and their users) MUST be able to assume that seeing the same value (no matter what Service Broker uses it) will always refer to this Service Plan.
+        description:
+          type: string
+          description: A short description of the Service Plan.
+        free:
+          type: boolean
+          description: When false, Service Instances of this Service Plan have a cost. The default is true.
+        metadata:
+          type: object
+          description: An opaque object of metadata for a Service Offering which aid in the display of catalog data. See [Service Metadata Conventions](https://github.com/openservicebrokerapi/servicebroker/blob/master/profile.md#service-metadata) for more details.
+          properties:
+            displayName:
+              type: string
+              description: The name of the Service Plan to be displayed in graphical clients.
+            bullets:
+              type: array
+              description: Features of this Service Plan, to be displayed in a bulleted-list.
+              items:
+                type: string
+        schemas:
+          $ref: '#/components/schemas/OpenServiceBrokerSchemas'
+    OpenServiceBrokerSchemaParameters:
+      type: object
+      description: The schema definitions for providing parameters to a Service Broker operation.
+      properties:
+        parameters:
+          description: The schema definition for the input parameters. Each input parameter is expressed as a property within a JSON object.
+          type: object
+  parameters:
+    OpenServiceBrokerOriginatingIdentity:
+      name: X-Broker-API-Originating-Identity
+      in: header
+      description: The identity of the Platform user that initiated the request from the Platform. The value for this header consists of two parts which are described in the Open Service Broker specification.
+      required: false
+      schema:
+        type: string
+    OpenServiceBrokerAPIVersion:
+      name: X-Broker-API-Version
+      in: header
+      description: The version number of the Service Broker API that the Platform will use.
+      required: true
+      schema:
+        type: string
+    OpenServiceBrokerRequestIdentity:
+      name: X-Broker-API-Request-Identity
+      in: header
+      description: A Platform might wish to uniquely identify a specific request as it flows throughout the system. This header holds that request tracking information.
+      required: false
+      schema:
+        type: string
+  requestBodies:
+    ServiceInstanceProvisionRequest:
+      description: What a Service Instance represents can vary by service and plan. This object represents a request to provision a Service Instance.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - service_id
+            - plan_id
+            properties:
+              service_id:
+                type: string
+                description: The ID of a Service Offering from the catalog for this Service Broker.
+              plan_id:
+                type: string
+                description: The ID of a Service Plan from the Service Offering that has been requested.
+              parameters:
+                type: object
+                description: Configuration parameters for the Service Instance. Service Brokers SHOULD ensure that the client has provided valid configuration parameters and values for the operation.
+          examples:
+            provision_new_user:
+              summary: This is an example request body to create a new user in the database.
+              value:
+                service_id: 'c03a85a4-dc35-db7d-3692-1871284187aa '
+                plan_id: c03a85a4-dc35-c8ef-e432-1871284187aa
+                parameters:
+                  user: testuser1
+                  password: letmein
+                  grants:
+                  - create session
+                  - resource
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth/auth
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: /oauth/auth
+          tokenUrl: /oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+externalDocs:
+  description: Oracle REST Data Services product documentation.
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/

@@ -1,0 +1,897 @@
+openapi: 3.2.0
+info:
+  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
+
+    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
+
+    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
+
+    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  version: 2026.03.26
+  title: Oracle REST Data Services Pluggable Database Lifecycle Management API
+  contact:
+    name: Oracle REST Data Services
+    url: https://www.oracle.com/database/technologies/appdev/rest.html
+  x-summary: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
+tags:
+- name: Pluggable Database Lifecycle Management
+  description: Services related to managing pluggable databases in an Oracle multitenant database instance.
+paths:
+  /database/pdbs/:
+    get:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: Get all pluggable databases
+      description: Oracle Multitenant license is required when there is more than one user-created pluggable database. Returns records from GV$PDBS in the corresponding Container Database. This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: Description of all Pluggable Databases in the Container database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableDatabases'
+      x-internal-id: database-pdbs--get
+      x-filename-id: database-pdbs-get
+    post:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: Create a Pluggable Database
+      description: Create a pluggable database from PDB$SEED or from an XML metadata file accessible to the database instance, hot clone PDB from another PDB or snapshot. The use of Oracle Transparent Data Encryption is only supported in topologies where the database and Oracle REST Data Services are on the same host. This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator role to invoke this service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - new_pdb_name
+              properties:
+                new_pdb_name:
+                  type: string
+                  description: The name of the new PDB.
+                admin_user:
+                  type: string
+                  description: The administrator username for the new PDB. This property is required when creating pdb from PDB$SEED.
+                admin_password:
+                  type: string
+                  description: The administrator password for the new PDB. This property is required when creating pdb from PDB$SEED.
+                roles:
+                  type: string
+                  description: Grant one or more roles to the PDB_DBA role. This property is optional when creating pdb from PDB$SEED.
+                source_pdb_name:
+                  type: string
+                  description: The name of the source PDB. This property is for clone pdb and clone pdb from snapshot.
+                snapshot_name:
+                  type: string
+                  description: The name of the PDB snapshot that the new PDB will clone from. Only one of snapshot_name, snapshot_scn and snapshot_timestame can be provided.
+                snapshot_scn:
+                  type: string
+                  description: The id of the PDB snapshot that new PDB will clone from. Only one of snapshot_name, snapshot_scn and snapshot_timestame can be provided.
+                snapshot_timestamp:
+                  type: string
+                  description: The time stamp of the PDB snapshot that new PDB will clone from. Only one of snapshot_name, snapshot_scn and snapshot_timestame can be provided.
+                as_clone:
+                  type: boolean
+                  description: Indicate if 'AS CLONE' option should be used in the command to plug in a PDB. This property is optional when creating pdb from XML file.
+                xml_file_name:
+                  type: string
+                  description: The path of the XML metadata file to use when plugging-in a PDB. This property is required when creating pdb from XML file.
+                source_file_name_convert:
+                  type: string
+                  description: Values can be a source filename convert pattern or NONE, This property is optional when creating pdb from XML file.
+                xml_file_action:
+                  type: string
+                  description: Indicate which copy option should be used in the command to plug in a PDB. This property is optional when creating pdb from XML file.
+                  enum:
+                  - COPY
+                  - NOCOPY
+                  - MOVE
+                keystore_password:
+                  type: string
+                  description: TDE password when applicable (optional). This property is optional when creating pdb from a source pdb or a snapshot.
+                file_name_convert:
+                  type: string
+                  description: Relevant for create and plug operations. As defined in the  Oracle Multitenant Database documentation. Values can be a filename convert pattern or NONE.
+                service_name_convert:
+                  type: string
+                  description: Relevant for create and plug operations. As defined in the  Oracle Multitenant Database documentation. Values can be an even number of strings or NONE.
+                temp_file_reuse:
+                  type: boolean
+                  description: Relevant for create and plug operations. True for temporary file reusage.
+                no_data:
+                  type: boolean
+                  description: Relevant for clone operations. Specifies that the source pluggable database data model definition is cloned but not the data. Defaults to false.
+                snapshot_copy:
+                  type: boolean
+                  description: Creates a snapshot copy PDB from a storage-managed snapshot. Storage-managed snapshots are only supported on specific file systems. It must not be used with snapshotName, snapshotScn and snapshotTimestamp parameters.
+                create_file_dest:
+                  type: string
+                  description: NONE to disable Oracle Managed Files for the PDB, Specify either directory_path_name or diskgroup_name to enable Oracle Managed Files for the PDB. It is optional.
+                storage:
+                  type: string
+                  description: Storage limits for the PDB. it can be UNLIMITED, MAXSIZE or MAX_AUDIT_SIZE, MAX_DIAG_SIZE etc.
+                dryrun:
+                  type: boolean
+                  description: If defined, the response will contain a JSON object with the information of the script that was generated for execution. A database is not created when this property is set to true.
+            examples:
+              create_pdb_from_seed:
+                summary: This is an example request body to create a pluggable database, called pdb_sample in this case, from PDB$SEED with unlimited storage. In this example fileNameConversions parameter is also provided which will result in a FILE_NAME_CONVERT clause included in the CREATE PLUGGABLE DATABASE statement executed in the container database.
+                value:
+                  new_pdb_name: pdb_sample
+                  admin_user: pdbadmin
+                  admin_password: W3lc0m31
+                  file_name_convert: ('/disk1/oracle/dbs/pdbseed/','/disk1/oracle/dbs/pdb_sample/')
+                  service_name_convert: ('service1','service2')
+                  storage: UNLIMITED
+                  roles: (DBA)
+                  temp_file_reuse: true
+              create_pdb_clone:
+                summary: 'This is an example request body to create a new pluggable database by cloning the pluggable database. '
+                value:
+                  new_pdb_name: pdb_sample
+                  source_pdb_name: src_pdb_sample
+                  file_name_convert: ('/disk1/oracle/dbs/pdb_sample/','/disk1/oracle/dbs/pdb_new/')
+                  service_name_convert: ('service1','service2')
+                  keystore_password: password
+                  storage: (MAXSIZE 2G MAX_SHARED_TEMP_SIZE 2G)
+                  temp_file_reuse: true
+              create_pdb_from_xml:
+                summary: This is an example request body to plugin a pluggable database called sales_pdb into the container database. The pluggable database definition is specified in the sales_pdb.xml file in this case.
+                value:
+                  new_pdb_name: newpdb
+                  xml_file_name: /disk1/oracle/dbs/pdb.xml
+                  source_file_name_convert: NONE
+                  xml_file_action: MOVE
+                  file_name_convert: ('/disk1/oracle/dbs/pdbxml','/disk1/oracle/dbs/newpdb')
+                  as_clone: 'true'
+                  storage: (MAXSIZE 2G)
+                  temp_file_reuse: true
+      responses:
+        '202':
+          description: The response indicates that the dbms scheduler job is created and the information on the scheduler job for creating a pdb.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulerJobsItem'
+      x-internal-id: database-pdbs--post
+      x-filename-id: database-pdbs-post
+  /database/pdbs/{pdb_name}:
+    get:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: Get a pluggable database
+      description: Returns data from GV$PDBS for the specified database in the corresponding Container Database. This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: pdb_name
+        in: path
+        description: Name of the Pluggable Database.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Description of a specific Pluggable Database. All data files used by the Pluggable Database are also included.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
+      x-internal-id: database-pdbs-{pdb_name}-get
+      x-filename-id: database-pdbs-pdb_name-get
+    patch:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: Update a specific PDB
+      description: This includes unplug, open, or close a PDB. Unplug operation has a significant impact on the specified pluggable databases. The unplug operation can delete the PDB. The use of Oracle Transparent Data Encryption is only supported in topologies where the database and Oracle REST Data Services are on the same host. This service requires db.cdb.admin user credentials to be set in the pool configuration. ORA-errors need to be reviewed by the user. A client requires SQL administrator role to invoke this service.
+      parameters:
+      - name: pdb_name
+        in: path
+        description: Name of the Pluggable Database to open, close or unplug.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                unplug_file_name:
+                  type: string
+                  description: Relevant for Unplug operations, the full path name of the operating system file in which to store information about the PDB.
+                drop_pdb:
+                  type: boolean
+                  description: Relevant for Unplug operations, if it is true, this will drop the pdb after unplug operation.
+                state:
+                  type: string
+                  description: Relevant for open/close pdb operations, the target state of the PDB.
+                  enum:
+                  - OPEN
+                  - CLOSE
+                read_only:
+                  type: boolean
+                  description: Relevant for open pdb operations, change the open mode to READ ONLY.
+                read_write:
+                  type: boolean
+                  description: Relevant for open pdb operations, change the open mode to READ WRITE.
+                restricted:
+                  type: boolean
+                  description: Relevant for open pdb operations, If it is true, then the PDB is accessible only to users with the RESTRICTED SESSION privilege in the PDB.
+                force:
+                  type: boolean
+                  description: Relevant for open/close pdb operations, Specify this keyword to change the open mode of a PDB from READ WRITE to READ ONLY, or from READ ONLY to READ WRITE. The FORCE keyword allows users to remain connected to the PDB while the open mode is changed.
+                instances:
+                  type: string
+                  example: ALL
+                  description: Relevant for open/close pdb operations, specify one or more instance names, in a comma-separated list enclosed in parenthesis. This modifies the state of the PDB only in those instances.
+                immediate:
+                  type: boolean
+                  description: Relevant for close pdb operations, If it is true, then this is the PDB equivalent of the SQL*Plus SHUTDOWN command with the immediate mode. Otherwise, the PDB is shut down with the normal mode
+                dryrun:
+                  type: boolean
+                  description: If defined, the response will contain a JSON object with the information of the script that was generated for execution. No action is taken when this property is true and only the script text is returned.
+            examples:
+              open_pdb:
+                summary: This is an example request body to open a pluggable database.
+                value:
+                  state: open
+                  read_write: true
+              close_pdb:
+                summary: This is an example request body to close a pluggable database.
+                value:
+                  state: close
+                  immediate: false
+              unplug_pdb:
+                summary: This is an example request body to unplug and drop the database specified by the pdb_name parameter in the URL. The pluggable database will be disassociated from the container database and therefore unusable. An XML file (sales_pdb.xml in this example) will be generated with metadata about the pluggable database after it is unplugged. This metadata contains the required information to enable a CREATE PLUGGABLE DATABASE statement on a target container database to plug in the pluggable database.
+                value:
+                  drop_pdb: 'true'
+                  unplug_file_name: /disk1/oracle/dbs/sales_pdb.xml
+      responses:
+        '200':
+          description: Description of the specific Pluggable Database that is opened/closed. All data files used by the Pluggable Database are also included.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
+        '202':
+          description: The response is only for unplug operations and indicates that the dbms scheduler job is created and the information on the scheduler job for unplugging a pdb.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulerJobsItem'
+        '404':
+          description: Bad request, it could be the pdb name in URL does not exist
+      x-internal-id: database-pdbs-{pdb_name}-patch
+      x-filename-id: database-pdbs-pdb_name-patch
+    delete:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: Drop a PDB
+      description: Drop a pluggable database. This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: pdb_name
+        in: path
+        description: Name of the Pluggable Database.
+        required: true
+        schema:
+          type: string
+      - name: including_datafiles
+        in: query
+        description: To delete the data files associated with the PDB being dropped. The temp file for the PDB is also deleted
+        schema:
+          type: boolean
+      - name: keep_datafiles
+        in: query
+        description: To retain the data files associated with the PDB after the PDB is dropped..
+        schema:
+          type: boolean
+      - name: force
+        in: query
+        description: To drop an orphaned application root container
+        schema:
+          type: boolean
+      - name: dryrun
+        in: query
+        description: If defined, the response will contain a JSON object with the information of the script that was generated for execution. Script execution does not happen and the database is not dropped.
+        schema:
+          type: boolean
+      responses:
+        '204':
+          description: The response will indicate the successful execution of a series of PL/SQL statements.
+      x-internal-id: database-pdbs-{pdb_name}-delete
+      x-filename-id: database-pdbs-pdb_name-delete
+  /database/pdb_snapshots/:
+    get:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: The snapshots of all pluggable databases (PDBs) in the Container Database
+      description: Returns records from dba_pdb_snapshots. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Filter'
+      responses:
+        '200':
+          description: PDB snapshots in the container database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshots'
+      x-internal-id: database-pdb_snapshots--get
+      x-filename-id: database-pdb_snapshots-get
+  /database/pdb_snapshots/{pdb_name}/:
+    get:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: The list of all snapshots taken for the specified pluggable databases (PDBs)
+      description: Returns records from dba_pdb_snapshots based on container name. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: pdb_name
+        in: path
+        description: The name of the specified PDB to retrieve the list of snapshots for.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDB snapshots in the specified pluggable database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshots'
+      x-internal-id: database-pdb_snapshots-{pdb_name}--get
+      x-filename-id: database-pdb_snapshots-pdb_name-get
+  /database/pdb_snapshots/{pdb_name}/{snapshot_name}:
+    get:
+      tags:
+      - Pluggable Database Lifecycle Management
+      summary: The specific snapshot taken of the specific pluggable databases (PDBs)
+      description: Returns records from dba_pdb_snapshots based on container name and snapshot name. A client requires SQL Administrator role to invoke this service.
+      parameters:
+      - name: pdb_name
+        in: path
+        description: The name of the specified PDB to retrieve the snapshot for.
+        required: true
+        schema:
+          type: string
+      - name: snapshot_name
+        in: path
+        description: The name of the snapshot to retrieve.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDB snapshot in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabasePluggableSnapshotWithFileItem'
+      x-internal-id: database-pdb_snapshots-{pdb_name}-{snapshot_name}-get
+      x-filename-id: database-pdb_snapshots-pdb_name-snapshot_name-get
+components:
+  schemas:
+    DatabasePluggableDatabases:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabasePluggableDatabasesItem:
+      type: object
+      description: This object describes a Pluggable Database associated with the current instance. The list of attributes may vary depending on database version.
+      properties:
+        inst_id:
+          type: integer
+          description: Instance number from which the associated GV$PDBS view information was obtained.
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        dbid:
+          type: integer
+          description: PDB identifier calculated when the PDB is created and stored in all file headers associated with the PDB.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        guid:
+          type: string
+          description: Globally unique identifier (GUID) of this PDB.
+        name:
+          type: string
+          description: Name of the PDB.
+        open_mode:
+          type: string
+          description: Open mode information.
+        restricted:
+          type: string
+          description: Indicates whether only users possessing RESTRICTED SESSION privilege can connect to the PDB.
+        open_time:
+          type: string
+          description: Date and time when the database was last opened.
+        create_scn:
+          type: integer
+          description: System change number (SCN) for the creation of this PDB.
+        total_size:
+          type: integer
+          description: Shows the disk space (in bytes) used by the PBB, including both data and temp files.
+        block_size:
+          type: integer
+          description: The current block size for the PDB.
+        recovery_status:
+          type: string
+          description: Shows whether recovery is enabled or disabled for the PDB.
+        snapshot_parent_con_id:
+          type: string
+          description: This column shows the container ID of the master PDB that this PDB is a snapshot clone of. This column shows a nonzero value only if the PDB is a snapshot clone. For all other cases, it shows a value of 0.
+        application_root:
+          type: string
+          description: Indicates whether the PDB is an application root.
+        application_pdb:
+          type: string
+          description: Indicates whether the PDB is an application PDB.
+        application_seed:
+          type: string
+          description: Indicates whether the PDB is an application seed (an application seed is also an application PDB).
+        application_root_con_id:
+          type: integer
+          description: If this PDB is an application PDB, the container ID of an application root to which this application PDB belongs. If this PDB is an application root clone, the container ID of an application root to which this application root clone belongs. Otherwise, NULL.
+        application_root_clone:
+          type: string
+          description: Indicates whether this PDB is an application root clone (YES) or not (NO).
+        proxy_pdb:
+          type: string
+          description: Indicates whether this PDB is a proxy PDB (YES) or not (NO).
+        local_undo:
+          type: integer
+          description: Shows whether the PDB is in local undo. This column is not relevant for CDB$ROOT.
+        undo_scn:
+          type: integer
+          description: System change number (SCN) at which the PDB was last converted from shared to local undo, or from local to shared undo. This column is not relevant for CDB$ROOT.
+        undo_timestamp:
+          type: string
+          description: Date and time at which the PDB was last converted from shared to local undo, or from local to shared undo. This column is not relevant for CDB$ROOT.
+        creation_time:
+          type: string
+          description: Date and time at which the PDB was created.
+        diagnostics_size:
+          type: integer
+          description: Shows the current disk space usage (in bytes) of the diagnostic traces generated in the PDB, which is represented by the CON_ID column of the row.
+        pdb_count:
+          type: integer
+          description: The number of user-created PDBs belonging to a given application root or CDB$ROOT. For all other containers, its value is 0.
+        audit_files_size:
+          type: integer
+          description: Shows the current disk space usage (in bytes) by Unified Audit files (.bin format) in the current PDB.
+        max_size:
+          type: integer
+          description: Shows the maximum amount of disk space (in bytes) that can  be used by data and temp files in the PDB.
+        max_diagnostics_size:
+          type: integer
+          description: Shows the maximum amount of disk space (in bytes) that can be used by diagnostic traces generated in the PDB.
+        max_audit_size:
+          type: integer
+          description: Shows the maximum amount of disk space (in bytes) that can be used by Unified Audit files (.bin format) in the PDB.
+        last_changed_by:
+          type: string
+          description: Indicates what type of user last changed the PDB.
+        tenant_id:
+          type: string
+          description: Pluggable database tenant key.
+        guid_base64:
+          type: string
+          description: The GUID of the PDB, encoded in base64.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabasePluggableSnapshotWithFileItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots and snapshot files associated with the current instance.
+      properties:
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
+          type: integer
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        snapshot_files:
+          type: string
+          description: The snapshot files.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    DatabasePluggableSnapshots:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    Filter:
+      type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
+    DatabasePluggableSnapshotItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots associated with the current instance.
+      properties:
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
+          type: integer
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    SchedulerJobsItem:
+      description: Represents a row in ALL_SCHEDULER_JOBS or DBA_SCHEDULER_JOBS views. See Oracle Database Reference documenation for more details.
+      type: object
+      properties:
+        owner:
+          type: string
+          description: Owner of the Scheduler job.
+        job_name:
+          type: string
+          description: Name of the Scheduler job.
+        job_subname:
+          type: string
+          description: Subname of the Scheduler job (for a job running a chain step).
+        job_style:
+          type: string
+          description: 'Job style: REGULAR, LIGHTWEIGHT, IN_MEMORY_RUNTIME, IN_MEMORY_FULL.'
+        job_creator:
+          type: string
+          description: Original creator of the job.
+        client_id:
+          type: string
+          description: Client identifier of the user creating the job.
+        global_uid:
+          type: string
+          description: Global user identifier of the user creating the job.
+        program_owner:
+          type: string
+          description: Owner of the program associated with the job.
+        program_name:
+          type: string
+          description: Name of the program associated with the job.
+        job_type:
+          type: string
+          description: Inline job action type.
+        schedule_owner:
+          type: string
+          description: Owner of the schedule that the job uses (can be a window or a window group)
+        schedule_name:
+          type: string
+          description: Name of the schedule that the job uses (can be a window or a window group)
+        schedule_type:
+          type: string
+          description: Type of the schedule that the job uses.
+        start_date:
+          type: string
+          description: Original scheduled start date of the job (for an inline schedule).
+        repeat_interval:
+          type: string
+          description: Inline schedule PL/SQL expression or calendar string.
+        event_queue_owner:
+          type: string
+          description: Owner of the source queue into which the event will be raised.
+        event_queue_name:
+          type: string
+          description: Name of the source queue into which the event will be raised.
+        event_queue_agent:
+          type: string
+          description: Name of the AQ agent used by the user on the event source queue (if it is a secure queue).
+        event_condition:
+          type: string
+          description: Boolean expression used as the subscription rule for the event on the source queue.
+        event_rule:
+          type: string
+          description: Name of the rule used by the coordinator to trigger the event-based job.
+        file_watcher_owner:
+          type: string
+          description: Owner of the file watcher on which this job is based.
+        file_watcher_name:
+          type: string
+          description: Name of the file watcher on which this job is based.
+        end_date:
+          type: string
+          description: Date after which the job will no longer run (for an inline schedule).
+        job_class:
+          type: string
+          description: Name of the job class associated with the job.
+        enabled:
+          type: string
+          description: Indicates whether the job is enabled (TRUE) or disabled (FALSE).
+        auto_drop:
+          type: string
+          description: Indicates whether the job will be dropped when it has completed (TRUE) or not (FALSE).
+        restart_on_recovery:
+          type: string
+          description: Indicates whether the step should be restarted on database recovery (TRUE) or not (FALSE).
+        restart_on_failure:
+          type: string
+          description: Indicates whether the step should be restarted on application failure (TRUE) or not (FALSE).
+        state:
+          type: string
+          description: Current state of the job.
+        job_priority:
+          type: integer
+          description: Priority of the job relative to other jobs in the same class.
+        run_count:
+          type: integer
+          description: Number of times the job has run.
+        uptime_run_count:
+          type: integer
+          description: Number of runs since the database last restarted. For in-memory jobs, this column is populated, but the RUN_COUNT column is not populated. For all other jobs, this column is NULL.
+        max_runs:
+          type: integer
+          description: Maximum number of times the job is scheduled to run.
+        failure_count:
+          type: integer
+          description: Number of times the job has failed to run.
+        uptime_failure_count:
+          type: integer
+          description: Number of failures since the database last restarted. For in-memory jobs, this column is populated, but the FAILURE_COUNT column is not populated. For all other jobs, this column is NULL.
+        max_failures:
+          type: integer
+          description: Number of times the job will be allowed to fail before being marked broken.
+        retry_count:
+          type: integer
+          description: Number of times the job has retried, if it is retrying.
+        last_start_date:
+          type: string
+          description: Last date on which the job started running.
+        last_run_duration:
+          type: string
+          description: Amount of time the job took to complete during the last run.
+        next_run_date:
+          type: string
+          description: Next date on which the job is scheduled to run.
+        schedule_limit:
+          type: string
+          description: Time after which a job which has not run yet will be rescheduled.
+        max_run_duration:
+          type: string
+          description: Maximum amount of time for which the job will be allowed to run.
+        logging_level:
+          type: string
+          description: Amount of logging that will be done pertaining to the job.
+        store_output:
+          type: string
+          description: Indicates whether all job output messages for the job are stored in the OUTPUT column of the *_JOB_RUN_DETAILS views for job runs that are logged.
+        stop_on_window_close:
+          type: string
+          description: Indicates whether the job will stop if a window associated with the job closes (TRUE) or not (FALSE).
+        instance_stickiness:
+          type: string
+          description: Indicates whether the job is sticky (TRUE) or not (FALSE).
+        raise_events:
+          type: string
+          description: List of job events to raise for the job.
+        system:
+          type: string
+          description: Indicates whether the job is a system job (TRUE) or not (FALSE).
+        job_weight:
+          type: integer
+          description: Weight of the job.
+        nls_env:
+          type: string
+          description: NLS environment of the job.
+        source:
+          type: string
+          description: Source global database identifier.
+        number_of_destinations:
+          type: integer
+          description: Number of destinations associated with this job.
+        destination_owner:
+          type: string
+          description: Owner of the destination object (if used), else NULL.
+        destination:
+          type: string
+          description: Destination that this job will run on.
+        credential_owner:
+          type: string
+          description: Owner of the credential to be used for an external job.
+        credential_name:
+          type: string
+          description: Name of the credential to be used for an external job.
+        instance_id:
+          type: integer
+          description: Instance on which the user requests the job to run.
+        deferred_drop:
+          type: string
+          description: Indicates whether the job will be dropped when completed due to user request (TRUE) or not (FALSE).
+        allow_runs_in_restricted_mode:
+          type: string
+          description: Indicates whether the job is allowed to run in restricted session mode (TRUE) or not (FALSE).
+        comments:
+          type: string
+          description: Comments on the job.
+        flags:
+          type: integer
+          description: This column is for internal use.
+        restartable:
+          type: string
+          description: Indicates whether the job can be restarted (TRUE) or not (FALSE).
+        has_constraints:
+          type: string
+          description: Indicates whether the job (not including the program of the job) is part of a resource constraint or incompatibility (TRUE) or not (FALSE).
+        connect_credential_owner:
+          type: string
+          description: Owner of connect credential.
+        connect_credential_name:
+          type: string
+          description: Name of connect credential.
+        fail_on_script_error:
+          type: string
+          description: Indicates whether this job fails on script error (TRUE) or not (FALSE).
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+  examples:
+    FilterCriteria:
+      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
+      value:
+        SALARY: 1000
+    OrderByProperty:
+      summary: Order by with literals.
+      value:
+        $orderby:
+          SALARY: ASC
+          ENAME: DESC
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
+  parameters:
+    Filter:
+      name: q
+      in: query
+      description: Filtering is the process of limiting a collection resource by using a per-request dynamic filter definition across multiple page resources, where each page contains a subset of items found in the complete collection. Filtering enables efficient traversal of large collections.
+      required: false
+      schema:
+        $ref: '#/components/schemas/Filter'
+      examples:
+        FilterCriteriaExample:
+          $ref: '#/components/examples/FilterCriteria'
+        OrderByPropertyExample:
+          $ref: '#/components/examples/OrderByProperty'
+        FilterAndOrderExample:
+          $ref: '#/components/examples/FilterAndOrder'
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        format: int32
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: /oauth/auth
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: /oauth/auth
+          tokenUrl: /oauth/token
+          scopes: {}
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes: {}
+externalDocs:
+  description: Oracle REST Data Services product documentation.
+  url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
