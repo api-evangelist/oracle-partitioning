@@ -185,7 +185,8 @@ apis:
   description: Services related to the Oracle database instance.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
-  tags:
+  tags: []
+  tags_raw:
   - General
   properties:
   - type: OpenAPI
