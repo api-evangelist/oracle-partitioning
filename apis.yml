@@ -38,13 +38,12 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-partitioning.png
 url: https://raw.githubusercontent.com/api-evangelist/oracle-partitioning/refs/heads/main/apis.yml
 created: '2024-01-01'
-modified: '2026-08-27'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - name: Oracle SQL Developer REST Services - Partitioning
-  description: >-
-    Oracle SQL Developer Web and SQLcl, the SQL surfaces through which partitions are actually created
-    and maintained. Partition DDL — CREATE TABLE ... PARTITION BY, ALTER TABLE ... SPLIT/MERGE/EXCHANGE/DROP
+  description: Oracle SQL Developer Web and SQLcl, the SQL surfaces through which partitions are actually
+    created and maintained. Partition DDL — CREATE TABLE ... PARTITION BY, ALTER TABLE ... SPLIT/MERGE/EXCHANGE/DROP
     PARTITION — has no REST operation in any Oracle contract and is issued here.
   image: https://www.oracle.com/a/ocom/img/sql-dev.jpg
   baseURL: https://{server}/{context-root}
@@ -57,10 +56,9 @@ apis:
   - type: Tutorial
     url: https://docs.oracle.com/en/database/oracle/oracle-database/19/vldbg/partition-admin.html
 - name: Oracle Cloud Infrastructure Database API - Partitioning
-  description: >-
-    The Oracle Cloud Infrastructure Database API, which manages the DB systems, Autonomous Databases and
-    Exadata infrastructure that host partitioned databases. It manages the database service, not individual
-    partitions.
+  description: The Oracle Cloud Infrastructure Database API, which manages the DB systems, Autonomous
+    Databases and Exadata infrastructure that host partitioned databases. It manages the database service,
+    not individual partitions.
   image: https://www.oracle.com/a/ocom/img/oci-logo.png
   baseURL: https://database.{region}.oraclecloud.com
   humanURL: https://www.oracle.com/cloud/
@@ -84,20 +82,17 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-data-dictionary-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-data-guard-api
   name: Oracle Partitioning Data Guard API
-  description: >-
-    Services related to Oracle Data Guard. The product must be installed in the Oracle database that ORDS
-    is configured to use.
+  description: Services related to Oracle Data Guard. The product must be installed in the Oracle database
+    that ORDS is configured to use.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -106,21 +101,18 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-data-guard-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-data-pump-api
   name: Oracle Partitioning Data Pump API
-  description: >-
-    Services related to Oracle Data Pump. Oracle Data Pump technology enables very high-speed movement
-    of data and metadata from one database to another. Functionality may differ depending on the configuration
-    and permissions the database user has.
+  description: Services related to Oracle Data Pump. Oracle Data Pump technology enables very high-speed
+    movement of data and metadata from one database to another. Functionality may differ depending on
+    the configuration and permissions the database user has.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -129,11 +121,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-data-pump-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -149,20 +139,17 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-data-tools-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-environment-api
   name: Oracle Partitioning Environment API
-  description: >-
-    Services related to the Oracle database installation. The implementation is only available for Unix
-    based operating systems.
+  description: Services related to the Oracle database installation. The implementation is only available
+    for Unix based operating systems.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -171,11 +158,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-environment-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -192,11 +177,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-general-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -212,11 +195,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-monitoring-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -232,20 +213,17 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-open-service-broker-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-oracle-apex-api
   name: Oracle Partitioning Oracle APEX API
-  description: >-
-    Services related to Oracle APEX. The product must be installed in the Oracle database that ORDS is
-    configured to use.
+  description: Services related to Oracle APEX. The product must be installed in the Oracle database that
+    ORDS is configured to use.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -254,11 +232,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-oracle-apex-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -274,11 +250,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-oracle-transactional-event-queues-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -294,11 +268,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-ords-rest-services-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -314,19 +286,16 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-performance-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-pluggable-database-lifecycle-management-api
   name: Oracle Partitioning Pluggable Database Lifecycle Management API
-  description: >-
-    Services related to managing pluggable databases in an Oracle multitenant database instance.
+  description: Services related to managing pluggable databases in an Oracle multitenant database instance.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -335,19 +304,16 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-pluggable-database-lifecycle-management-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-pluggable-database-snapshot-carousel-api
   name: Oracle Partitioning Pluggable Database Snapshot Carousel API
-  description: >-
-    Services related to managing pluggable databases snapshots in an Oracle database instance.
+  description: Services related to managing pluggable databases snapshots in an Oracle database instance.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -356,20 +322,17 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-pluggable-database-snapshot-carousel-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-rdf-graph-api
   name: Oracle Partitioning RDF Graph API
-  description: >-
-    Services related to Oracle RDF Graph. Oracle RDF Graph provides functionality to manage knowledge
-    graphs based on World Wide Web Consortium (W3C) standards such as RDF, OWL and SPARQL.
+  description: Services related to Oracle RDF Graph. Oracle RDF Graph provides functionality to manage
+    knowledge graphs based on World Wide Web Consortium (W3C) standards such as RDF, OWL and SPARQL.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -378,21 +341,18 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-rdf-graph-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
     url: data-model/oracle-partitioning-data-model.yml
 - aid: oracle-partitioning:oracle-partitioning-scheduler-api
   name: Oracle Partitioning Scheduler API
-  description: >-
-    Oracle Scheduler, an enterprise job scheduler to help you simplify the scheduling of hundreds or even
-    thousands of tasks. Oracle Scheduler (the Scheduler) is implemented by the procedures and functions
-    in the DBMS_SCHEDULER PL/SQL package.
+  description: Oracle Scheduler, an enterprise job scheduler to help you simplify the scheduling of hundreds
+    or even thousands of tasks. Oracle Scheduler (the Scheduler) is implemented by the procedures and
+    functions in the DBMS_SCHEDULER PL/SQL package.
   humanURL: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
   baseURL: https://{server}/{context-root}/{database}/{schema}/_/db-api/stable
   tags:
@@ -401,11 +361,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-scheduler-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -421,11 +379,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-inference-operations-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -441,11 +397,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-models-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -461,11 +415,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-summary-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -481,11 +433,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-vector-indexes-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -501,11 +451,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-vector-operations-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -521,11 +469,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-vector-search-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -541,11 +487,9 @@ apis:
   - type: OpenAPI
     url: openapi/oracle-partitioning-vector-database-vector-tables-api-openapi.yml
   - type: Documentation
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/index.html
   - type: APIReference
-    url: >-
-      https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
+    url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/26.1/orrst/rest-endpoints.html
   - type: ErrorCatalog
     url: errors/oracle-partitioning-problem-types.yml
   - type: DataModel
@@ -554,7 +498,7 @@ common:
 - type: Website
   url: https://www.oracle.com/database/technologies/partitioning.html
 - type: OpenAPI
-  url: openapi/oracle-partitioning-ords-database-api-openapi.json
+  url: openapi/_original/oracle-partitioning-ords-database-api-openapi.json
 - type: Overlay
   url: overlays/oracle-partitioning-ords-database-api-overlay.yaml
 - type: MCPServer
