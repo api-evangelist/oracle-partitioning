@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services RDF Graph API
   contact:
@@ -36,6 +30,8 @@ paths:
               example: "{\n  \"items\": [\n    {\n      \"owner\": \"RDFUSER\",\n      \"network_name\": \"NET1\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://server:port/ords/rdfuser/_/db-api/stable/database/rdf/networks/rdfuser,net1\"\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://server:port/ords/rdfuser/_/db-api/stable/database/rdf/networks/\"\n    }\n  ]\n}\n"
       x-internal-id: database-rdf-networks--get
       x-filename-id: database-rdf-networks-get
+      operationId: getDatabaseRdfNetworks
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -57,6 +53,8 @@ paths:
           description: RDF network does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-get
       x-filename-id: database-rdf-networks-network_owner-network_name-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkName
+      x-operation-id-source: derived
     put:
       tags:
       - RDF Graph
@@ -80,6 +78,8 @@ paths:
           description: RDF network already exists
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-put
       x-filename-id: database-rdf-networks-network_owner-network_name-put
+      operationId: putDatabaseRdfNetworksByNetworkOwner},{networkName
+      x-operation-id-source: derived
     delete:
       tags:
       - RDF Graph
@@ -103,6 +103,8 @@ paths:
           description: Attempt to drop a non-empty RDF network without the cascade option
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-delete
       x-filename-id: database-rdf-networks-network_owner-network_name-delete
+      operationId: deleteDatabaseRdfNetworksByNetworkOwner},{networkName
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/:
     get:
       tags:
@@ -126,6 +128,8 @@ paths:
           description: RDF network does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models--get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModels
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/{model_name}:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -154,6 +158,8 @@ paths:
           description: RDF network or model does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelName
+      x-operation-id-source: derived
     put:
       tags:
       - RDF Graph
@@ -179,6 +185,8 @@ paths:
           description: RDF network does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-put
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-put
+      operationId: putDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelName
+      x-operation-id-source: derived
     delete:
       tags:
       - RDF Graph
@@ -195,6 +203,8 @@ paths:
           description: RDF network or model does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-delete
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-delete
+      operationId: deleteDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelName
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/entailments/:
     get:
       tags:
@@ -218,6 +228,8 @@ paths:
           description: RDF network does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-entailments--get
       x-filename-id: database-rdf-networks-network_owner-network_name-entailments-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameEntailments
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/entailments/{entailment_name}:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -246,6 +258,8 @@ paths:
           description: RDF network or entailment does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-entailments-{entailment_name}-get
       x-filename-id: database-rdf-networks-network_owner-network_name-entailments-entailment_name-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameEntailmentsByEntailmentName
+      x-operation-id-source: derived
     put:
       tags:
       - RDF Graph
@@ -271,6 +285,8 @@ paths:
           description: RDF network does not exist or one of the referenced models or rulebases does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-entailments-{entailment_name}-put
       x-filename-id: database-rdf-networks-network_owner-network_name-entailments-entailment_name-put
+      operationId: putDatabaseRdfNetworksByNetworkOwner},{networkNameEntailmentsByEntailmentName
+      x-operation-id-source: derived
     delete:
       tags:
       - RDF Graph
@@ -286,6 +302,8 @@ paths:
           description: RDF network or entailment does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-entailments-{entailment_name}-delete
       x-filename-id: database-rdf-networks-network_owner-network_name-entailments-entailment_name-delete
+      operationId: deleteDatabaseRdfNetworksByNetworkOwner},{networkNameEntailmentsByEntailmentName
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/virtual_models/:
     get:
       tags:
@@ -309,6 +327,8 @@ paths:
           description: RDF network does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-virtual_models--get
       x-filename-id: database-rdf-networks-network_owner-network_name-virtual_models-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameVirtualModels
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/virtual_models/{virtual_model_name}:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -337,6 +357,8 @@ paths:
           description: RDF network or virtual model does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-virtual_models-{virtual_model_name}-get
       x-filename-id: database-rdf-networks-network_owner-network_name-virtual_models-virtual_model_name-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameVirtualModelsByVirtualModelName
+      x-operation-id-source: derived
     put:
       tags:
       - RDF Graph
@@ -362,6 +384,8 @@ paths:
           description: RDF network does not exist or one of the referenced models, rulebases, or entailments does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-virtual_models-{virtual_model_name}-put
       x-filename-id: database-rdf-networks-network_owner-network_name-virtual_models-virtual_model_name-put
+      operationId: putDatabaseRdfNetworksByNetworkOwner},{networkNameVirtualModelsByVirtualModelName
+      x-operation-id-source: derived
     delete:
       tags:
       - RDF Graph
@@ -378,6 +402,8 @@ paths:
           description: RDF network or virtual model does not exist
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-virtual_models-{virtual_model_name}-delete
       x-filename-id: database-rdf-networks-network_owner-network_name-virtual_models-virtual_model_name-delete
+      operationId: deleteDatabaseRdfNetworksByNetworkOwner},{networkNameVirtualModelsByVirtualModelName
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/{model_name}/sparql/1.1:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -437,6 +463,8 @@ paths:
                     '
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-sparql-1.1-get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-sparql-1.1-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameSparql11
+      x-operation-id-source: derived
     post:
       tags:
       - RDF Graph
@@ -559,6 +587,8 @@ paths:
                     '
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-sparql-1.1-post
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-sparql-1.1-post
+      operationId: postDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameSparql11
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/{model_name}/sparql2sql/1.1:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -594,6 +624,8 @@ paths:
               example: "SELECT * FROM (\nSELECT /*+ NO_MERGE(R) */ R.S, R.S$RDFVID, R.S$_PREFIX, R.S$_SUFFIX, R.S$RDFVTYP, R.S$RDFCLOB, R.S$RDFLTYP, R.S$RDFLANG,\nR.P, R.P$RDFVID, R.P$_PREFIX, R.P$_SUFFIX, R.P$RDFVTYP, R.P$RDFCLOB, R.P$RDFLTYP, R.P$RDFLANG,\nR.O, R.O$RDFVID, R.O$_PREFIX, R.O$_SUFFIX, R.O$RDFVTYP, R.O$RDFCLOB, R.O$RDFLTYP, R.O$RDFLANG,\nR.SEM$ROWNUM AS SEM$ROWNUM\nFROM (SELECT /*+ NO_MERGE(R) */ R.P$RDFVID, R.P, R.P$RDFVTYP, R.P$_PREFIX, R.P$_SUFFIX, R.P$RDFLTYP, R.P$RDFLANG, R.P$RDFCLOB, R.S$RDFVID, R.S, R.S$RDFVTYP, R.S$_PREFIX, R.S$_SUFFIX, R.S$RDFLTYP, R.S$RDFLANG, R.S$RDFCLOB, R.O$RDFVID, R.O, R.O$RDFVTYP, R.O$_PREFIX, R.O$_SUFFIX, R.O$RDFLTYP, R.O$RDFLANG, R.O$RDFCLOB, ROWNUM AS SEM$ROWNUM\nFROM (\nSELECT V0.VNAME_PREFIX || V0.VNAME_SUFFIX AS P, V0.VALUE_ID AS P$RDFVID, V0.VNAME_PREFIX AS P$_PREFIX, V0.VNAME_SUFFIX AS P$_SUFFIX,  (CASE WHEN V0.VALUE_TYPE IS NULL THEN NULL WHEN V0.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V0.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS P$RDFVTYP, TO_CLOB(NULL) AS P$RDFCLOB, V0.LITERAL_TYPE AS P$RDFLTYP, V0.LANGUAGE_TYPE AS P$RDFLANG,\nV1.VNAME_PREFIX || V1.VNAME_SUFFIX AS S, V1.VALUE_ID AS S$RDFVID, V1.VNAME_PREFIX AS S$_PREFIX, V1.VNAME_SUFFIX AS S$_SUFFIX,  (CASE WHEN V1.VALUE_TYPE IS NULL THEN NULL WHEN V1.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V1.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS S$RDFVTYP, TO_CLOB(NULL) AS S$RDFCLOB, V1.LITERAL_TYPE AS S$RDFLTYP, V1.LANGUAGE_TYPE AS S$RDFLANG,\nV2.VNAME_PREFIX || V2.VNAME_SUFFIX AS O, V2.VALUE_ID AS O$RDFVID, V2.VNAME_PREFIX AS O$_PREFIX, V2.VNAME_SUFFIX AS O$_SUFFIX,  (CASE WHEN V2.VALUE_TYPE IS NULL THEN NULL WHEN V2.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V2.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS O$RDFVTYP, V2.LONG_VALUE AS O$RDFCLOB, V2.LITERAL_TYPE AS O$RDFLTYP, V2.LANGUAGE_TYPE AS O$RDFLANG\nFROM (\nSELECT T0.P_VALUE_ID AS P$RDFVID,\nT0.START_NODE_ID AS S$RDFVID,\nT0.CANON_END_NODE_ID AS O$RDFVID,\nT0.START_NODE_ID AS BGP$1\nFROM (\nSELECT * FROM \"RDFUSER\".NET1#RDFM_M1) T0\nWHERE (1=1)\n) R\n, \"RDFUSER\".NET1#RDF_VALUE$ V0, \"RDFUSER\".NET1#RDF_VALUE$ V1, \"RDFUSER\".NET1#RDF_VALUE$ V2\nWHERE (1=1)  AND (R.P$RDFVID = V0.VALUE_ID) AND (R.S$RDFVID = V1.VALUE_ID) AND (R.O$RDFVID = V2.VALUE_ID)\n ORDER BY V1.ORDER_TYPE  ASC NULLS FIRST, V1.ORDER_NUM  ASC NULLS FIRST, V1.ORDER_DATE  ASC NULLS FIRST,\n(V1.VNAME_PREFIX || V1.VNAME_SUFFIX)  ASC NULLS FIRST,\nV0.ORDER_TYPE  ASC NULLS FIRST, V0.ORDER_NUM  ASC NULLS FIRST, V0.ORDER_DATE  ASC NULLS FIRST,\n(V0.VNAME_PREFIX || V0.VNAME_SUFFIX)  ASC NULLS FIRST,\nV2.ORDER_TYPE  ASC NULLS FIRST, V2.ORDER_NUM  ASC NULLS FIRST, V2.ORDER_DATE  ASC NULLS FIRST,\n(V2.VNAME_PREFIX || V2.VNAME_SUFFIX)  ASC NULLS FIRST\n) R\nWHERE (1=1) AND ROWNUM <= 10) R\nWHERE (1=1)  AND ROWNUM <= 10\n) WHERE (1=1)\n"
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-sparql2sql-1.1-get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-sparql2sql-1.1-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameSparql2sql11
+      x-operation-id-source: derived
     post:
       tags:
       - RDF Graph
@@ -642,6 +674,8 @@ paths:
               example: "SELECT * FROM (\nSELECT /*+ NO_MERGE(R) */ R.S, R.S$RDFVID, R.S$_PREFIX, R.S$_SUFFIX, R.S$RDFVTYP, R.S$RDFCLOB, R.S$RDFLTYP, R.S$RDFLANG,\nR.P, R.P$RDFVID, R.P$_PREFIX, R.P$_SUFFIX, R.P$RDFVTYP, R.P$RDFCLOB, R.P$RDFLTYP, R.P$RDFLANG,\nR.O, R.O$RDFVID, R.O$_PREFIX, R.O$_SUFFIX, R.O$RDFVTYP, R.O$RDFCLOB, R.O$RDFLTYP, R.O$RDFLANG,\nR.SEM$ROWNUM AS SEM$ROWNUM\nFROM (SELECT /*+ NO_MERGE(R) */ R.P$RDFVID, R.P, R.P$RDFVTYP, R.P$_PREFIX, R.P$_SUFFIX, R.P$RDFLTYP, R.P$RDFLANG, R.P$RDFCLOB, R.S$RDFVID, R.S, R.S$RDFVTYP, R.S$_PREFIX, R.S$_SUFFIX, R.S$RDFLTYP, R.S$RDFLANG, R.S$RDFCLOB, R.O$RDFVID, R.O, R.O$RDFVTYP, R.O$_PREFIX, R.O$_SUFFIX, R.O$RDFLTYP, R.O$RDFLANG, R.O$RDFCLOB, ROWNUM AS SEM$ROWNUM\nFROM (\nSELECT V0.VNAME_PREFIX || V0.VNAME_SUFFIX AS P, V0.VALUE_ID AS P$RDFVID, V0.VNAME_PREFIX AS P$_PREFIX, V0.VNAME_SUFFIX AS P$_SUFFIX,  (CASE WHEN V0.VALUE_TYPE IS NULL THEN NULL WHEN V0.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V0.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS P$RDFVTYP, TO_CLOB(NULL) AS P$RDFCLOB, V0.LITERAL_TYPE AS P$RDFLTYP, V0.LANGUAGE_TYPE AS P$RDFLANG,\nV1.VNAME_PREFIX || V1.VNAME_SUFFIX AS S, V1.VALUE_ID AS S$RDFVID, V1.VNAME_PREFIX AS S$_PREFIX, V1.VNAME_SUFFIX AS S$_SUFFIX,  (CASE WHEN V1.VALUE_TYPE IS NULL THEN NULL WHEN V1.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V1.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS S$RDFVTYP, TO_CLOB(NULL) AS S$RDFCLOB, V1.LITERAL_TYPE AS S$RDFLTYP, V1.LANGUAGE_TYPE AS S$RDFLANG,\nV2.VNAME_PREFIX || V2.VNAME_SUFFIX AS O, V2.VALUE_ID AS O$RDFVID, V2.VNAME_PREFIX AS O$_PREFIX, V2.VNAME_SUFFIX AS O$_SUFFIX,  (CASE WHEN V2.VALUE_TYPE IS NULL THEN NULL WHEN V2.VALUE_TYPE IN ('UR','URI') THEN 'URI'\n WHEN V2.VALUE_TYPE IN ('BN', 'BLN') THEN 'BLN'\n ELSE 'LIT'\nEND)  AS O$RDFVTYP, V2.LONG_VALUE AS O$RDFCLOB, V2.LITERAL_TYPE AS O$RDFLTYP, V2.LANGUAGE_TYPE AS O$RDFLANG\nFROM (\nSELECT T0.P_VALUE_ID AS P$RDFVID,\nT0.START_NODE_ID AS S$RDFVID,\nT0.CANON_END_NODE_ID AS O$RDFVID,\nT0.START_NODE_ID AS BGP$1\nFROM (\nSELECT * FROM \"RDFUSER\".NET1#RDFM_M1) T0\nWHERE (1=1)\n) R\n, \"RDFUSER\".NET1#RDF_VALUE$ V0, \"RDFUSER\".NET1#RDF_VALUE$ V1, \"RDFUSER\".NET1#RDF_VALUE$ V2\nWHERE (1=1)  AND (R.P$RDFVID = V0.VALUE_ID) AND (R.S$RDFVID = V1.VALUE_ID) AND (R.O$RDFVID = V2.VALUE_ID)\n ORDER BY V1.ORDER_TYPE  ASC NULLS FIRST, V1.ORDER_NUM  ASC NULLS FIRST, V1.ORDER_DATE  ASC NULLS FIRST,\n(V1.VNAME_PREFIX || V1.VNAME_SUFFIX)  ASC NULLS FIRST,\nV0.ORDER_TYPE  ASC NULLS FIRST, V0.ORDER_NUM  ASC NULLS FIRST, V0.ORDER_DATE  ASC NULLS FIRST,\n(V0.VNAME_PREFIX || V0.VNAME_SUFFIX)  ASC NULLS FIRST,\nV2.ORDER_TYPE  ASC NULLS FIRST, V2.ORDER_NUM  ASC NULLS FIRST, V2.ORDER_DATE  ASC NULLS FIRST,\n(V2.VNAME_PREFIX || V2.VNAME_SUFFIX)  ASC NULLS FIRST\n) R\nWHERE (1=1) AND ROWNUM <= 2) R\nWHERE (1=1)  AND ROWNUM <= 2\n) WHERE (1=1)\n"
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-sparql2sql-1.1-post
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-sparql2sql-1.1-post
+      operationId: postDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameSparql2sql11
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/{model_name}/graph_store/1.1:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -696,6 +730,8 @@ paths:
                 '
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-graph_store-1.1-get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-graph_store-1.1-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameGraphStore11
+      x-operation-id-source: derived
     post:
       tags:
       - RDF Graph
@@ -741,6 +777,8 @@ paths:
           description: Success
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-graph_store-1.1-post
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-graph_store-1.1-post
+      operationId: postDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameGraphStore11
+      x-operation-id-source: derived
     put:
       tags:
       - RDF Graph
@@ -786,6 +824,8 @@ paths:
           description: Success
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-graph_store-1.1-put
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-graph_store-1.1-put
+      operationId: putDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameGraphStore11
+      x-operation-id-source: derived
     delete:
       tags:
       - RDF Graph
@@ -799,6 +839,8 @@ paths:
           description: Success
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-graph_store-1.1-delete
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-graph_store-1.1-delete
+      operationId: deleteDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameGraphStore11
+      x-operation-id-source: derived
   /database/rdf/networks/{network_owner},{network_name}/models/{model_name}/search:
     parameters:
     - $ref: '#/components/parameters/NetworkOwner'
@@ -863,75 +905,9 @@ paths:
               example: "{\n  \"items\": [\n    {\n      \"sub\": \"http://example.oracle.com/oracle_corporation\",\n      \"vals\": \"third largest <b>software</b> company in the world... a suite of enterprise <b>software</b> products\",\n      \"score\": \"14\",\n      \"links\": [\n        {\n          \"rel\": \"self\",\n          \"href\": \"http://server:port/ords/rdfuser/_/db-api/stable/database/rdf/networks/rdfuser,net1/models/m1/sparql/1.1?query=DESCRIBE%20%3Chttp%3A%2F%2Fexample.oracle.com%2Foracle_corporation%3E\"\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"rel\": \"self\",\n      \"href\": \"http://server:port/ords/rdfuser/_/db-api/stable/database/rdf/networks/rdfuser,net1/models/m1/search?search_string=software&index_scan_limit=5000&max_objs_per_search_string=100&max_results_per_pred_obj=25&max_results_per_sub=25&offset=0&limit=25\"\n    }\n  ]\n}\n"
       x-internal-id: database-rdf-networks-{network_owner},{network_name}-models-{model_name}-search-get
       x-filename-id: database-rdf-networks-network_owner-network_name-models-model_name-search-get
+      operationId: getDatabaseRdfNetworksByNetworkOwner},{networkNameModelsByModelNameSearch
+      x-operation-id-source: derived
 components:
-  parameters:
-    DefaultGraphUri:
-      in: query
-      name: default-graph-uri
-      required: false
-      example: http%3A%2F%2Fwww.example.oracle.com%2Fg1
-      description: A URL-encoded IRI identifying a named graph that should be included in the DEFAULT graph of the query dataset.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of records to return.
-      required: false
-      schema:
-        type: integer
-        format: int32
-    NetworkOwner:
-      name: network_owner
-      in: path
-      required: true
-      example: RDFUSER
-      description: The owner of the RDF network.
-      schema:
-        type: string
-    Offset:
-      name: offset
-      in: query
-      description: The index of the first record to start returning results for. Used with pagination.
-      required: false
-      schema:
-        type: integer
-        format: int32
-    NamedGraphUri:
-      in: query
-      name: named-graph-uri
-      required: false
-      example: http%3A%2F%2Fwww.example.oracle.com%2Fg2
-      description: A URL-encoded IRI identifying a named graph that should be included in the set of named graphs for the query dataset.
-      schema:
-        type: string
-    ModelName:
-      name: model_name
-      in: path
-      required: true
-      example: M1
-      description: The name of the RDF model.
-      schema:
-        type: string
-    NetworkName:
-      name: network_name
-      in: path
-      required: true
-      example: NET1
-      description: The name of the RDF network.
-      schema:
-        type: string
-    SparqlOptions:
-      in: query
-      name: options
-      required: false
-      description: A URL-encoded options string.
-      example: ALLOW_DUP=T ALL_LINK_HASH
-      schema:
-        externalDocs:
-          description: See the options argument of SEM_MATCH
-          url: https://docs.oracle.com/en/database/oracle/oracle-database/26/rdfrm/using-sem_match-table-function-query-rdf-data.html#GUID-71464CC4-1C03-48A4-9A4C-0E671FF8F16E
-        type: string
   schemas:
     EntailmentDetailCollection:
       description: A collection of RDF entailment metadata items.
@@ -941,6 +917,262 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EntailmentDetailSingle'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    NetworkDetailElem:
+      description: Metadata for an RDF network.
+      type: object
+      properties:
+        owner:
+          type: string
+          example: RDFUSER
+          description: the owner of the RDF network
+        network_name:
+          type: string
+          example: NET1
+          description: the name of the RDF network
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkParameterElem'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    ModelDetailSingle:
+      description: Metadata for a single RDF model.
+      type: object
+      properties:
+        owner:
+          type: string
+          example: M1
+          description: the owner of the model
+        model_id:
+          type: string
+          example: 1
+          description: the ID of the model
+        model_name:
+          type: string
+          example: M1
+          description: the name of the model
+        table_name:
+          type: string
+          example: null
+          description: the name of the application table associated with the model (null for schema-private networks)
+        column_name:
+          type: string
+          example: null
+          description: the name of the SDO_RDF_TRIPLE_S column in the application table associated with the model (null for schema-private networks)
+        model_tablespace_name:
+          type: string
+          example: DATA
+          description: the tablespace used to store model data
+        model_type:
+          type: string
+          example: M
+          description: the type of model (M for regular model; V for virtual model; X for model created to store the contents of the semantic index; or D for model created on relational data)
+        inmemory:
+          type: string
+          example: F
+          description: indicates if the model is an in-memory virtual model (T for in-memory, or F for not in-memory)
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    VirtualModelDetailCollection:
+      description: A collection of RDF virtual model metadata items.
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualModelDetailSingle'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    SparqlJsonResult:
+      externalDocs:
+        description: SPARQL Query Results JSON Format
+        url: https://www.w3.org/TR/sparql11-results-json/
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            vars:
+              type: array
+              items:
+                type: string
+        boolean:
+          type: boolean
+        results:
+          type: object
+          properties:
+            bindings:
+              type: array
+              items:
+                type: object
+                properties:
+                  var:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      value:
+                        type: string
+                      xml:lang:
+                        type: string
+                      datatype:
+                        type: string
+    RDFTextSearchResultElem:
+      description: A single RDF text search result element.
+      type: object
+      properties:
+        sub:
+          type: string
+          example: <http://example.oracle.com/oracle_corporation>
+          description: the subject resource
+        vals:
+          type: string
+          example: third largest <b>software</b> company in the world... a suite of enterprise <b>software</b> products
+          description: an aggregation of text snippets from object values that match the search string
+        score:
+          type: string
+          example: 14
+          description: the maximum relevance score over all matched object values
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    RDFTextSearchResultCollection:
+      description: A collection of RDF text search results.
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RDFTextSearchResultElem'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    NetworkElem:
+      type: object
+      description: This object represents a network owner, network name pair.
+      properties:
+        owner:
+          type: string
+          example: RDFUSER
+          description: the owner of the RDF network
+        network_name:
+          type: string
+          example: NET1
+          description: the name of the RDF network
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    NetworkElemCollection:
+      description: A collection of RDF networks.
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkElem'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    VirtualModelDetailSingle:
+      description: Metadata for a single virtual model.
+      type: object
+      properties:
+        owner:
+          type: string
+          example: RDUSER
+          description: owner of the virtual model
+        virtual_model_name:
+          type: string
+          example: VM1
+          description: name of the virtual model
+        unique_view_name:
+          type: string
+          example: NET1#SEMU_VM1
+          description: name of the view that contains unique triples in the virtual model, or null if the view was not created
+        duplicate_view_name:
+          type: string
+          example: NET1#SEMV_VM1
+          description: name of the view that contains duplicate triples (if any) in the virtual model
+        status:
+          type: string
+          example: VALID
+          description: contains VALID if the associated entailment is valid, INVALID if the entailment is not valid, INCOMPLETE if the entailment is incomplete (similar to INVALID but requiring less time to re-create), INPROGRESS if the entailment is being created, FAILED if a system failure occurred during the creation of the entailment, or NORIDX if no entailment is associated with the virtual model. In the case of multiple entailments, the lowest status among all of the component entailments is used as the virtual model's status (INVALID < INCOMPLETE < VALID).
+        model_count:
+          type: string
+          example: 1
+          description: number of models contained in the virtual model
+        rulebase_count:
+          type: string
+          example: 1
+          description: number of rulebases contained in the virtual model
+        rules_index_count:
+          type: string
+          example: 1
+          description: number of entailments contained in the virtual model
+        datasets:
+          type: string
+          example: MODEL M1, RULEBASE OWLPRIME, RULEIDX M1OWL
+          description: a comma-delimited list of the names of models, rulebases and entailments used to build the virtual model
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EntailmentDetailSingle:
+      type: object
+      description: This object represents metadata about an RDF entailment.
+      properties:
+        owner:
+          type: string
+          example: RDFUSER
+          description: the owner of the entailment
+        index_name:
+          type: string
+          example: M1OWL
+          description: the name of the entailment
+        index_view_name:
+          type: string
+          example: NET1#RDFI_M1OWL
+          description: the name of the database view that contains the entailed triples
+        status:
+          type: string
+          example: VALID
+          description: the status of the entailment (VALID if the entailment is valid, INVALID if the entailment is not valid, INCOMPLETE if the entailment is incomplete - similar to INVALID but requiring less time to re-create, INPROGRESS if the entailment is being created, or FAILED if a system failure occurred during the creation of the entailment)
+        model_count:
+          type: string
+          example: 1
+          description: the number of models used to build the entailment
+        rulebase_count:
+          type: string
+          example: 1
+          description: the number of rulebases used to build the entailment
+        datasets:
+          type: string
+          example: MODEL M1, RULEBASE OWLPRIME
+          description: a comma-delimited list of the names of models and rulebases used to build the entailment
         links:
           type: array
           items:
@@ -1018,142 +1250,6 @@ components:
                     bnode:
                       type: string
                       example: bn1
-    NetworkElem:
-      type: object
-      description: This object represents a network owner, network name pair.
-      properties:
-        owner:
-          type: string
-          example: RDFUSER
-          description: the owner of the RDF network
-        network_name:
-          type: string
-          example: NET1
-          description: the name of the RDF network
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    NetworkElemCollection:
-      description: A collection of RDF networks.
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkElem'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    NetworkDetailElem:
-      description: Metadata for an RDF network.
-      type: object
-      properties:
-        owner:
-          type: string
-          example: RDFUSER
-          description: the owner of the RDF network
-        network_name:
-          type: string
-          example: NET1
-          description: the name of the RDF network
-        parameters:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkParameterElem'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    RDFTextSearchResultElem:
-      description: A single RDF text search result element.
-      type: object
-      properties:
-        sub:
-          type: string
-          example: <http://example.oracle.com/oracle_corporation>
-          description: the subject resource
-        vals:
-          type: string
-          example: third largest <b>software</b> company in the world... a suite of enterprise <b>software</b> products
-          description: an aggregation of text snippets from object values that match the search string
-        score:
-          type: string
-          example: 14
-          description: the maximum relevance score over all matched object values
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    SparqlJsonResult:
-      externalDocs:
-        description: SPARQL Query Results JSON Format
-        url: https://www.w3.org/TR/sparql11-results-json/
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            vars:
-              type: array
-              items:
-                type: string
-        boolean:
-          type: boolean
-        results:
-          type: object
-          properties:
-            bindings:
-              type: array
-              items:
-                type: object
-                properties:
-                  var:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                      value:
-                        type: string
-                      xml:lang:
-                        type: string
-                      datatype:
-                        type: string
-    RDFTextSearchResultCollection:
-      description: A collection of RDF text search results.
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RDFTextSearchResultElem'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    VirtualModelDetailCollection:
-      description: A collection of RDF virtual model metadata items.
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualModelDetailSingle'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     NetworkParameterElem:
       type: object
       description: This object represents a metadata attribute and value.
@@ -1186,126 +1282,74 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    ModelDetailSingle:
-      description: Metadata for a single RDF model.
-      type: object
-      properties:
-        owner:
-          type: string
-          example: M1
-          description: the owner of the model
-        model_id:
-          type: string
-          example: 1
-          description: the ID of the model
-        model_name:
-          type: string
-          example: M1
-          description: the name of the model
-        table_name:
-          type: string
-          example: null
-          description: the name of the application table associated with the model (null for schema-private networks)
-        column_name:
-          type: string
-          example: null
-          description: the name of the SDO_RDF_TRIPLE_S column in the application table associated with the model (null for schema-private networks)
-        model_tablespace_name:
-          type: string
-          example: DATA
-          description: the tablespace used to store model data
-        model_type:
-          type: string
-          example: M
-          description: the type of model (M for regular model; V for virtual model; X for model created to store the contents of the semantic index; or D for model created on relational data)
-        inmemory:
-          type: string
-          example: F
-          description: indicates if the model is an in-memory virtual model (T for in-memory, or F for not in-memory)
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EntailmentDetailSingle:
-      type: object
-      description: This object represents metadata about an RDF entailment.
-      properties:
-        owner:
-          type: string
-          example: RDFUSER
-          description: the owner of the entailment
-        index_name:
-          type: string
-          example: M1OWL
-          description: the name of the entailment
-        index_view_name:
-          type: string
-          example: NET1#RDFI_M1OWL
-          description: the name of the database view that contains the entailed triples
-        status:
-          type: string
-          example: VALID
-          description: the status of the entailment (VALID if the entailment is valid, INVALID if the entailment is not valid, INCOMPLETE if the entailment is incomplete - similar to INVALID but requiring less time to re-create, INPROGRESS if the entailment is being created, or FAILED if a system failure occurred during the creation of the entailment)
-        model_count:
-          type: string
-          example: 1
-          description: the number of models used to build the entailment
-        rulebase_count:
-          type: string
-          example: 1
-          description: the number of rulebases used to build the entailment
-        datasets:
-          type: string
-          example: MODEL M1, RULEBASE OWLPRIME
-          description: a comma-delimited list of the names of models and rulebases used to build the entailment
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    VirtualModelDetailSingle:
-      description: Metadata for a single virtual model.
-      type: object
-      properties:
-        owner:
-          type: string
-          example: RDUSER
-          description: owner of the virtual model
-        virtual_model_name:
-          type: string
-          example: VM1
-          description: name of the virtual model
-        unique_view_name:
-          type: string
-          example: NET1#SEMU_VM1
-          description: name of the view that contains unique triples in the virtual model, or null if the view was not created
-        duplicate_view_name:
-          type: string
-          example: NET1#SEMV_VM1
-          description: name of the view that contains duplicate triples (if any) in the virtual model
-        status:
-          type: string
-          example: VALID
-          description: contains VALID if the associated entailment is valid, INVALID if the entailment is not valid, INCOMPLETE if the entailment is incomplete (similar to INVALID but requiring less time to re-create), INPROGRESS if the entailment is being created, FAILED if a system failure occurred during the creation of the entailment, or NORIDX if no entailment is associated with the virtual model. In the case of multiple entailments, the lowest status among all of the component entailments is used as the virtual model's status (INVALID < INCOMPLETE < VALID).
-        model_count:
-          type: string
-          example: 1
-          description: number of models contained in the virtual model
-        rulebase_count:
-          type: string
-          example: 1
-          description: number of rulebases contained in the virtual model
-        rules_index_count:
-          type: string
-          example: 1
-          description: number of entailments contained in the virtual model
-        datasets:
-          type: string
-          example: MODEL M1, RULEBASE OWLPRIME, RULEIDX M1OWL
-          description: a comma-delimited list of the names of models, rulebases and entailments used to build the virtual model
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
+  parameters:
+    NetworkOwner:
+      name: network_owner
+      in: path
+      required: true
+      example: RDFUSER
+      description: The owner of the RDF network.
+      schema:
+        type: string
+    SparqlOptions:
+      in: query
+      name: options
+      required: false
+      description: A URL-encoded options string.
+      example: ALLOW_DUP=T ALL_LINK_HASH
+      schema:
+        externalDocs:
+          description: See the options argument of SEM_MATCH
+          url: https://docs.oracle.com/en/database/oracle/oracle-database/26/rdfrm/using-sem_match-table-function-query-rdf-data.html#GUID-71464CC4-1C03-48A4-9A4C-0E671FF8F16E
+        type: string
+    ModelName:
+      name: model_name
+      in: path
+      required: true
+      example: M1
+      description: The name of the RDF model.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    Offset:
+      name: offset
+      in: query
+      description: The index of the first record to start returning results for. Used with pagination.
+      required: false
+      schema:
+        type: integer
+        format: int32
+    NamedGraphUri:
+      in: query
+      name: named-graph-uri
+      required: false
+      example: http%3A%2F%2Fwww.example.oracle.com%2Fg2
+      description: A URL-encoded IRI identifying a named graph that should be included in the set of named graphs for the query dataset.
+      schema:
+        type: string
+    NetworkName:
+      name: network_name
+      in: path
+      required: true
+      example: NET1
+      description: The name of the RDF network.
+      schema:
+        type: string
+    DefaultGraphUri:
+      in: query
+      name: default-graph-uri
+      required: false
+      example: http%3A%2F%2Fwww.example.oracle.com%2Fg1
+      description: A URL-encoded IRI identifying a named graph that should be included in the DEFAULT graph of the query dataset.
+      schema:
+        type: string
   requestBodies:
     createEntailment:
       content:
@@ -1354,28 +1398,6 @@ components:
                 inf_components:
                 - SAM-
                 options: DOP=16
-    createNetwork:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              tablespace_name:
-                type: string
-                description: The name of the tablespace in which to create the RDF network
-              options:
-                type: string
-                description: Options to use when creating the RDF network
-          examples:
-            default:
-              summary: This is an example of basic network creation.
-              value:
-                tablespace_name: DATA
-            partitioned:
-              summary: This is an example of creating a list-hash subpartitioned network with 16 subpartitions per model.
-              value:
-                tablespace_name: DATA
-                options: MODEL_PARTITIONING=BY_HASH_P MODEL_PARTITIONS=16
     createVirtualModel:
       content:
         application/json:
@@ -1427,6 +1449,28 @@ components:
                 - DATA_MODEL
                 entailments:
                 - SCHEMA_ENTAILMENT
+    createNetwork:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tablespace_name:
+                type: string
+                description: The name of the tablespace in which to create the RDF network
+              options:
+                type: string
+                description: Options to use when creating the RDF network
+          examples:
+            default:
+              summary: This is an example of basic network creation.
+              value:
+                tablespace_name: DATA
+            partitioned:
+              summary: This is an example of creating a list-hash subpartitioned network with 16 subpartitions per model.
+              value:
+                tablespace_name: DATA
+                options: MODEL_PARTITIONING=BY_HASH_P MODEL_PARTITIONS=16
     createModel:
       content:
         application/json:

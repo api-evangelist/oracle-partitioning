@@ -1,14 +1,8 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
-  title: Oracle REST Data Services Oracle Transactional Event Queues API
+  title: Oracle REST Data Services Oracle Transactional Event Queues…
   contact:
     name: Oracle REST Data Services
     url: https://www.oracle.com/database/technologies/appdev/rest.html
@@ -44,6 +38,8 @@ paths:
                     type: string
       x-internal-id: database-txeventq-topics-get
       x-filename-id: database-txeventq-topics-get
+      operationId: getDatabaseTxeventqTopics
+      x-operation-id-source: derived
   /database/txeventq/topics/{topic_name}:
     post:
       tags:
@@ -80,10 +76,12 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-post
       x-filename-id: database-txeventq-topics-topic_name-post
+      operationId: postDatabaseTxeventqTopicsByTopicName
+      x-operation-id-source: derived
     get:
       tags:
       - Oracle Transactional Event Queues
-      summary: Get description of a particular Transactional Event Queue Topic.
+      summary: Get description of a particular Transactional Event Queue Topic
       description: Get description of a particular topic. A client requires SQL Developer role to invoke this service. Database user requires READ privilege on USER_QUEUE_SHARDS.
       responses:
         '200':
@@ -96,6 +94,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-get
       x-filename-id: database-txeventq-topics-topic_name-get
+      operationId: getDatabaseTxeventqTopicsByTopicName
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/consumer-groups:
     get:
       tags:
@@ -113,6 +113,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-get
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-get
+      operationId: getDatabaseTxeventqClustersByClusterIdConsumerGroups
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/consumer-groups/{consumer_group_id}:
     post:
       tags:
@@ -154,6 +156,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-post
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-post
+      operationId: postDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupId
+      x-operation-id-source: derived
     get:
       tags:
       - Oracle Transactional Event Queues
@@ -175,6 +179,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-get
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-get
+      operationId: getDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupId
+      x-operation-id-source: derived
     delete:
       tags:
       - Oracle Transactional Event Queues
@@ -214,6 +220,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-delete
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-delete
+      operationId: deleteDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupId
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/consumer-groups/{consumer_group_id}/lag-summary:
     get:
       tags:
@@ -245,11 +253,13 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-lag-summary-get
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-lag-summary-get
+      operationId: getDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupIdLagSummary
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/consumer-groups/{consumer_group_id}/lags:
     get:
       tags:
       - Oracle Transactional Event Queues
-      summary: 'Lags/Offsets of consumers in the Consumer group '
+      summary: Lags/Offsets of consumers in the Consumer group
       description: Gets a list of Current/Log-End Offsets and Lag of consumers belonging to the specified consumer group. A client requires SQL Developer role to invoke this service. Database User requires EXECUTE privilege on DBMS_AQADM and OWA_UTIL packages.
       responses:
         '200':
@@ -276,6 +286,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-lags-get
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-lags-get
+      operationId: getDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupIdLags
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/topics:
     post:
       tags:
@@ -318,10 +330,12 @@ paths:
           type: integer
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-post
       x-filename-id: database-txeventq-clusters-cluster_id-topics-post
+      operationId: postDatabaseTxeventqClustersByClusterIdTopics
+      x-operation-id-source: derived
     get:
       tags:
       - Oracle Transactional Event Queues
-      summary: List Transactional Event Queue Topics that belong to the specified database cluster
+      summary: List Transactional Event Queue Topics that belong to the specified database…
       description: List topics that belong to the specified database cluster. A client requires SQL Developer role to invoke this service. Database User requires Execute privilege on DBMS_AQADM and OWA_UTIL packages and READ privilege on USER_QUEUE_SHARDS.
       responses:
         '200':
@@ -343,6 +357,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-get
       x-filename-id: database-txeventq-clusters-cluster_id-topics-get
+      operationId: getDatabaseTxeventqClustersByClusterIdTopics
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/topics/{topic_name}:
     delete:
       tags:
@@ -374,6 +390,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-{topic_name}-delete
       x-filename-id: database-txeventq-clusters-cluster_id-topics-topic_name-delete
+      operationId: deleteDatabaseTxeventqClustersByClusterIdTopicsByTopicName
+      x-operation-id-source: derived
     get:
       tags:
       - Oracle Transactional Event Queues
@@ -395,6 +413,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-{topic_name}-get
       x-filename-id: database-txeventq-clusters-cluster_id-topics-topic_name-get
+      operationId: getDatabaseTxeventqClustersByClusterIdTopicsByTopicName
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/topics/{topic_name}/partitions:
     get:
       tags:
@@ -417,6 +437,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-{topic_name}-partitions-get
       x-filename-id: database-txeventq-clusters-cluster_id-topics-topic_name-partitions-get
+      operationId: getDatabaseTxeventqClustersByClusterIdTopicsByTopicNamePartitions
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/topics/{topic_name}/partitions/{partition_id}:
     get:
       tags:
@@ -444,6 +466,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-topics-{topic_name}-partitions-{partition_id}-get
       x-filename-id: database-txeventq-clusters-cluster_id-topics-topic_name-partitions-partition_id-get
+      operationId: getDatabaseTxeventqClustersByClusterIdTopicsByTopicNamePartitionsByPartitionId
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}:
     post:
       tags:
@@ -475,6 +499,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-post
       x-filename-id: database-txeventq-consumers-group_name-post
+      operationId: postDatabaseTxeventqConsumersByGroupName
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}:
     delete:
       tags:
@@ -506,6 +532,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-delete
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-delete
+      operationId: deleteDatabaseTxeventqConsumersByGroupNameInstancesByInstance
+      x-operation-id-source: derived
   /database/txeventq/clusters/{cluster_id}/consumer-groups/{consumer_group_id}/lags/{topic_name}/partitions/{partition_id}:
     get:
       tags:
@@ -547,6 +575,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-clusters-{cluster_id}-consumer-groups-{consumer_group_id}-lags-{topic_name}-partitions-{partition_id}-get
       x-filename-id: database-txeventq-clusters-cluster_id-consumer-groups-consumer_group_id-lags-topic_name-partitions-partition_id-get
+      operationId: getDatabaseTxeventqClustersByClusterIdConsumerGroupsByConsumerGroupIdLagsByTopicNamePartitionsByPartitionId
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/offsets:
     get:
       tags:
@@ -592,11 +622,13 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-offsets-get
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-offsets-get
+      operationId: getDatabaseTxeventqConsumersByGroupNameInstancesByInstanceOffsets
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/positions:
     post:
       tags:
       - Oracle Transactional Event Queues
-      summary: Seek to specified Transactional Event Queue Topic partition offsets for Consumer Group
+      summary: Seek to specified Transactional Event Queue Topic partition offsets for…
       description: Seek to the offsets for each of the Topic partition. A client requires SQL Developer role to invoke this service. Database User requires EXECUTE privilege on DBMS_AQ, DBMS_AQADM and OWA_UTIL packages. Also needs READ privilege on V$DATABASE and V$TRANSPORTABLE_PLATFORM.
       responses:
         '201':
@@ -631,6 +663,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-positions-post
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-positions-post
+      operationId: postDatabaseTxeventqConsumersByGroupNameInstancesByInstancePositions
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/positions/beginning:
     post:
       tags:
@@ -669,6 +703,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-positions-beginning-post
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-positions-beginning-post
+      operationId: postDatabaseTxeventqConsumersByGroupNameInstancesByInstancePositionsBeginning
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/positions/end:
     post:
       tags:
@@ -707,6 +743,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-positions-end-post
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-positions-end-post
+      operationId: postDatabaseTxeventqConsumersByGroupNameInstancesByInstancePositionsEnd
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/records:
     get:
       tags:
@@ -748,6 +786,8 @@ paths:
           type: integer
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-records-get
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-records-get
+      operationId: getDatabaseTxeventqConsumersByGroupNameInstancesByInstanceRecords
+      x-operation-id-source: derived
   /database/txeventq/consumers/{group_name}/instances/{instance}/subscription:
     get:
       tags:
@@ -779,6 +819,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-consumers-{group_name}-instances-{instance}-subscription-get
       x-filename-id: database-txeventq-consumers-group_name-instances-instance-subscription-get
+      operationId: getDatabaseTxeventqConsumersByGroupNameInstancesByInstanceSubscription
+      x-operation-id-source: derived
   /database/txeventq/topics/{topic_name}/partitions:
     get:
       tags:
@@ -796,6 +838,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-partitions-get
       x-filename-id: database-txeventq-topics-topic_name-partitions-get
+      operationId: getDatabaseTxeventqTopicsByTopicNamePartitions
+      x-operation-id-source: derived
   /database/txeventq/topics/{topic_name}/partitions/{partition_id}:
     post:
       tags:
@@ -834,6 +878,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-partitions-{partition_id}-post
       x-filename-id: database-txeventq-topics-topic_name-partitions-partition_id-post
+      operationId: postDatabaseTxeventqTopicsByTopicNamePartitionsByPartitionId
+      x-operation-id-source: derived
     get:
       tags:
       - Oracle Transactional Event Queues
@@ -855,6 +901,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-partitions-{partition_id}-get
       x-filename-id: database-txeventq-topics-topic_name-partitions-partition_id-get
+      operationId: getDatabaseTxeventqTopicsByTopicNamePartitionsByPartitionId
+      x-operation-id-source: derived
   /database/txeventq/topics/{topic_name}/partitions/{partition_id}/offsets:
     get:
       tags:
@@ -886,6 +934,8 @@ paths:
           type: string
       x-internal-id: database-txeventq-topics-{topic_name}-partitions-{partition_id}-offsets-get
       x-filename-id: database-txeventq-topics-topic_name-partitions-partition_id-offsets-get
+      operationId: getDatabaseTxeventqTopicsByTopicNamePartitionsByPartitionIdOffsets
+      x-operation-id-source: derived
 components:
   securitySchemes:
     BasicAuth:

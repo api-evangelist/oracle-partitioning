@@ -1,14 +1,8 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
-  title: Oracle REST Data Services Vector Database/Vector Operations API
+  title: Oracle REST Data Services Vector Database/Vector Operations…
   contact:
     name: Oracle REST Data Services
     url: https://www.oracle.com/database/technologies/appdev/rest.html
@@ -22,7 +16,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: upsert_vectors
-      summary: Upsert vectors or records into a given vector table.
+      summary: Upsert vectors or records into a given vector table
       description: Insert or update records into a vector table.
       security:
       - BasicAuth: []
@@ -94,7 +88,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: list_vectors
-      summary: List the records of a given vector table.
+      summary: List the records of a given vector table
       description: Look up and return vectors by ID from a vector table. The returned vectors include the vector data and/or metadata.
       security:
       - BasicAuth: []
@@ -154,8 +148,8 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: delete_vectors
-      summary: Delete vectors with the specified IDs from the specified vector table.
-      description: 'Delete vectors from a vector table. '
+      summary: Delete vectors with the specified IDs from the specified vector table
+      description: Delete vectors from a vector table.
       security:
       - BasicAuth: []
       - BearerAuth: []
@@ -213,7 +207,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: load_vectors
-      summary: Load dataset in CSV format, from PAR URL or public bucket.
+      summary: Load dataset in CSV format, from PAR URL or public bucket
       description: Schedule a Job to load data into a vector table
       security:
       - BasicAuth: []
@@ -260,7 +254,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: list_vector_load_jobs
-      summary: Retrieve all schedulled load jobs.
+      summary: Retrieve all schedulled load jobs
       description: Describes all of the jobs scheduled to load data into a vector table.
       security:
       - BasicAuth: []
@@ -280,7 +274,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: describe_vector_load_job
-      summary: Retrieve details of an schedulled load job.
+      summary: Retrieve details of an schedulled load job
       description: Describes the specified job scheduled to load data into a vector table.
       security:
       - BasicAuth: []
@@ -313,7 +307,7 @@ paths:
       tags:
       - Vector Database/Vector Operations
       operationId: get_vector_load_job_log
-      summary: Get the logs associated to a scheduled load job.
+      summary: Get the logs associated to a scheduled load job
       description: Returns the log associated to a given load job.
       security:
       - BasicAuth: []
@@ -343,20 +337,65 @@ paths:
       x-filename-id: vecdb-load-jobs-load_job_name-jobfile-get
 components:
   schemas:
-    VecDBVectorVectorItem:
+    VecDBJobLogItem:
       type: object
       properties:
-        id:
+        log_date:
           type: string
-        dense_vector:
+        job_name:
+          type: string
+        status:
+          type: string
+        error#:
+          type: integer
+        additional_info:
+          type:
+          - string
+          - 'null'
+        actual_start_date:
+          type: string
+        run_duration:
+          type: string
+        links:
           type: array
           items:
-            type: number
-            format: double
-        metadata:
-          type:
-          - object
-          - 'null'
+            $ref: '#/components/schemas/LinkRelation'
+    VecDBVectorVectorCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VecDBVectorVectorItem'
+        limit:
+          type: number
+        offset:
+          type: number
+        count:
+          type: number
+    VecDBJobCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VecDBJobItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
     VectorDebugFlags:
       type: object
       description: Debug flags to be used to trace vector modules
@@ -479,52 +518,40 @@ components:
       required:
       - rel
       - href
-    VecDBJobLogItem:
+    ORDSErrorResponse:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      - instance
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        instance:
+          type: string
+        diagnosticTrace:
+          type: string
+        stackTrace:
+          type: string
+    VecDBVectorVectorItem:
       type: object
       properties:
-        log_date:
+        id:
           type: string
-        job_name:
-          type: string
-        status:
-          type: string
-        error#:
-          type: integer
-        additional_info:
+        dense_vector:
+          type: array
+          items:
+            type: number
+            format: double
+        metadata:
           type:
-          - string
+          - object
           - 'null'
-        actual_start_date:
-          type: string
-        run_duration:
-          type: string
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    VecDBJobCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/VecDBJobItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     VecDBJobItem:
       type: object
       properties:
@@ -546,39 +573,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    VecDBVectorVectorCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/VecDBVectorVectorItem'
-        limit:
-          type: number
-        offset:
-          type: number
-        count:
-          type: number
-    ORDSErrorResponse:
-      type: object
-      required:
-      - code
-      - message
-      - type
-      - instance
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-        instance:
-          type: string
-        diagnosticTrace:
-          type: string
-        stackTrace:
-          type: string
   securitySchemes:
     BasicAuth:
       type: http

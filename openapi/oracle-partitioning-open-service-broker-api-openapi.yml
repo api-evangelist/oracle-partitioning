@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Open Service Broker API
   contact:
@@ -36,6 +30,8 @@ paths:
                 $ref: '#/components/schemas/OpenServiceBrokerCatalog'
       x-internal-id: openservicebroker-v2-catalog-get
       x-filename-id: openservicebroker-v2-catalog-get
+      operationId: getOpenservicebrokerV2Catalog
+      x-operation-id-source: derived
   /openservicebroker/v2/service_instances/{instance_id}:
     delete:
       tags:
@@ -57,6 +53,8 @@ paths:
           description: Confirmation that the service instance does not exist in ORDS. There is no content returned.
       x-internal-id: openservicebroker-v2-service_instances-{instance_id}-delete
       x-filename-id: openservicebroker-v2-service_instances-instance_id-delete
+      operationId: deleteOpenservicebrokerV2ServiceInstancesByInstanceId
+      x-operation-id-source: derived
     put:
       tags:
       - Open Service Broker
@@ -83,8 +81,49 @@ paths:
                 $ref: '#/components/schemas/ServiceInstanceProvision'
       x-internal-id: openservicebroker-v2-service_instances-{instance_id}-put
       x-filename-id: openservicebroker-v2-service_instances-instance_id-put
+      operationId: putOpenservicebrokerV2ServiceInstancesByInstanceId
+      x-operation-id-source: derived
 components:
   schemas:
+    OpenServiceBrokerServiceInstanceSchema:
+      type: object
+      description: The schema definitions for creating and updating a Service Instance.
+      properties:
+        create:
+          $ref: '#/components/schemas/OpenServiceBrokerSchemaParameters'
+    OpenServiceBrokerPlan:
+      type: object
+      description: The representation of the costs and benefits for a given variant of the Service Offering, potentially as a tier.
+      properties:
+        name:
+          type: string
+          description: The name of the Service Plan.
+        id:
+          type: string
+          description: An identifier used to correlate this Plan in future requests to the Service Broker. This MUST be globally unique such that Platforms (and their users) MUST be able to assume that seeing the same value (no matter what Service Broker uses it) will always refer to this Service Plan.
+        description:
+          type: string
+          description: A short description of the Service Plan.
+        free:
+          type: boolean
+          description: When false, Service Instances of this Service Plan have a cost. The default is true.
+        metadata:
+          type: object
+          description: An opaque object of metadata for a Service Offering which aid in the display of catalog data. See [Service Metadata Conventions](https://github.com/openservicebrokerapi/servicebroker/blob/master/profile.md#service-metadata) for more details.
+          properties:
+            displayName:
+              type: string
+              description: The name of the Service Plan to be displayed in graphical clients.
+            bullets:
+              type: array
+              description: Features of this Service Plan, to be displayed in a bulleted-list.
+              items:
+                type: string
+        schemas:
+          $ref: '#/components/schemas/OpenServiceBrokerSchemas'
+    ServiceInstanceProvision:
+      type: object
+      description: The response for successfully provisioning a service instance will vary.
     OpenServiceBrokerService:
       type: object
       description: This object is a list of all services available on the Service Broker.
@@ -138,15 +177,6 @@ components:
       properties:
         service_instance:
           $ref: '#/components/schemas/OpenServiceBrokerServiceInstanceSchema'
-    ServiceInstanceProvision:
-      type: object
-      description: The response for successfully provisioning a service instance will vary.
-    OpenServiceBrokerServiceInstanceSchema:
-      type: object
-      description: The schema definitions for creating and updating a Service Instance.
-      properties:
-        create:
-          $ref: '#/components/schemas/OpenServiceBrokerSchemaParameters'
     OpenServiceBrokerCatalog:
       type: object
       description: This object is a list of all services available on the Service Broker.
@@ -155,36 +185,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OpenServiceBrokerService'
-    OpenServiceBrokerPlan:
-      type: object
-      description: The representation of the costs and benefits for a given variant of the Service Offering, potentially as a tier.
-      properties:
-        name:
-          type: string
-          description: The name of the Service Plan.
-        id:
-          type: string
-          description: An identifier used to correlate this Plan in future requests to the Service Broker. This MUST be globally unique such that Platforms (and their users) MUST be able to assume that seeing the same value (no matter what Service Broker uses it) will always refer to this Service Plan.
-        description:
-          type: string
-          description: A short description of the Service Plan.
-        free:
-          type: boolean
-          description: When false, Service Instances of this Service Plan have a cost. The default is true.
-        metadata:
-          type: object
-          description: An opaque object of metadata for a Service Offering which aid in the display of catalog data. See [Service Metadata Conventions](https://github.com/openservicebrokerapi/servicebroker/blob/master/profile.md#service-metadata) for more details.
-          properties:
-            displayName:
-              type: string
-              description: The name of the Service Plan to be displayed in graphical clients.
-            bullets:
-              type: array
-              description: Features of this Service Plan, to be displayed in a bulleted-list.
-              items:
-                type: string
-        schemas:
-          $ref: '#/components/schemas/OpenServiceBrokerSchemas'
     OpenServiceBrokerSchemaParameters:
       type: object
       description: The schema definitions for providing parameters to a Service Broker operation.

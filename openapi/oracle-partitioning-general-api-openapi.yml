@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services General API
   contact:
@@ -35,6 +29,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseComponents'
       x-internal-id: database-components--get
       x-filename-id: database-components-get
+      operationId: getDatabaseComponents
+      x-operation-id-source: derived
   /database/components/{comp_id}:
     get:
       tags:
@@ -57,6 +53,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseComponentsItem'
       x-internal-id: database-components-{comp_id}-get
       x-filename-id: database-components-comp_id-get
+      operationId: getDatabaseComponentsByCompId
+      x-operation-id-source: derived
   /database/connections/:
     get:
       tags:
@@ -75,6 +73,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnections'
       x-internal-id: database-connections--get
       x-filename-id: database-connections-get
+      operationId: getDatabaseConnections
+      x-operation-id-source: derived
   /database/connections/{host_name},{port},{service_name}:
     get:
       tags:
@@ -109,6 +109,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseConnectionsItem'
       x-internal-id: database-connections-{host_name},{port},{service_name}-get
       x-filename-id: database-connections-host_name-port-service_name-get
+      operationId: getDatabaseConnectionsByHostName},{port},{serviceName
+      x-operation-id-source: derived
   /database/datapump/jobs/:
     post:
       tags:
@@ -235,6 +237,8 @@ paths:
                 $ref: '#/components/schemas/DataPumpJobsItem'
       x-internal-id: database-datapump-jobs--post
       x-filename-id: database-datapump-jobs-post
+      operationId: postDatabaseDatapumpJobs
+      x-operation-id-source: derived
   /database/feature_usage/:
     get:
       tags:
@@ -253,6 +257,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseFeatureUsage'
       x-internal-id: database-feature_usage--get
       x-filename-id: database-feature_usage-get
+      operationId: getDatabaseFeatureUsage
+      x-operation-id-source: derived
   /database/feature_usage/{dbid},{name}:
     get:
       tags:
@@ -281,6 +287,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseFeatureUsageItem'
       x-internal-id: database-feature_usage-{dbid},{name}-get
       x-filename-id: database-feature_usage-dbid-name-get
+      operationId: getDatabaseFeatureUsageByDbid},{name
+      x-operation-id-source: derived
   /database/parameters/:
     get:
       tags:
@@ -299,6 +307,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseParameters'
       x-internal-id: database-parameters--get
       x-filename-id: database-parameters-get
+      operationId: getDatabaseParameters
+      x-operation-id-source: derived
   /database/parameters/{name}:
     get:
       tags:
@@ -321,12 +331,14 @@ paths:
                 $ref: '#/components/schemas/DatabaseParametersItem'
       x-internal-id: database-parameters-{name}-get
       x-filename-id: database-parameters-name-get
+      operationId: getDatabaseParametersByName
+      x-operation-id-source: derived
   /database/security/users/:
     get:
       tags:
       - General
       summary: Get all database users
-      description: Returns records from DBA_USERS or ALL_USERS view depending on the role at runtime.  A client requires SQL Administrator or SQL Developer role to invoke this service.
+      description: Returns records from DBA_USERS or ALL_USERS view depending on the role at runtime. A client requires SQL Administrator or SQL Developer role to invoke this service.
       parameters:
       - $ref: '#/components/parameters/Limit'
       - $ref: '#/components/parameters/Filter'
@@ -339,6 +351,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseUsers'
       x-internal-id: database-security-users--get
       x-filename-id: database-security-users-get
+      operationId: getDatabaseSecurityUsers
+      x-operation-id-source: derived
   /database/security/users/{username}:
     get:
       tags:
@@ -361,6 +375,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseUsersItem'
       x-internal-id: database-security-users-{username}-get
       x-filename-id: database-security-users-username-get
+      operationId: getDatabaseSecurityUsersByUsername
+      x-operation-id-source: derived
   /database/sessionless-transactions/:
     post:
       tags:
@@ -381,6 +397,8 @@ paths:
           description: Sessionless transactions are not supported
       x-internal-id: database-sessionless-transactions--post
       x-filename-id: database-sessionless-transactions-post
+      operationId: postDatabaseSessionlessTransactions
+      x-operation-id-source: derived
   /database/sessionless-transactions/{sessionlessTransactionID}:
     put:
       tags:
@@ -407,6 +425,8 @@ paths:
           description: Sessionless transactions are not supported or the transaction does not exist
       x-internal-id: database-sessionless-transactions-{sessionlessTransactionID}-put
       x-filename-id: database-sessionless-transactions-sessionlesstransactionid-put
+      operationId: putDatabaseSessionlessTransactionsBySessionlessTransactionID
+      x-operation-id-source: derived
     delete:
       tags:
       - General
@@ -432,6 +452,8 @@ paths:
           description: Sessionless transactions are not supported or the transaction does not exist
       x-internal-id: database-sessionless-transactions-{sessionlessTransactionID}-delete
       x-filename-id: database-sessionless-transactions-sessionlesstransactionid-delete
+      operationId: deleteDatabaseSessionlessTransactionsBySessionlessTransactionID
+      x-operation-id-source: derived
   /database/status:
     get:
       tags:
@@ -447,6 +469,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseStatusItem'
       x-internal-id: database-status-get
       x-filename-id: database-status-get
+      operationId: getDatabaseStatus
+      x-operation-id-source: derived
   /database/storage/bytes:
     get:
       tags:
@@ -462,6 +486,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseStorageBytesItem'
       x-internal-id: database-storage-bytes-get
       x-filename-id: database-storage-bytes-get
+      operationId: getDatabaseStorageBytes
+      x-operation-id-source: derived
   /database/storage/tablespaces/:
     get:
       tags:
@@ -480,6 +506,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaces'
       x-internal-id: database-storage-tablespaces--get
       x-filename-id: database-storage-tablespaces-get
+      operationId: getDatabaseStorageTablespaces
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/:
     get:
       tags:
@@ -502,6 +530,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespacesItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}--get
       x-filename-id: database-storage-tablespaces-tablespace_name-get
+      operationId: getDatabaseStorageTablespacesByTablespaceName
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/datafiles_usage:
     get:
       tags:
@@ -524,6 +554,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafilesUsageItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-datafiles_usage-get
       x-filename-id: database-storage-tablespaces-tablespace_name-datafiles_usage-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameDatafilesUsage
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/datafiles/:
     get:
       tags:
@@ -548,6 +580,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafiles'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-datafiles--get
       x-filename-id: database-storage-tablespaces-tablespace_name-datafiles-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameDatafiles
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/datafiles/{file_id}/:
     get:
       tags:
@@ -576,6 +610,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafilesItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-datafiles-{file_id}--get
       x-filename-id: database-storage-tablespaces-tablespace_name-datafiles-file_id-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameDatafilesByFileId
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/datafiles/{file_id}/usage:
     get:
       tags:
@@ -604,6 +640,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafileUsageItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-datafiles-{file_id}-usage-get
       x-filename-id: database-storage-tablespaces-tablespace_name-datafiles-file_id-usage-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameDatafilesByFileIdUsage
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/history:
     get:
       tags:
@@ -626,6 +664,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceHistoryItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-history-get
       x-filename-id: database-storage-tablespaces-tablespace_name-history-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameHistory
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/segments/:
     get:
       tags:
@@ -650,6 +690,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceSegments'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-segments--get
       x-filename-id: database-storage-tablespaces-tablespace_name-segments-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameSegments
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/segments/{segment_name}:
     get:
       tags:
@@ -678,6 +720,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceSegmentsItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-segments-{segment_name}-get
       x-filename-id: database-storage-tablespaces-tablespace_name-segments-segment_name-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameSegmentsBySegmentName
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/tempfiles_usage:
     get:
       tags:
@@ -700,6 +744,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafilesUsageItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-tempfiles_usage-get
       x-filename-id: database-storage-tablespaces-tablespace_name-tempfiles_usage-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameTempfilesUsage
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/tempfiles/:
     get:
       tags:
@@ -724,6 +770,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceTempfiles'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-tempfiles--get
       x-filename-id: database-storage-tablespaces-tablespace_name-tempfiles-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameTempfiles
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/tempfiles/{file_id}/:
     get:
       tags:
@@ -752,6 +800,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceTempfilesItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-tempfiles-{file_id}--get
       x-filename-id: database-storage-tablespaces-tablespace_name-tempfiles-file_id-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameTempfilesByFileId
+      x-operation-id-source: derived
   /database/storage/tablespaces/{tablespace_name}/tempfiles/{file_id}/usage:
     get:
       tags:
@@ -780,6 +830,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaceDatafileUsageItem'
       x-internal-id: database-storage-tablespaces-{tablespace_name}-tempfiles-{file_id}-usage-get
       x-filename-id: database-storage-tablespaces-tablespace_name-tempfiles-file_id-usage-get
+      operationId: getDatabaseStorageTablespacesByTablespaceNameTempfilesByFileIdUsage
+      x-operation-id-source: derived
   /database/version:
     get:
       tags:
@@ -795,6 +847,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseVersionItem'
       x-internal-id: database-version-get
       x-filename-id: database-version-get
+      operationId: getDatabaseVersion
+      x-operation-id-source: derived
   /environment/homes/{homeName}/:
     get:
       tags:
@@ -817,175 +871,53 @@ paths:
                 $ref: '#/components/schemas/EnvironmentHomesItem'
       x-internal-id: environment-homes-{homeName}--get
       x-filename-id: environment-homes-homename-get
+      operationId: getEnvironmentHomesByHomeName
+      x-operation-id-source: derived
 components:
   schemas:
-    DatabaseStatusItem:
+    DatabaseComponentsItem:
       type: object
-      description: Relying on GV$INSTANCE and GV$DATABASE views this object provides information on the status of the database.
+      description: A component registered in the database.
       properties:
-        inst_id:
-          type: integer
-          description: Instance number from which the associated GV$INSTANCE view information was obtained.
-        instance_number:
-          type: integer
-          description: Instance number used for instance registration (corresponds to the INSTANCE_NUMBER initialization parameter).
-        instance_name:
+        comp_id:
           type: string
-          description: Name of the instance.
-        host_name:
+          description: Component identifier.
+        comp_name:
           type: string
-          description: Name of the host machine.
+          description: Component name.
         version:
           type: string
-          description: Database version.
-        version_legacy:
-          type: string
-          description: The legacy database version used before Oracle Database 18c. This column displays the same value as the VERSION column.
+          description: Component version loaded.
         version_full:
           type: string
-          description: The version string with the new Oracle Database version scheme introduced in Oracle Database 18c.
-        startup_time:
-          type: string
-          description: Time when the instance was started.
+          description: Component full version.
         status:
           type: string
-          description: Status of the instance.
-        parallel:
+          description: Component status.
+        modified:
           type: string
-          description: Indicates whether the instance is mounted in cluster database mode (YES) or not (NO).
-        thread#:
-          type: integer
-          description: Redo thread opened by the instance.
-        archiver:
+          description: Time when the component was last modified.
+        namespace:
           type: string
-          description: Automatic archiving status.
-        log_switch_wait:
+          description: Component namespace.
+        control:
           type: string
-          description: Event that log switching is waiting for.
-        logins:
+          description: User that created the component entry.
+        schema:
           type: string
-          description: Indicates whether the instance is in unrestricted mode, allowing logins by all users (ALLOWED, or in restricted mode, allowing logins by database administrators only (RESTRICTED).
-        shutdown_pending:
+          description: User that contains the objects for the component.
+        procedure:
           type: string
-          description: Indicates whether a shutdown is pending (YES) or not (NO).
-        database_status:
+          description: Validation procedure.
+        startup:
           type: string
-          description: Status of the database.
-        instance_role:
+          description: Indicates whether the component requires a startup after the upgrade (REQUIRED) or not.
+        parent_id:
           type: string
-          description: Indicates whether the instance is an active instance (PRIMARY_INSTANCE) or an inactive secondary instance (SECONDARY_INSTANCE), or UNKNOWN if the instance has been started but not mounted.
-        active_state:
+          description: Parent component identifier.
+        other_schemas:
           type: string
-          description: Quiesce state of the instance.
-        blocked:
-          type: string
-          description: Indicates whether all services are blocked (YES) or not (NO).
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        instance_mode:
-          type: string
-          description: Shows the instance mode of the current instance.
-        edition:
-          type: string
-          description: The edition of the database.
-        database_type:
-          type: string
-          description: Database type.
-        name:
-          type: string
-          description: Name of the database.
-        db_unique_name:
-          type: string
-          description: Unique database name.
-        open_mode:
-          type: string
-          description: Open mode information.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseVersionItem:
-      type: object
-      description: Relying on GV$INSTANCE and GV$VERSION views this object provides information on the version of the database.
-      properties:
-        inst_id:
-          type: integer
-          description: Instance number from which the associated GV$INSTANCE view information was obtained.
-        instance_number:
-          type: integer
-          description: Instance number used for instance registration (corresponds to the INSTANCE_NUMBER initialization parameter).
-        instance_name:
-          type: string
-          description: Name of the instance.
-        host_name:
-          type: string
-          description: Name of the host machine.
-        version:
-          type: string
-          description: Database version.
-        version_legacy:
-          type: string
-          description: The legacy database version used before Oracle Database 18c. This column displays the same value as the VERSION column.
-        version_full:
-          type: string
-          description: The version string with the new Oracle Database version scheme introduced in Oracle Database 18c.
-        startup_time:
-          type: string
-          description: Time when the instance was started.
-        status:
-          type: string
-          description: Status of the instance.
-        parallel:
-          type: string
-          description: Indicates whether the instance is mounted in cluster database mode (YES) or not (NO).
-        thread#:
-          type: integer
-          description: Redo thread opened by the instance.
-        archiver:
-          type: string
-          description: Automatic archiving status.
-        log_switch_wait:
-          type: string
-          description: Event that log switching is waiting for.
-        logins:
-          type: string
-          description: Indicates whether the instance is in unrestricted mode, allowing logins by all users (ALLOWED, or in restricted mode, allowing logins by database administrators only (RESTRICTED).
-        shutdown_pending:
-          type: string
-          description: Indicates whether a shutdown is pending (YES) or not (NO).
-        database_status:
-          type: string
-          description: Status of the database.
-        instance_role:
-          type: string
-          description: Indicates whether the instance is an active instance (PRIMARY_INSTANCE) or an inactive secondary instance (SECONDARY_INSTANCE), or UNKNOWN if the instance has been started but not mounted.
-        active_state:
-          type: string
-          description: Quiesce state of the instance.
-        blocked:
-          type: string
-          description: Indicates whether all services are blocked (YES) or not (NO).
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        instance_mode:
-          type: string
-          description: Shows the instance mode of the current instance.
-        edition:
-          type: string
-          description: The edition of the database.
-        database_type:
-          type: string
-          description: Database type.
-        instance_version:
-          type: array
-          items:
-            type: object
-            properties:
-              banner:
-                type: string
-                description: Component name and version number.
+          description: A list of ancillary schema names associated with the component.
         links:
           type: array
           items:
@@ -1114,6 +1046,106 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespaceHistoryItem:
+      type: object
+      description: Describes historical tablespace usage statistics.
+      properties:
+        snap_id:
+          type: integer
+          description: Unique snapshot ID.
+        dbid:
+          type: integer
+          description: Database ID for the snapshot.
+        tablespace_id:
+          type: integer
+          description: Tablespace ID.
+        tablespace_size:
+          type: integer
+          description: Tablespace size (in database blocks).
+        tablespace_maxsize:
+          type: integer
+          description: Maximum size of the tablespace (in database blocks).
+        tablespace_usedsize:
+          type: integer
+          description: Used size of the tablespace (in database blocks).
+        rtime:
+          type: string
+          description: Runtime.
+        con_dbid:
+          type: integer
+          description: The database ID of the PDB for the sampled session.
+        con_id:
+          type: integer
+          description: The ID of the container that CON_DBID identifies.
+        prev_tablespace_size:
+          type: integer
+          description: The previous tablespace size (in database blocks).
+        name:
+          type: string
+          description: Tablespace name.
+    DatabaseTablespaceTempfilesItem:
+      type: object
+      description: Describes a temporary file in the database.
+      properties:
+        file_name:
+          type: string
+          description: Name of the database file.
+        file_id:
+          type: integer
+          description: File identifier number of the database temp file.
+        tablespace_name:
+          type: string
+          description: Name of the tablespace.
+        bytes:
+          type: integer
+          description: Size of the file (in bytes).
+        blocks:
+          type: integer
+          description: Size of the file (in Oracle blocks).
+        status:
+          type: string
+          description: File status.
+        relative_fno:
+          type: integer
+          description: Tablespace-relative file number.
+        autoextensible:
+          type: string
+          description: Indicates whether the file is autoextensible (YES) or not (NO).
+        maxbytes:
+          type: integer
+          description: Maximum size of the file (in bytes).
+        maxblocks:
+          type: integer
+          description: Maximum size of the file (in Oracle blocks).
+        increment_by:
+          type: integer
+          description: Default increment for autoextension (in Oracle blocks).
+        user_bytes:
+          type: integer
+          description: The size of the file available for user data. The actual size of the file minus the USER_BYTES value is used to store file related metadata.
+        user_blocks:
+          type: integer
+          description: Size of the useful portion of the file (in Oracle blocks).
+        shared:
+          type: string
+          description: Type of tablespace this file belongs to.
+        inst_id:
+          type: integer
+          description: Instance ID of the instance to which the temp file belongs. This column has a NULL value for temp files that belong to shared tablespaces.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
     DataPumpJobsItem:
       type: object
       description: This object represents a specified Data Pump job in the database.
@@ -1142,6 +1174,663 @@ components:
         datapump_sessions:
           type: integer
           description: Number of Data Pump sessions participating in the job.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentHomesItem:
+      type: object
+      description: An Oracle home is a directory into which Oracle software is installed.
+      properties:
+        name:
+          type: string
+          description: The name of the Oracle home.
+        version:
+          type: string
+          description: The product version.
+        default:
+          type: boolean
+          description: Indicates if the Oracle home is specified by the $ORACLE_HOME environment variable.
+        read_only_home:
+          type: boolean
+          description: Indicates if the Oracle home is configured in read only mode.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseConnections:
+      type: object
+      description: Information on the listeners configured for the database is retrieved from GV$LISTENER_NETWORK.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseConnectionsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespaceDatafileUsageItem:
+      type: object
+      description: Using GV$DATAFILE and DBA_FREE_SPACE data this object represents the usage of a data file in the database.
+      properties:
+        file_name:
+          type: string
+          description: Name of the database file.
+        file_id:
+          type: integer
+          description: File identifier number of the database file.
+        tablespace:
+          type: string
+          description: Name of the tablespace.
+        status:
+          type: string
+          description: File status.
+        total_space:
+          type: integer
+          description: Total size of the files (in bytes).
+        used_space:
+          type: integer
+          description: Total used space (in bytes).
+        used_space_pct:
+          type: number
+          description: :Percentage of how much space is used.
+        autoextend:
+          type: string
+          description: Indicates whether the file is autoextensible (YES) or not (NO).
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespaceTempfiles:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTablespaceTempfilesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseUsers:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseUsersItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    TransactionResponse:
+      type: object
+      properties:
+        gtrid:
+          type: string
+        status:
+          type: string
+    DatabaseFeatureUsage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseFeatureUsageItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespaceDatafilesUsageItem:
+      type: object
+      description: Using GV$DATAFILE and DBA_FREE_SPACE data this object represents the usage of a data file in the database.
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              file_name:
+                type: string
+                description: Name of the database file.
+              tablespace:
+                type: string
+                description: Name of the tablespace.
+              status:
+                type: string
+                description: File status.
+              total_space:
+                type: integer
+                description: Total size of the files (in bytes).
+              used_space:
+                type: integer
+                description: Total used space (in bytes).
+              used_space_pct:
+                type: number
+                description: :Percentage of how much space is used.
+              autoextend:
+                type: string
+                description: Indicates whether the file is autoextensible (YES) or not (NO).
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    Filter:
+      type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
+    DatabaseComponents:
+      type: object
+      description: DBA_REGISTRY displays information about all components in the database that are loaded into the component registry. The component registry tracks components that can be separately loaded into the Oracle Database. When a SQL script loads the PL/SQL packages and other database objects for a component into the database, the script records the component name, status, and version. If scripts are used to upgrade/downgrade the dictionary elements for the component, then those scripts also record status and version information.
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseComponentsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespaceDatafiles:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTablespaceDatafilesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseFeatureUsageItem:
+      type: object
+      description: Statistics on the usage in the database for an Oracle Database feature.
+      properties:
+        dbid:
+          type: integer
+          description: Database identifier of the database being tracked.
+        name:
+          type: string
+          description: Name of the feature.
+        version:
+          type: string
+          description: Database version in which the feature was tracked.
+        detected_usages:
+          type: integer
+          description: Number of times the system has detected usage for the feature.
+        total_samples:
+          type: integer
+          description: Number of times the system has woken up and checked for feature usage.
+        currently_used:
+          type: string
+          description: Indicates whether usage was detected the last time the system checked (TRUE) or not (FALSE).
+        first_usage_date:
+          type: string
+          description: First sample time the system detected usage of the feature.
+        last_usage_date:
+          type: string
+          description: Last sample time the system detected usage of the feature.
+        aux_count:
+          type: integer
+          description: This column stores feature-specific usage data in number format.
+        feature_info:
+          type: string
+          description: This column stores feature-specific usage data in character format.
+        last_sample_date:
+          type: string
+          description: The last time the system checked for usage.
+        last_sample_period:
+          type: integer
+          description: Amount of time (in seconds) between the last two usage sample times.
+        sample_interval:
+          type: integer
+          description: Sample interval.
+        description:
+          type: string
+          description: Description of the feature and usage detection logic.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseVersionItem:
+      type: object
+      description: Relying on GV$INSTANCE and GV$VERSION views this object provides information on the version of the database.
+      properties:
+        inst_id:
+          type: integer
+          description: Instance number from which the associated GV$INSTANCE view information was obtained.
+        instance_number:
+          type: integer
+          description: Instance number used for instance registration (corresponds to the INSTANCE_NUMBER initialization parameter).
+        instance_name:
+          type: string
+          description: Name of the instance.
+        host_name:
+          type: string
+          description: Name of the host machine.
+        version:
+          type: string
+          description: Database version.
+        version_legacy:
+          type: string
+          description: The legacy database version used before Oracle Database 18c. This column displays the same value as the VERSION column.
+        version_full:
+          type: string
+          description: The version string with the new Oracle Database version scheme introduced in Oracle Database 18c.
+        startup_time:
+          type: string
+          description: Time when the instance was started.
+        status:
+          type: string
+          description: Status of the instance.
+        parallel:
+          type: string
+          description: Indicates whether the instance is mounted in cluster database mode (YES) or not (NO).
+        thread#:
+          type: integer
+          description: Redo thread opened by the instance.
+        archiver:
+          type: string
+          description: Automatic archiving status.
+        log_switch_wait:
+          type: string
+          description: Event that log switching is waiting for.
+        logins:
+          type: string
+          description: Indicates whether the instance is in unrestricted mode, allowing logins by all users (ALLOWED, or in restricted mode, allowing logins by database administrators only (RESTRICTED).
+        shutdown_pending:
+          type: string
+          description: Indicates whether a shutdown is pending (YES) or not (NO).
+        database_status:
+          type: string
+          description: Status of the database.
+        instance_role:
+          type: string
+          description: Indicates whether the instance is an active instance (PRIMARY_INSTANCE) or an inactive secondary instance (SECONDARY_INSTANCE), or UNKNOWN if the instance has been started but not mounted.
+        active_state:
+          type: string
+          description: Quiesce state of the instance.
+        blocked:
+          type: string
+          description: Indicates whether all services are blocked (YES) or not (NO).
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        instance_mode:
+          type: string
+          description: Shows the instance mode of the current instance.
+        edition:
+          type: string
+          description: The edition of the database.
+        database_type:
+          type: string
+          description: Database type.
+        instance_version:
+          type: array
+          items:
+            type: object
+            properties:
+              banner:
+                type: string
+                description: Component name and version number.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseTablespacesItem:
+      type: object
+      description: Describes a tablespace in the database.
+      properties:
+        tablespace_name:
+          type: string
+          description: Name of the tablespace.
+        file_name:
+          type: string
+          description: Name of the database file.
+        file_id:
+          type: integer
+          description: File identifier number of the database file.
+        bytes:
+          type: integer
+          description: Size of the file (in bytes).
+        blocks:
+          type: integer
+          description: Size of the file (in Oracle blocks).
+        status:
+          type: string
+          description: File status.
+        relative_fno:
+          type: integer
+          description: Tablespace-relative file number.
+        autoextensible:
+          type: string
+          description: Indicates whether the file is autoextensible (YES) or not (NO).
+        maxbytes:
+          type: integer
+          description: Maximum size of the file (in bytes).
+        maxblocks:
+          type: integer
+          description: Maximum size of the file (in Oracle blocks).
+        increment_by:
+          type: integer
+          description: Default increment for autoextension (in Oracle blocks).
+        user_bytes:
+          type: integer
+          description: The size of the file available for user data. The actual size of the file minus the USER_BYTES value is used to store file related metadata.
+        user_blocks:
+          type: integer
+          description: Size of the useful portion of the file (in Oracle blocks).
+        online_status:
+          type: string
+          description: Online status of the file.
+        total_space:
+          type: integer
+          description: Total size of the files (in bytes).
+        used_space:
+          type: integer
+          description: Total used space (in bytes).
+        free_space:
+          type: integer
+          description: Total free space (in bytes).
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseConnectionsItem:
+      type: object
+      description: Information on the listeners configured for the database is retrieved from GV$LISTENER_NETWORK. The list of attributes may vary depending on database version.
+      properties:
+        inst_id:
+          type: integer
+          description: Instance number from which the associated GV$LISTENER_NETWORK view information was obtained.
+        host_name:
+          type: string
+          description: Name of the host machine.
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        service_name:
+          type: string
+          description: Name of the database service that is registered with the listener.
+        port:
+          type: integer
+          description: The TCP/IP port the listener is using.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseParameters:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseParametersItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseStatusItem:
+      type: object
+      description: Relying on GV$INSTANCE and GV$DATABASE views this object provides information on the status of the database.
+      properties:
+        inst_id:
+          type: integer
+          description: Instance number from which the associated GV$INSTANCE view information was obtained.
+        instance_number:
+          type: integer
+          description: Instance number used for instance registration (corresponds to the INSTANCE_NUMBER initialization parameter).
+        instance_name:
+          type: string
+          description: Name of the instance.
+        host_name:
+          type: string
+          description: Name of the host machine.
+        version:
+          type: string
+          description: Database version.
+        version_legacy:
+          type: string
+          description: The legacy database version used before Oracle Database 18c. This column displays the same value as the VERSION column.
+        version_full:
+          type: string
+          description: The version string with the new Oracle Database version scheme introduced in Oracle Database 18c.
+        startup_time:
+          type: string
+          description: Time when the instance was started.
+        status:
+          type: string
+          description: Status of the instance.
+        parallel:
+          type: string
+          description: Indicates whether the instance is mounted in cluster database mode (YES) or not (NO).
+        thread#:
+          type: integer
+          description: Redo thread opened by the instance.
+        archiver:
+          type: string
+          description: Automatic archiving status.
+        log_switch_wait:
+          type: string
+          description: Event that log switching is waiting for.
+        logins:
+          type: string
+          description: Indicates whether the instance is in unrestricted mode, allowing logins by all users (ALLOWED, or in restricted mode, allowing logins by database administrators only (RESTRICTED).
+        shutdown_pending:
+          type: string
+          description: Indicates whether a shutdown is pending (YES) or not (NO).
+        database_status:
+          type: string
+          description: Status of the database.
+        instance_role:
+          type: string
+          description: Indicates whether the instance is an active instance (PRIMARY_INSTANCE) or an inactive secondary instance (SECONDARY_INSTANCE), or UNKNOWN if the instance has been started but not mounted.
+        active_state:
+          type: string
+          description: Quiesce state of the instance.
+        blocked:
+          type: string
+          description: Indicates whether all services are blocked (YES) or not (NO).
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        instance_mode:
+          type: string
+          description: Shows the instance mode of the current instance.
+        edition:
+          type: string
+          description: The edition of the database.
+        database_type:
+          type: string
+          description: Database type.
+        name:
+          type: string
+          description: Name of the database.
+        db_unique_name:
+          type: string
+          description: Unique database name.
+        open_mode:
+          type: string
+          description: Open mode information.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseStorageBytesItem:
+      type: object
+      description: Total size of data files in the database and their total usage.
+      properties:
+        total_bytes:
+          type: integer
+          description: Total size (in bytes) of all the data files in the database.
+        used_bytes:
+          type: integer
+          description: Total number of bytes used by all the tablespaces in the database.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseParametersItem:
+      type: object
+      description: This documentation represents an initialization parameter that is currently in effect for the instance. A new session inherits parameter values from the instance-wide values. The list of attributes may vary depending on database version.
+      properties:
+        inst_id:
+          type: integer
+          description: Instance number from which the associated GV$SYSTEM_PARAMETER view information was obtained.
+        num:
+          type: integer
+          description: Parameter number.
+        name:
+          type: string
+          description: Name of the parameter.
+        type:
+          type: integer
+          description: Parameter type.
+        value:
+          type: string
+          description: Instance-wide parameter value.
+        display_value:
+          type: string
+          description: Parameter value in a user-friendly format. For example, if the VALUE column shows the value 262144 for a big integer parameter, then the DISPLAY_VALUE column will show the value 256K.
+        default_value:
+          type: string
+          description: The default value for this parameter. This is the value of the parameter if a value is not explicitly specified for the parameter.
+        isdefault:
+          type: string
+          description: Indicates whether the parameter is set to the default value (TRUE) or the parameter value was specified in the parameter file (FALSE). The database sets the value of the ISDEFAULT column to TRUE for parameters that are not specified in the init.ora or server parameter file (SPFILE).
+        isses_modifiable:
+          type: string
+          description: Indicates whether the parameter can be changed with ALTER SESSION (TRUE) or not (FALSE).
+        issys_modifiable:
+          type: string
+          description: Indicates whether the parameter can be changed with ALTER SYSTEM and when the change takes effect.
+        ispdb_modifiable:
+          type: string
+          description: Indicates whether the parameter can be modified inside a PDB (TRUE) or not (FALSE). In a non-CDB, the value of this column is NULL.
+        isinstance_modifiable:
+          type: string
+          description: For parameters that can be changed with ALTER SYSTEM, indicates whether the value of the parameter can be different for every instance (TRUE) or whether the parameter must have the same value for all Real Application Clusters instances (FALSE). If the ISSYS_MODIFIABLE column is FALSE, then this column is always FALSE.
+        ismodified:
+          type: string
+          description: Indicates how the parameter was modified. If an ALTER SYSTEM was performed, the value will be MODIFIED.
+        isadjusted:
+          type: string
+          description: Indicates whether Oracle adjusted the input value to a more suitable value (for example, the parameter value should be prime, but the user input a non-prime number, so Oracle adjusted the value to the next prime number).
+        isdeprecated:
+          type: string
+          description: Indicates whether the parameter has been deprecated (TRUE) or not (FALSE).
+        isbasic:
+          type: string
+          description: Indicates whether the parameter is a basic parameter (TRUE) or not (FALSE).
+        description:
+          type: string
+          description: Description of the parameter.
+        update_comment:
+          type: string
+          description: Comments associated with the most recent update.
+        hash:
+          type: integer
+          description: Hash value for the parameter name.
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
         links:
           type: array
           items:
@@ -1235,135 +1924,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseUsers:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseUsersItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespacesItem:
-      type: object
-      description: Describes a tablespace in the database.
-      properties:
-        tablespace_name:
-          type: string
-          description: Name of the tablespace.
-        file_name:
-          type: string
-          description: Name of the database file.
-        file_id:
-          type: integer
-          description: File identifier number of the database file.
-        bytes:
-          type: integer
-          description: Size of the file (in bytes).
-        blocks:
-          type: integer
-          description: Size of the file (in Oracle blocks).
-        status:
-          type: string
-          description: File status.
-        relative_fno:
-          type: integer
-          description: Tablespace-relative file number.
-        autoextensible:
-          type: string
-          description: Indicates whether the file is autoextensible (YES) or not (NO).
-        maxbytes:
-          type: integer
-          description: Maximum size of the file (in bytes).
-        maxblocks:
-          type: integer
-          description: Maximum size of the file (in Oracle blocks).
-        increment_by:
-          type: integer
-          description: Default increment for autoextension (in Oracle blocks).
-        user_bytes:
-          type: integer
-          description: The size of the file available for user data. The actual size of the file minus the USER_BYTES value is used to store file related metadata.
-        user_blocks:
-          type: integer
-          description: Size of the useful portion of the file (in Oracle blocks).
-        online_status:
-          type: string
-          description: Online status of the file.
-        total_space:
-          type: integer
-          description: Total size of the files (in bytes).
-        used_space:
-          type: integer
-          description: Total used space (in bytes).
-        free_space:
-          type: integer
-          description: Total free space (in bytes).
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespaceTempfiles:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseTablespaceTempfilesItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseComponents:
-      type: object
-      description: DBA_REGISTRY displays information about all components in the database that are loaded into the component registry. The component registry tracks components that can be separately loaded into the Oracle Database. When a SQL script loads the PL/SQL packages and other database objects for a component into the database, the script records the component name, status, and version. If scripts are used to upgrade/downgrade the dictionary elements for the component, then those scripts also record status and version information.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseComponentsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     DatabaseTablespaces:
       type: object
       properties:
@@ -1383,288 +1943,6 @@ components:
         count:
           type: integer
           description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseConnectionsItem:
-      type: object
-      description: Information on the listeners configured for the database is retrieved from GV$LISTENER_NETWORK. The list of attributes may vary depending on database version.
-      properties:
-        inst_id:
-          type: integer
-          description: Instance number from which the associated GV$LISTENER_NETWORK view information was obtained.
-        host_name:
-          type: string
-          description: Name of the host machine.
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        service_name:
-          type: string
-          description: Name of the database service that is registered with the listener.
-        port:
-          type: integer
-          description: The TCP/IP port the listener is using.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseFeatureUsage:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseFeatureUsageItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespaceTempfilesItem:
-      type: object
-      description: Describes a temporary file in the database.
-      properties:
-        file_name:
-          type: string
-          description: Name of the database file.
-        file_id:
-          type: integer
-          description: File identifier number of the database temp file.
-        tablespace_name:
-          type: string
-          description: Name of the tablespace.
-        bytes:
-          type: integer
-          description: Size of the file (in bytes).
-        blocks:
-          type: integer
-          description: Size of the file (in Oracle blocks).
-        status:
-          type: string
-          description: File status.
-        relative_fno:
-          type: integer
-          description: Tablespace-relative file number.
-        autoextensible:
-          type: string
-          description: Indicates whether the file is autoextensible (YES) or not (NO).
-        maxbytes:
-          type: integer
-          description: Maximum size of the file (in bytes).
-        maxblocks:
-          type: integer
-          description: Maximum size of the file (in Oracle blocks).
-        increment_by:
-          type: integer
-          description: Default increment for autoextension (in Oracle blocks).
-        user_bytes:
-          type: integer
-          description: The size of the file available for user data. The actual size of the file minus the USER_BYTES value is used to store file related metadata.
-        user_blocks:
-          type: integer
-          description: Size of the useful portion of the file (in Oracle blocks).
-        shared:
-          type: string
-          description: Type of tablespace this file belongs to.
-        inst_id:
-          type: integer
-          description: Instance ID of the instance to which the temp file belongs. This column has a NULL value for temp files that belong to shared tablespaces.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseFeatureUsageItem:
-      type: object
-      description: Statistics on the usage in the database for an Oracle Database feature.
-      properties:
-        dbid:
-          type: integer
-          description: Database identifier of the database being tracked.
-        name:
-          type: string
-          description: Name of the feature.
-        version:
-          type: string
-          description: Database version in which the feature was tracked.
-        detected_usages:
-          type: integer
-          description: Number of times the system has detected usage for the feature.
-        total_samples:
-          type: integer
-          description: Number of times the system has woken up and checked for feature usage.
-        currently_used:
-          type: string
-          description: Indicates whether usage was detected the last time the system checked (TRUE) or not (FALSE).
-        first_usage_date:
-          type: string
-          description: First sample time the system detected usage of the feature.
-        last_usage_date:
-          type: string
-          description: Last sample time the system detected usage of the feature.
-        aux_count:
-          type: integer
-          description: This column stores feature-specific usage data in number format.
-        feature_info:
-          type: string
-          description: This column stores feature-specific usage data in character format.
-        last_sample_date:
-          type: string
-          description: The last time the system checked for usage.
-        last_sample_period:
-          type: integer
-          description: Amount of time (in seconds) between the last two usage sample times.
-        sample_interval:
-          type: integer
-          description: Sample interval.
-        description:
-          type: string
-          description: Description of the feature and usage detection logic.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    DatabaseTablespaceHistoryItem:
-      type: object
-      description: Describes historical tablespace usage statistics.
-      properties:
-        snap_id:
-          type: integer
-          description: Unique snapshot ID.
-        dbid:
-          type: integer
-          description: Database ID for the snapshot.
-        tablespace_id:
-          type: integer
-          description: Tablespace ID.
-        tablespace_size:
-          type: integer
-          description: Tablespace size (in database blocks).
-        tablespace_maxsize:
-          type: integer
-          description: Maximum size of the tablespace (in database blocks).
-        tablespace_usedsize:
-          type: integer
-          description: Used size of the tablespace (in database blocks).
-        rtime:
-          type: string
-          description: Runtime.
-        con_dbid:
-          type: integer
-          description: The database ID of the PDB for the sampled session.
-        con_id:
-          type: integer
-          description: The ID of the container that CON_DBID identifies.
-        prev_tablespace_size:
-          type: integer
-          description: The previous tablespace size (in database blocks).
-        name:
-          type: string
-          description: Tablespace name.
-    DatabaseParameters:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseParametersItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    Filter:
-      type: object
-      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
-      externalDocs:
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      anyOf:
-      - type: object
-        description: Any key / value pair for specifying a Filter Criteria.
-      - type: object
-        properties:
-          $orderby:
-            description: Specify which properties to order the result set by.
-            type: object
-          $asof:
-            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
-            type: object
-    DatabaseComponentsItem:
-      type: object
-      description: A component registered in the database.
-      properties:
-        comp_id:
-          type: string
-          description: Component identifier.
-        comp_name:
-          type: string
-          description: Component name.
-        version:
-          type: string
-          description: Component version loaded.
-        version_full:
-          type: string
-          description: Component full version.
-        status:
-          type: string
-          description: Component status.
-        modified:
-          type: string
-          description: Time when the component was last modified.
-        namespace:
-          type: string
-          description: Component namespace.
-        control:
-          type: string
-          description: User that created the component entry.
-        schema:
-          type: string
-          description: User that contains the objects for the component.
-        procedure:
-          type: string
-          description: Validation procedure.
-        startup:
-          type: string
-          description: Indicates whether the component requires a startup after the upgrade (REQUIRED) or not.
-        parent_id:
-          type: string
-          description: Parent component identifier.
-        other_schemas:
-          type: string
-          description: A list of ancillary schema names associated with the component.
         links:
           type: array
           items:
@@ -1719,229 +1997,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespaceDatafilesUsageItem:
-      type: object
-      description: Using GV$DATAFILE and DBA_FREE_SPACE data this object represents the usage of a data file in the database.
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              file_name:
-                type: string
-                description: Name of the database file.
-              tablespace:
-                type: string
-                description: Name of the tablespace.
-              status:
-                type: string
-                description: File status.
-              total_space:
-                type: integer
-                description: Total size of the files (in bytes).
-              used_space:
-                type: integer
-                description: Total used space (in bytes).
-              used_space_pct:
-                type: number
-                description: :Percentage of how much space is used.
-              autoextend:
-                type: string
-                description: Indicates whether the file is autoextensible (YES) or not (NO).
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentHomesItem:
-      type: object
-      description: An Oracle home is a directory into which Oracle software is installed.
-      properties:
-        name:
-          type: string
-          description: The name of the Oracle home.
-        version:
-          type: string
-          description: The product version.
-        default:
-          type: boolean
-          description: Indicates if the Oracle home is specified by the $ORACLE_HOME environment variable.
-        read_only_home:
-          type: boolean
-          description: Indicates if the Oracle home is configured in read only mode.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseParametersItem:
-      type: object
-      description: This documentation represents an initialization parameter that is currently in effect for the instance. A new session inherits parameter values from the instance-wide values. The list of attributes may vary depending on database version.
-      properties:
-        inst_id:
-          type: integer
-          description: Instance number from which the associated GV$SYSTEM_PARAMETER view information was obtained.
-        num:
-          type: integer
-          description: Parameter number.
-        name:
-          type: string
-          description: Name of the parameter.
-        type:
-          type: integer
-          description: Parameter type.
-        value:
-          type: string
-          description: Instance-wide parameter value.
-        display_value:
-          type: string
-          description: Parameter value in a user-friendly format. For example, if the VALUE column shows the value 262144 for a big integer parameter, then the DISPLAY_VALUE column will show the value 256K.
-        default_value:
-          type: string
-          description: The default value for this parameter. This is the value of the parameter if a value is not explicitly specified for the parameter.
-        isdefault:
-          type: string
-          description: Indicates whether the parameter is set to the default value (TRUE) or the parameter value was specified in the parameter file (FALSE). The database sets the value of the ISDEFAULT column to TRUE for parameters that are not specified in the init.ora or server parameter file (SPFILE).
-        isses_modifiable:
-          type: string
-          description: Indicates whether the parameter can be changed with ALTER SESSION (TRUE) or not (FALSE).
-        issys_modifiable:
-          type: string
-          description: Indicates whether the parameter can be changed with ALTER SYSTEM and when the change takes effect.
-        ispdb_modifiable:
-          type: string
-          description: Indicates whether the parameter can be modified inside a PDB (TRUE) or not (FALSE). In a non-CDB, the value of this column is NULL.
-        isinstance_modifiable:
-          type: string
-          description: For parameters that can be changed with ALTER SYSTEM, indicates whether the value of the parameter can be different for every instance (TRUE) or whether the parameter must have the same value for all Real Application Clusters instances (FALSE). If the ISSYS_MODIFIABLE column is FALSE, then this column is always FALSE.
-        ismodified:
-          type: string
-          description: Indicates how the parameter was modified. If an ALTER SYSTEM was performed, the value will be MODIFIED.
-        isadjusted:
-          type: string
-          description: Indicates whether Oracle adjusted the input value to a more suitable value (for example, the parameter value should be prime, but the user input a non-prime number, so Oracle adjusted the value to the next prime number).
-        isdeprecated:
-          type: string
-          description: Indicates whether the parameter has been deprecated (TRUE) or not (FALSE).
-        isbasic:
-          type: string
-          description: Indicates whether the parameter is a basic parameter (TRUE) or not (FALSE).
-        description:
-          type: string
-          description: Description of the parameter.
-        update_comment:
-          type: string
-          description: Comments associated with the most recent update.
-        hash:
-          type: integer
-          description: Hash value for the parameter name.
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    TransactionResponse:
-      type: object
-      properties:
-        gtrid:
-          type: string
-        status:
-          type: string
-    DatabaseTablespaceDatafiles:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseTablespaceDatafilesItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseConnections:
-      type: object
-      description: Information on the listeners configured for the database is retrieved from GV$LISTENER_NETWORK.
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseConnectionsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespaceDatafileUsageItem:
-      type: object
-      description: Using GV$DATAFILE and DBA_FREE_SPACE data this object represents the usage of a data file in the database.
-      properties:
-        file_name:
-          type: string
-          description: Name of the database file.
-        file_id:
-          type: integer
-          description: File identifier number of the database file.
-        tablespace:
-          type: string
-          description: Name of the tablespace.
-        status:
-          type: string
-          description: File status.
-        total_space:
-          type: integer
-          description: Total size of the files (in bytes).
-        used_space:
-          type: integer
-          description: Total used space (in bytes).
-        used_space_pct:
-          type: number
-          description: :Percentage of how much space is used.
-        autoextend:
-          type: string
-          description: Indicates whether the file is autoextensible (YES) or not (NO).
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseStorageBytesItem:
-      type: object
-      description: Total size of data files in the database and their total usage.
-      properties:
-        total_bytes:
-          type: integer
-          description: Total size (in bytes) of all the data files in the database.
-        used_bytes:
-          type: integer
-          description: Total number of bytes used by all the tablespaces in the database.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
   examples:
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
     FilterCriteria:
       summary: Implicit EQUALS operator for a number. Supports String and Dates too.
       value:
@@ -1952,13 +2015,6 @@ components:
         $orderby:
           SALARY: ASC
           ENAME: DESC
-    FilterAndOrder:
-      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
-      value:
-        ENAME:
-          $like: AX%
-        $orderby:
-          ENAME: ASC
   parameters:
     Filter:
       name: q

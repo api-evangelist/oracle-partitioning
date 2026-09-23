@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Data Dictionary API
   contact:
@@ -35,6 +29,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseLinks'
       x-internal-id: database-db_links--get
       x-filename-id: database-db_links-get
+      operationId: getDatabaseDbLinks
+      x-operation-id-source: derived
   /database/db_links/{owner},{db_link}:
     get:
       tags:
@@ -63,6 +59,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseLinksItem'
       x-internal-id: database-db_links-{owner},{db_link}-get
       x-filename-id: database-db_links-owner-db_link-get
+      operationId: getDatabaseDbLinksByOwner},{dbLink
+      x-operation-id-source: derived
   /database/objects/:
     get:
       tags:
@@ -81,6 +79,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjects'
       x-internal-id: database-objects--get
       x-filename-id: database-objects-get
+      operationId: getDatabaseObjects
+      x-operation-id-source: derived
   /database/objects/{owner},{object_name},{object_type}:
     get:
       tags:
@@ -115,6 +115,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsItem'
       x-internal-id: database-objects-{owner},{object_name},{object_type}-get
       x-filename-id: database-objects-owner-object_name-object_type-get
+      operationId: getDatabaseObjectsByOwner},{objectName},{objectType
+      x-operation-id-source: derived
   /database/objects/arguments/:
     get:
       tags:
@@ -133,6 +135,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseArguments'
       x-internal-id: database-objects-arguments--get
       x-filename-id: database-objects-arguments-get
+      operationId: getDatabaseObjectsArguments
+      x-operation-id-source: derived
   /database/objects/arguments/{object_id},{subprogram_id},{argument_name}:
     get:
       tags:
@@ -167,6 +171,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseArgumentsItem'
       x-internal-id: database-objects-arguments-{object_id},{subprogram_id},{argument_name}-get
       x-filename-id: database-objects-arguments-object_id-subprogram_id-argument_name-get
+      operationId: getDatabaseObjectsArgumentsByObjectId},{subprogramId},{argumentName
+      x-operation-id-source: derived
   /database/objects/columns/:
     get:
       tags:
@@ -185,6 +191,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsColumns'
       x-internal-id: database-objects-columns--get
       x-filename-id: database-objects-columns-get
+      operationId: getDatabaseObjectsColumns
+      x-operation-id-source: derived
   /database/objects/columns/{owner},{table_name},{column_name}:
     get:
       tags:
@@ -219,6 +227,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsColumnsItem'
       x-internal-id: database-objects-columns-{owner},{table_name},{column_name}-get
       x-filename-id: database-objects-columns-owner-table_name-column_name-get
+      operationId: getDatabaseObjectsColumnsByOwner},{tableName},{columnName
+      x-operation-id-source: derived
   /database/objects/foreign_keys/:
     get:
       tags:
@@ -237,6 +247,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsForeignKeys'
       x-internal-id: database-objects-foreign_keys--get
       x-filename-id: database-objects-foreign_keys-get
+      operationId: getDatabaseObjectsForeignKeys
+      x-operation-id-source: derived
   /database/objects/foreign_keys/{owner},{constraint_name}:
     get:
       tags:
@@ -265,6 +277,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsForeignKeysItem'
       x-internal-id: database-objects-foreign_keys-{owner},{constraint_name}-get
       x-filename-id: database-objects-foreign_keys-owner-constraint_name-get
+      operationId: getDatabaseObjectsForeignKeysByOwner},{constraintName
+      x-operation-id-source: derived
   /database/objects/functions/:
     get:
       tags:
@@ -283,6 +297,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsFunctions'
       x-internal-id: database-objects-functions--get
       x-filename-id: database-objects-functions-get
+      operationId: getDatabaseObjectsFunctions
+      x-operation-id-source: derived
   /database/objects/functions/{object_id}:
     get:
       tags:
@@ -305,6 +321,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsFunctionsItem'
       x-internal-id: database-objects-functions-{object_id}-get
       x-filename-id: database-objects-functions-object_id-get
+      operationId: getDatabaseObjectsFunctionsByObjectId
+      x-operation-id-source: derived
   /database/objects/indexes/:
     get:
       tags:
@@ -323,6 +341,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsIndexes'
       x-internal-id: database-objects-indexes--get
       x-filename-id: database-objects-indexes-get
+      operationId: getDatabaseObjectsIndexes
+      x-operation-id-source: derived
   /database/objects/indexes/{owner},{index_name}:
     get:
       tags:
@@ -351,6 +371,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsIndexesItem'
       x-internal-id: database-objects-indexes-{owner},{index_name}-get
       x-filename-id: database-objects-indexes-owner-index_name-get
+      operationId: getDatabaseObjectsIndexesByOwner},{indexName
+      x-operation-id-source: derived
   /database/objects/materialized_view_logs/:
     get:
       tags:
@@ -369,6 +391,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsMaterializedViewLogs'
       x-internal-id: database-objects-materialized_view_logs--get
       x-filename-id: database-objects-materialized_view_logs-get
+      operationId: getDatabaseObjectsMaterializedViewLogs
+      x-operation-id-source: derived
   /database/objects/materialized_view_logs/{log_owner},{log_table}:
     get:
       tags:
@@ -397,6 +421,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsMaterializedViewLogsItem'
       x-internal-id: database-objects-materialized_view_logs-{log_owner},{log_table}-get
       x-filename-id: database-objects-materialized_view_logs-log_owner-log_table-get
+      operationId: getDatabaseObjectsMaterializedViewLogsByLogOwner},{logTable
+      x-operation-id-source: derived
   /database/objects/packages/procedures/:
     get:
       tags:
@@ -415,6 +441,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsProcedures'
       x-internal-id: database-objects-packages-procedures--get
       x-filename-id: database-objects-packages-procedures-get
+      operationId: getDatabaseObjectsPackagesProcedures
+      x-operation-id-source: derived
   /database/objects/packages/procedures/{object_id},{subprogram_id}:
     get:
       tags:
@@ -443,6 +471,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsProceduresItem'
       x-internal-id: database-objects-packages-procedures-{object_id},{subprogram_id}-get
       x-filename-id: database-objects-packages-procedures-object_id-subprogram_id-get
+      operationId: getDatabaseObjectsPackagesProceduresByObjectId},{subprogramId
+      x-operation-id-source: derived
   /database/objects/partitions/:
     get:
       tags:
@@ -461,6 +491,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsPartitions'
       x-internal-id: database-objects-partitions--get
       x-filename-id: database-objects-partitions-get
+      operationId: getDatabaseObjectsPartitions
+      x-operation-id-source: derived
   /database/objects/partitions/{table_owner},{table_name},{partition_name}:
     get:
       tags:
@@ -495,6 +527,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsPartitionsItem'
       x-internal-id: database-objects-partitions-{table_owner},{table_name},{partition_name}-get
       x-filename-id: database-objects-partitions-table_owner-table_name-partition_name-get
+      operationId: getDatabaseObjectsPartitionsByTableOwner},{tableName},{partitionName
+      x-operation-id-source: derived
   /database/objects/synonyms/:
     get:
       tags:
@@ -513,6 +547,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsSynonyms'
       x-internal-id: database-objects-synonyms--get
       x-filename-id: database-objects-synonyms-get
+      operationId: getDatabaseObjectsSynonyms
+      x-operation-id-source: derived
   /database/objects/synonyms/{owner},{synonym_name}:
     get:
       tags:
@@ -541,6 +577,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsSynonymsItem'
       x-internal-id: database-objects-synonyms-{owner},{synonym_name}-get
       x-filename-id: database-objects-synonyms-owner-synonym_name-get
+      operationId: getDatabaseObjectsSynonymsByOwner},{synonymName
+      x-operation-id-source: derived
   /database/objects/tables/:
     get:
       tags:
@@ -559,6 +597,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsTables'
       x-internal-id: database-objects-tables--get
       x-filename-id: database-objects-tables-get
+      operationId: getDatabaseObjectsTables
+      x-operation-id-source: derived
   /database/objects/tables/{owner},{table_name}:
     get:
       tags:
@@ -587,6 +627,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsTablesItem'
       x-internal-id: database-objects-tables-{owner},{table_name}-get
       x-filename-id: database-objects-tables-owner-table_name-get
+      operationId: getDatabaseObjectsTablesByOwner},{tableName
+      x-operation-id-source: derived
   /database/tablespaces/:
     get:
       tags:
@@ -605,6 +647,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespaces'
       x-internal-id: database-tablespaces--get
       x-filename-id: database-tablespaces-get
+      operationId: getDatabaseTablespaces
+      x-operation-id-source: derived
   /database/tablespaces/{tablespace_name}:
     get:
       tags:
@@ -627,6 +671,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseTablespacesItem'
       x-internal-id: database-tablespaces-{tablespace_name}-get
       x-filename-id: database-tablespaces-tablespace_name-get
+      operationId: getDatabaseTablespacesByTablespaceName
+      x-operation-id-source: derived
   /database/objects/types/:
     get:
       tags:
@@ -645,6 +691,8 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsTypes'
       x-internal-id: database-objects-types--get
       x-filename-id: database-objects-types-get
+      operationId: getDatabaseObjectsTypes
+      x-operation-id-source: derived
   /database/objects/types/{owner},{type_name}:
     get:
       tags:
@@ -673,126 +721,10 @@ paths:
                 $ref: '#/components/schemas/DatabaseObjectsTypesItem'
       x-internal-id: database-objects-types-{owner},{type_name}-get
       x-filename-id: database-objects-types-owner-type_name-get
+      operationId: getDatabaseObjectsTypesByOwner},{typeName
+      x-operation-id-source: derived
 components:
   schemas:
-    DatabaseArgumentsItem:
-      type: object
-      description: This object represents arguments of the functions and procedures that are available in the database. The list of attributes may vary depending on database version.
-      properties:
-        owner:
-          type: string
-          description: Owner of the object.
-        object_name:
-          type: string
-          description: Name of the procedure or function.
-        package_name:
-          type: string
-          description: Name of the package.
-        object_id:
-          type: integer
-          description: Dictionary object number of the object.
-        overload:
-          type: string
-          description: Indicates the nth overloading ordered by its appearance in the source; otherwise, it is NULL.
-        subprogram_id:
-          type: integer
-          description: Unique subprogram identifier.
-        argument_name:
-          type: string
-          description: If the argument is a scalar type, then the argument name is the name of the argument. A null argument name is used to denote a function return. If the function return or argument is a composite type, this view will have one row for each attribute of the composite type. Attributes are recursively expanded if they are composite.
-        position:
-          type: integer
-          description: If DATA_LEVEL is zero, then this column holds the position of this item in the argument list, or zero for a function return value.If DATA_LEVEL is greater than zero, then this column holds the position of this item with respect to its siblings at the same DATA_LEVEL. So, for a referenced record field, this is the index of the field within the record. For a referenced collection element, this is 1 (because collection elements do not have siblings.)
-        sequence:
-          type: integer
-          description: Defines the sequential order of the argument and its attributes. Argument sequence starts from 1. Return type and its recursively expanded (preorder tree walk) attributes will come first, and each argument with its recursively expanded (preorder tree walk) attributes will follow.
-        data_level:
-          type: integer
-          description: Nesting depth of the argument for composite types.
-        data_type:
-          type: string
-          description: Datatype of the argument.
-        defaulted:
-          type: string
-          description: Specifies whether or not the argument is defaulted.
-        default_value:
-          type: integer
-          description: Reserved for future use.
-        default_length:
-          type: integer
-          description: Reserved for future use.
-        in_out:
-          type: string
-          description: 'Direction of the argument: IN, OUT, IN/OUT.'
-        data_length:
-          type: integer
-          description: Length of the column (in bytes).
-        data_precision:
-          type: integer
-          description: Length in decimal digits (NUMBER) or binary digits (FLOAT).
-        data_scale:
-          type: integer
-          description: Digits to the right of the decimal point in a number.
-        radix:
-          type: integer
-          description: Argument radix for a number.
-        character_set_name:
-          type: string
-          description: Character set name for the argument.
-        type_owner:
-          type: string
-          description: Owner of the type of the argument.
-        type_name:
-          type: string
-          description: Name of the type of the argument. If the type is a package local type (that is, it is declared in a package specification), then this column displays the name of the package.
-        type_subname:
-          type: string
-          description: Relevant only for package local types. Displays the name of the type declared in the package identified in the TYPE_NAME column.
-        type_link:
-          type: string
-          description: Relevant only for package local types when the package identified in the TYPE_NAME column is a remote package. This column displays the database link used to refer to the remote package.
-        type_object_type:
-          type: string
-          description: Displays the type of the type described by the TYPE_OWNER, TYPE_NAME, and TYPE_SUBNAME columns.
-        pls_type:
-          type: string
-          description: For numeric arguments, the name of the PL/SQL type of the argument. Null otherwise.
-        char_length:
-          type: integer
-          description: Character limit for string datatypes.
-        char_used:
-          type: string
-          description: Indicates whether the byte limit (B) or char limit (C) is official for the string.
-        origin_con_id:
-          type: integer
-          description: The ID of the container where the data originates.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjects:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseObjectsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     DatabaseObjectsIndexesItem:
       type: object
       description: Describes an index in the database.
@@ -981,52 +913,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsForeignKeys:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseObjectsForeignKeysItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseArguments:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseArgumentsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     DatabaseObjectsTables:
       type: object
       properties:
@@ -1050,13 +936,69 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsIndexes:
+    DatabaseObjectsTypesItem:
+      type: object
+      description: This object describes an object type in the database.
+      properties:
+        owner:
+          type: string
+          description: Owner of the type.
+        type_name:
+          type: string
+          description: Name of the type.
+        type_oid:
+          type: string
+          description: Object identifier (OID) of the type.
+        typecode:
+          type: string
+          description: Typecode of the type.
+        attributes:
+          type: integer
+          description: Number of attributes (if any) in the type.
+        methods:
+          type: integer
+          description: Number of methods (if any) in the type.
+        predefined:
+          type: string
+          description: Indicates whether the type is a predefined type (YES) or not (NO).
+        incomplete:
+          type: string
+          description: Indicates whether the type is an incomplete type (YES) or not (NO).
+        final:
+          type: string
+          description: Indicates whether the type is a final type (YES) or not (NO).
+        instantiable:
+          type: string
+          description: Indicates whether the type is an instantiable type (YES) or not (NO).
+        persistable:
+          type: string
+          description: Indicates whether the type is a persistable type (YES) or not (NO).
+        supertype_owner:
+          type: string
+          description: Owner of the supertype (NULL if type is not a subtype).
+        supertype_name:
+          type: string
+          description: Name of the supertype (NULL if type is not a subtype).
+        local_attributes:
+          type: integer
+          description: Number of local (not inherited) attributes (if any) in the subtype.
+        local_methods:
+          type: integer
+          description: Number of local (not inherited) methods (if any) in the subtype.
+        typeid:
+          type: string
+          description: Type ID value of the type.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsFunctions:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DatabaseObjectsIndexesItem'
+            $ref: '#/components/schemas/DatabaseObjectsFunctionsItem'
         hasMore:
           type: boolean
           description: Indicates if there are more records to be retrieved.
@@ -1069,6 +1011,611 @@ components:
         count:
           type: integer
           description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsItem:
+      type: object
+      description: A description of an object in the database.
+      properties:
+        owner:
+          type: string
+          description: Owner of the object.
+        object_name:
+          type: string
+          description: Name of the object.
+        subobject_name:
+          type: string
+          description: Name of the subobject (for example, partition).
+        object_id:
+          type: integer
+          description: Dictionary object number of the object.
+        data_object_id:
+          type: integer
+          description: Dictionary object number of the segment that contains the object.
+        object_type:
+          type: string
+          description: Type of the object (such as TABLE, INDEX).
+        created:
+          type: string
+          description: Timestamp for the creation of the object.
+        last_ddl_time:
+          type: string
+          description: Timestamp for the last modification of the object and dependent objects resulting from a DDL statement (including grants and revokes).
+        timestamp:
+          type: string
+          description: Timestamp for the specification of the object (character data).
+        status:
+          type: string
+          description: Status of the object.
+        temporary:
+          type: string
+          description: Indicates whether the object is temporary (the current session can see only data that it placed in this object itself) (Y) or not (N).
+        generated:
+          type: string
+          description: Indicates whether the name of this object was system-generated (Y) or not (N).
+        secondary:
+          type: string
+          description: Indicates whether this is a secondary object created by the ODCIIndexCreate method of the Oracle Data Cartridge (Y) or not (N).
+        namespace:
+          type: integer
+          description: Namespace for the object.
+        edition_name:
+          type: string
+          description: Name of the edition in which the object is actual.
+        sharing:
+          type: string
+          description: Indicates if the object is a metadata-linked, data-linked or not linked.
+        editionable:
+          type: string
+          description: Indicates if the object editionable in the database.
+        oracle_maintained:
+          type: string
+          description: Denotes whether the object was created, and is maintained, by Oracle-supplied scripts (such as catalog.sql or catproc.sql). An object for which this column has the value Y must not be changed in any way except by running an Oracle-supplied script.
+        application:
+          type: string
+          description: Indicates whether the object is an Application common object (Y) or not (N).
+        default_collation:
+          type: string
+          description: Default collation for the object.
+        duplicated:
+          type: string
+          description: Indicates whether this object is duplicated on this shard (Y) or not (N).
+        sharded:
+          type: string
+          description: Indicates whether this object is sharded (Y) or not (N).
+        created_appid:
+          type: integer
+          description: ID of the Application that created the object.
+        created_vsnid:
+          type: integer
+          description: ID of the Application Version that created the object.
+        modified_appid:
+          type: integer
+          description: ID of the Application that last modified the object.
+        modified_vsnid:
+          type: integer
+          description: ID of the Application Version that last modified the object.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    DatabaseObjectsSynonyms:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseObjectsSynonymsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsMaterializedViewLogsItem:
+      type: object
+      description: This object describes a materialized view log in the database.
+      properties:
+        log_owner:
+          type: string
+          description: Owner of the materialized view log.
+        master:
+          type: string
+          description: Name of the master table or master materialized view whose changes are logged.
+        log_table:
+          type: string
+          description: Name of the table where the changes to the master table or master materialized view are logged.
+        rowids:
+          type: string
+          description: Indicates whether rowid information is recorded (YES) or not (NO).
+        primary_key:
+          type: string
+          description: Indicates whether primary key information is recorded (YES) or not (NO).
+        object_id:
+          type: string
+          description: Indicates whether object identifier information in an object table is recorded (YES) or not (NO).
+        filter_columns:
+          type: string
+          description: Indicates whether filter column information is recorded (YES) or not (NO).
+        sequence:
+          type: string
+          description: Indicates whether the sequence value, which provides additional ordering information, is recorded (YES) or not (NO).
+        include_new_values:
+          type: string
+          description: Indicates whether both old and new values are recorded (YES) or old values are recorded but new values are not recorded (NO).
+        purge_asynchronous:
+          type: string
+          description: Indicates whether the materialized view log is purged asynchronously (YES) or not (NO).
+        purge_deferred:
+          type: string
+          description: Indicates whether the materialized view log is purged in a deferred manner (YES) or not (NO).
+        purge_start:
+          type: string
+          description: For deferred purge, the purge start date.
+        purge_interval:
+          type: string
+          description: For deferred purge, the purge interval.
+        last_purge_date:
+          type: string
+          description: Date of the last purge.
+        last_purge_status:
+          type: integer
+          description: Status of the last purge (error code or 0 for success).
+        num_rows_purged:
+          type: integer
+          description: Number of rows purged in the last purge.
+        commit_scn_based:
+          type: string
+          description: Indicates whether the materialized view log is commit SCN-based (YES) or not (NO).
+        staging_log:
+          type: string
+          description: Indicates whether the materialized view log is a staging log for synchronous refresh (YES) or not (NO).
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseLinks:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseLinksItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsFunctionsItem:
+      type: object
+      description: Describes a function available in the database, along with associated properties. The list of attributes may vary depending on database version.
+      properties:
+        owner:
+          type: string
+          description: Owner of the function.
+        object_name:
+          type: string
+          description: Name of the top-level function.
+        procedure_name:
+          type: string
+          description: Name of the procedure.
+        object_id:
+          type: integer
+          description: Object number of the object.
+        subprogram_id:
+          type: integer
+          description: Unique subprogram identifier.
+        overload:
+          type: string
+          description: Overload unique identifier.
+        object_type:
+          type: string
+          description: The typename of the object.
+        aggregate:
+          type: string
+          description: Indicates whether the procedure is an aggregate function (YES) or not (NO).
+        pipelined:
+          type: string
+          description: Indicates whether the procedure is a pipelined table function (YES) or not (NO).
+        impltypeowner:
+          type: string
+          description: Owner of the implementation type, if any.
+        impltypename:
+          type: string
+          description: Name of the implementation type, if any.
+        parallel:
+          type: string
+          description: Indicates whether the procedure or function is parallel-enabled (YES) or not (NO).
+        interface:
+          type: string
+          description: YES, if the procedure/function is a table function implemented using the ODCI interface; otherwise NO.
+        deterministic:
+          type: string
+          description: YES, if the procedure/function is declared to be deterministic; otherwise NO.
+        authid:
+          type: string
+          description: Indicates whether the procedure/function is declared to execute as DEFINER or CURRENT_USER (invoker).
+        result_cache:
+          type: string
+          description: Indicates whether the function is result???cached (YES) or not (NO).
+        origin_con_id:
+          type: integer
+          description: The ID of the container where the data originates.
+        polymorphic:
+          type: string
+          description: The type of polymorphic table function.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjects:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseObjectsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseArgumentsItem:
+      type: object
+      description: This object represents arguments of the functions and procedures that are available in the database. The list of attributes may vary depending on database version.
+      properties:
+        owner:
+          type: string
+          description: Owner of the object.
+        object_name:
+          type: string
+          description: Name of the procedure or function.
+        package_name:
+          type: string
+          description: Name of the package.
+        object_id:
+          type: integer
+          description: Dictionary object number of the object.
+        overload:
+          type: string
+          description: Indicates the nth overloading ordered by its appearance in the source; otherwise, it is NULL.
+        subprogram_id:
+          type: integer
+          description: Unique subprogram identifier.
+        argument_name:
+          type: string
+          description: If the argument is a scalar type, then the argument name is the name of the argument. A null argument name is used to denote a function return. If the function return or argument is a composite type, this view will have one row for each attribute of the composite type. Attributes are recursively expanded if they are composite.
+        position:
+          type: integer
+          description: If DATA_LEVEL is zero, then this column holds the position of this item in the argument list, or zero for a function return value.If DATA_LEVEL is greater than zero, then this column holds the position of this item with respect to its siblings at the same DATA_LEVEL. So, for a referenced record field, this is the index of the field within the record. For a referenced collection element, this is 1 (because collection elements do not have siblings.)
+        sequence:
+          type: integer
+          description: Defines the sequential order of the argument and its attributes. Argument sequence starts from 1. Return type and its recursively expanded (preorder tree walk) attributes will come first, and each argument with its recursively expanded (preorder tree walk) attributes will follow.
+        data_level:
+          type: integer
+          description: Nesting depth of the argument for composite types.
+        data_type:
+          type: string
+          description: Datatype of the argument.
+        defaulted:
+          type: string
+          description: Specifies whether or not the argument is defaulted.
+        default_value:
+          type: integer
+          description: Reserved for future use.
+        default_length:
+          type: integer
+          description: Reserved for future use.
+        in_out:
+          type: string
+          description: 'Direction of the argument: IN, OUT, IN/OUT.'
+        data_length:
+          type: integer
+          description: Length of the column (in bytes).
+        data_precision:
+          type: integer
+          description: Length in decimal digits (NUMBER) or binary digits (FLOAT).
+        data_scale:
+          type: integer
+          description: Digits to the right of the decimal point in a number.
+        radix:
+          type: integer
+          description: Argument radix for a number.
+        character_set_name:
+          type: string
+          description: Character set name for the argument.
+        type_owner:
+          type: string
+          description: Owner of the type of the argument.
+        type_name:
+          type: string
+          description: Name of the type of the argument. If the type is a package local type (that is, it is declared in a package specification), then this column displays the name of the package.
+        type_subname:
+          type: string
+          description: Relevant only for package local types. Displays the name of the type declared in the package identified in the TYPE_NAME column.
+        type_link:
+          type: string
+          description: Relevant only for package local types when the package identified in the TYPE_NAME column is a remote package. This column displays the database link used to refer to the remote package.
+        type_object_type:
+          type: string
+          description: Displays the type of the type described by the TYPE_OWNER, TYPE_NAME, and TYPE_SUBNAME columns.
+        pls_type:
+          type: string
+          description: For numeric arguments, the name of the PL/SQL type of the argument. Null otherwise.
+        char_length:
+          type: integer
+          description: Character limit for string datatypes.
+        char_used:
+          type: string
+          description: Indicates whether the byte limit (B) or char limit (C) is official for the string.
+        origin_con_id:
+          type: integer
+          description: The ID of the container where the data originates.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsProceduresItem:
+      type: object
+      description: Describes a procedure available in the database, along with associated properties. The list of attributes may vary depending on database version.
+      properties:
+        owner:
+          type: string
+          description: Owner of the procedure.
+        object_name:
+          type: string
+          description: Name of the procedure package.
+        procedure_name:
+          type: string
+          description: Name of the procedure.
+        object_id:
+          type: integer
+          description: Object number of the object.
+        subprogram_id:
+          type: integer
+          description: Unique subprogram identifier.
+        overload:
+          type: string
+          description: Overload unique identifier.
+        object_type:
+          type: string
+          description: The typename of the object.
+        aggregate:
+          type: string
+          description: Indicates whether the procedure is an aggregate function (YES) or not (NO).
+        pipelined:
+          type: string
+          description: Indicates whether the procedure is a pipelined table function (YES) or not (NO).
+        impltypeowner:
+          type: string
+          description: Owner of the implementation type, if any.
+        impltypename:
+          type: string
+          description: Name of the implementation type, if any.
+        parallel:
+          type: string
+          description: Indicates whether the procedure or function is parallel-enabled (YES) or not (NO).
+        interface:
+          type: string
+          description: YES, if the procedure/function is a table function implemented using the ODCI interface; otherwise NO.
+        deterministic:
+          type: string
+          description: YES, if the procedure/function is declared to be deterministic; otherwise NO.
+        authid:
+          type: string
+          description: Indicates whether the procedure/function is declared to execute as DEFINER or CURRENT_USER (invoker).
+        result_cache:
+          type: string
+          description: Indicates whether the function is result???cached (YES) or not (NO).
+        origin_con_id:
+          type: integer
+          description: The ID of the container where the data originates.
+        polymorphic:
+          type: string
+          description: The type of polymorphic table function.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseLinksItem:
+      type: object
+      description: A database link is a connection between two physical database servers that allows a client to access them as one logical database.
+      properties:
+        owner:
+          type: string
+          description: Owner of the database link.
+        db_link:
+          type: string
+          description: Name of the database link.
+        username:
+          type: string
+          description: Name of the user when logging in.
+        host:
+          type: string
+          description: Oracle Net connect string.
+        created:
+          type: string
+          description: Creation time of the database link.
+        shard_internal:
+          type: string
+          description: Indicates whether the database link is used to support operations across sharded databases.
+        valid:
+          type: string
+          description: Indicates whether the database link is valid and usable.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsPartitions:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseObjectsPartitionsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    Filter:
+      type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
+    DatabaseObjectsSynonymsItem:
+      type: object
+      description: This object describes a synonym in the database. The list of attributes may vary depending on database version.
+      properties:
+        owner:
+          type: string
+          description: Owner of the synonym.
+        synonym_name:
+          type: string
+          description: Name of the synonym.
+        table_owner:
+          type: string
+          description: Owner of the object referenced by the synonym, or creator of the referring synonym if the target is a public synonym (that is, the object referred to by TABLE_NAME). Although the column is called TABLE_OWNER, the object owned is not necessarily a table. It can be any general object such as a view, sequence, stored procedure, synonym, and so on.
+        table_name:
+          type: string
+          description: Name of the object referenced by the synonym. Although the column is called TABLE_NAME, the object does not necessarily have to be a table. It can be any general object such as a view, sequence, stored procedure, synonym, and so on.
+        db_link:
+          type: string
+          description: Name of the database link referenced, if any.
+        origin_con_id:
+          type: integer
+          description: The ID of the container where the data originates.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsTypes:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseObjectsTypesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseObjectsForeignKeysItem:
+      type: object
+      description: Describes a foreign key constraint for referential integrity.
+      properties:
+        owner:
+          type: string
+          description: Owner of the constraint definition.
+        constraint_name:
+          type: string
+          description: Owner of the constraint definition.
+        constraint_type:
+          type: string
+          description: Type of constraint.
+        table_name:
+          type: string
+          description: Name associated with the table (or view) with the constraint definition.
+        r_owner:
+          type: string
+          description: Owner of the table referred to in a referential constraint.
+        r_constraint_name:
+          type: string
+          description: Owner of the constraint definition.
+        columns:
+          type: object
+          description: Describes all the columns that make reference to  owner, constraint_name.
+          properties:
+            r_column_name:
+              type: string
+              description: Name of the column referred to in a referential constraint.
+            r_table_name:
+              type: string
+              description: Name of the table referred to in a referential constraint.
+            column_name:
+              type: string
+              description: Name of the column or attribute of the object type column specified in the constraint definition.
+            position:
+              type: integer
+              description: The position of the column_name and referenced r_column_name.
         links:
           type: array
           items:
@@ -1155,299 +1702,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsPartitionsItem:
-      type: object
-      description: This object represents partition-level partitioning information, partition storage parameters, and partition statistics generated by the DBMS_STATS package for a partition in the database. The list of attributes may vary depending on database version.
-      properties:
-        table_owner:
-          type: string
-          description: Owner of the table.
-        table_name:
-          type: string
-          description: Name of the table.
-        composite:
-          type: string
-          description: Indicates whether the table is composite-partitioned (YES) or not (NO).
-        partition_name:
-          type: string
-          description: Name of the partition.
-        subpartition_count:
-          type: integer
-          description: If this is a composite partitioned table, the number of subpartitions in the partition.
-        high_value:
-          type: number
-          description: Partition bound value expression.
-        high_value_length:
-          type: integer
-          description: Length of the partition bound value expression.
-        partition_position:
-          type: integer
-          description: Position of the partition within the table.
-        tablespace_name:
-          type: string
-          description: Name of the tablespace containing the partition.
-        pct_free:
-          type: integer
-          description: Minimum percentage of free space in a block.
-        pct_used:
-          type: integer
-          description: Minimum percentage of used space in a block.
-        ini_trans:
-          type: integer
-          description: Initial number of transactions.
-        max_trans:
-          type: integer
-          description: Maximum number of transactions.
-        initial_extent:
-          type: integer
-          description: Size of the initial extent in bytes (for a range partition); size of the initial extent in blocks (for a composite partition).
-        next_extent:
-          type: integer
-          description: Size of secondary extents in bytes (for a range partition); size of secondary extents in blocks (for a composite partition).
-        min_extent:
-          type: integer
-          description: Minimum number of extents allowed in the segment.
-        max_extent:
-          type: integer
-          description: Maximum number of extents allowed in the segment.
-        max_size:
-          type: integer
-          description: Maximum number of blocks allowed in the segment.
-        pct_increase:
-          type: integer
-          description: Percentage increase in extent size.
-        freelists:
-          type: integer
-          description: Number of process freelists allocated in this segment.
-        freelist_groups:
-          type: integer
-          description: Number of freelist groups allocated in this segment.
-        logging:
-          type: string
-          description: Indicates whether or not changes to the table are logged.
-        compression:
-          type: string
-          description: Indicates the actual compression property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
-        compress_for:
-          type: string
-          description: Default compression for what kind of operations.
-        num_rows:
-          type: integer
-          description: Number of rows in the partition.
-        blocks:
-          type: integer
-          description: Number of used data blocks in the partition.
-        empty_blocks:
-          type: integer
-          description: Number of empty (never used) data blocks in the partition. This column is populated only if you collect statistics on the table using the DBMS_STATS package.
-        avg_space:
-          type: integer
-          description: Average amount of free space, in bytes, in a data block allocated to the partition.
-        chain_cnt:
-          type: integer
-          description: Number of rows in the partition that are chained from one data block to another, or which have migrated to a new block, requiring a link to preserve the old ROWID.
-        avg_row_len:
-          type: integer
-          description: Average length of a row in the partition (in bytes).
-        sample_size:
-          type: integer
-          description: Sample size used in analyzing this partition.
-        last_analyzed:
-          type: string
-          description: Date on which this partition was most recently analyzed.
-        buffer_pool:
-          type: string
-          description: Buffer pool to be used for the partition blocks.
-        flash_cache:
-          type: string
-          description: Buffer pool to be used for the partition blocks.
-        cell_flash_cache:
-          type: string
-          description: Cell flash cache hint to be used for partition blocks.
-        global_stats:
-          type: string
-          description: GLOBAL_STATS will be YES if statistics are gathered or incrementally maintained, otherwise it will be NO.
-        user_stats:
-          type: string
-          description: Indicates whether statistics were entered directly by the user (YES) or not (NO).
-        is_nested:
-          type: string
-          description: Indicates whether this is a nested table partition (YES) or not (NO).
-        parent_table_partition:
-          type: string
-          description: Parent table's corresponding partition.
-        interval:
-          type: string
-          description: Indicates whether the partition is in the interval section of an interval partitioned table (YES) or whether the partition is in the range section (NO).
-        segment_created:
-          type: string
-          description: Indicates the actual segment creation property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
-        indexing:
-          type: string
-          description: Indicates the actual indexing property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
-        read_only:
-          type: string
-          description: Indicates the default setting for the partition.
-        inmemory:
-          type: string
-          description: Indicates whether the In-Memory Column Store (IM column store) is enabled (ENABLED) or disabled (DISABLED) for this partition.
-        inmemory_priority:
-          type: string
-          description: Indicates the priority for In-Memory Column Store (IM column store) population.
-        inmemory_distribute:
-          type: string
-          description: Indicates how the IM column store is distributed in an Oracle Real Application Clusters (Oracle RAC) environment.
-        inmemory_compression:
-          type: string
-          description: Indicates the compression level for the IM column store.
-        inmemory_duplicate:
-          type: string
-          description: Indicates the duplicate setting for the IM column store in an Oracle RAC environment.
-        cellmemory:
-          type: string
-          description: The value for columnar compression in the storage cell flash cache.
-        inmemory_service:
-          type: string
-          description: Indicates how the IM column store is populated on various instances.
-        inmemory_service_name:
-          type: string
-          description: Indicates the service name for the service on which the IM column store should be populated. This column has a value only when the corresponding INMEMORY_SERVICE is USER_DEFINED. In all other cases, this column is null.
-        memoptimize_read:
-          type: string
-          description: Indicates whether the table is enabled for Fast Key Based Access (ENABLED) or not (DISABLED).
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsColumnsItem:
-      type: object
-      description: Describes the column of table, view, or cluster in the database.
-      properties:
-        owner:
-          type: string
-          description: Owner of the table, view, or cluster.
-        table_name:
-          type: string
-          description: Name of the table, view, or cluster.
-        column_name:
-          type: string
-          description: Column name.
-        data_type:
-          type: string
-          description: Data type of the column.
-        data_type_mod:
-          type: string
-          description: Data type modifier of the column.
-        data_type_owner:
-          type: string
-          description: Owner of the data type of the column.
-        data_length:
-          type: integer
-          description: Length of the column (in bytes).
-        data_precision:
-          type: integer
-          description: Decimal precision for NUMBER data type; binary precision for FLOAT data type; NULL for all other data types.
-        data_scale:
-          type: integer
-          description: Digits to the right of the decimal point in a number.
-        nullable:
-          type: string
-          description: Indicates whether a column allows NULLs. The value is N if there is a NOT NULL constraint on the column or if the column is part of a PRIMARY KEY. The constraint should be in an ENABLE VALIDATE state.
-        column_id:
-          type: integer
-          description: Sequence number of the column as created.
-        default_length:
-          type: number
-          description: Length of the default value for the column.
-        data_default:
-          type: integer
-          description: Default value for the column.
-        num_distinct:
-          type: number
-          description: Number of distinct values in the column.
-        low_value:
-          type: string
-          description: Low value in the column.
-        high_value:
-          type: string
-          description: High value in the column.
-        density:
-          type: number
-          description: If a histogram is available on COLUMN_NAME, then this column displays the selectivity of a value that spans fewer than 2 endpoints in the histogram. It does not represent the selectivity of values that span 2 or more endpoints. If a histogram is not available on COLUMN_NAME, then the value of this column is 1/NUM_DISTINCT.
-        num_nulls:
-          type: integer
-          description: Number of NULLs in the column.
-        num_buckets:
-          type: integer
-          description: Number of buckets in the histogram for the column.
-        last_analyzed:
-          type: string
-          description: Date on which this column was most recently analyzed.
-        sample_size:
-          type: integer
-          description: Sample size used in analyzing this column.
-        character_set_name:
-          type: string
-          description: Name of the character set.
-        char_col_decl_length:
-          type: number
-          description: Declaration length of the character type column.
-        global_stats:
-          type: string
-          description: GLOBAL_STATS will be YES if statistics are gathered or incrementally maintained, otherwise it will be NO.
-        user_stats:
-          type: string
-          description: Indicates whether statistics were entered directly by the user (YES) or not (NO).
-        avg_col_len:
-          type: integer
-          description: Average length of the column (in bytes).
-        char_length:
-          type: integer
-          description: Displays the length of the column in characters.
-        char_used:
-          type: string
-          description: 'Indicates that the column uses BYTE length semantics (B) or CHAR length semantics (C), or whether the data type is not any of the following (NULL): CHAR, VARCHAR2, NCHAR, NVARCHAR2.'
-        v80_fmt_image:
-          type: string
-          description: Indicates whether the column data is in release 8.0 image format (YES) or not (NO).
-        data_upgraded:
-          type: string
-          description: Indicates whether the column data has been upgraded to the latest type version format (YES) or not (NO).
-        histogram:
-          type: string
-          description: Indicates existence/type of histogram.
-        default_on_null:
-          type: string
-          description: Indicates whether the column has DEFAULT ON NULL semantics (YES) or not (NO).
-        identity_column:
-          type: string
-          description: Indicates whether this is an identity column (YES) or not (NO).
-        sensitive_column:
-          type: string
-          description: Indicates whether this is a sensitive column (YES) or not (NO).
-        evaluation_edition:
-          type: string
-          description: Name of the edition in which editioned objects referenced in an expression column are resolved.
-        unusable_before:
-          type: string
-          description: Name of the oldest edition in which the index may be used as part of a query plan.
-        unusable_beginning:
-          type: string
-          description: Name of the edition for which the index may not be used as part of a query plan in this edition or any of its descendants.
-        collation:
-          type: string
-          description: Collation for the column. Only applies to columns with character data types.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsTypes:
+    DatabaseObjectsIndexes:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DatabaseObjectsTypesItem'
+            $ref: '#/components/schemas/DatabaseObjectsIndexesItem'
         hasMore:
           type: boolean
           description: Indicates if there are more records to be retrieved.
@@ -1464,13 +1725,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseTablespaces:
+    DatabaseObjectsMaterializedViewLogs:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DatabaseTablespacesItem'
+            $ref: '#/components/schemas/DatabaseObjectsMaterializedViewLogsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabaseArguments:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseArgumentsItem'
         hasMore:
           type: boolean
           description: Indicates if there are more records to be retrieved.
@@ -1741,13 +2025,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsSynonyms:
+    DatabaseObjectsForeignKeys:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DatabaseObjectsSynonymsItem'
+            $ref: '#/components/schemas/DatabaseObjectsForeignKeysItem'
         hasMore:
           type: boolean
           description: Indicates if there are more records to be retrieved.
@@ -1764,372 +2048,189 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsProceduresItem:
+    DatabaseTablespaces:
       type: object
-      description: Describes a procedure available in the database, along with associated properties. The list of attributes may vary depending on database version.
       properties:
-        owner:
-          type: string
-          description: Owner of the procedure.
-        object_name:
-          type: string
-          description: Name of the procedure package.
-        procedure_name:
-          type: string
-          description: Name of the procedure.
-        object_id:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseTablespacesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
           type: integer
-          description: Object number of the object.
-        subprogram_id:
+          description: The actual page size limit on number of records applied by the server.
+        offset:
           type: integer
-          description: Unique subprogram identifier.
-        overload:
-          type: string
-          description: Overload unique identifier.
-        object_type:
-          type: string
-          description: The typename of the object.
-        aggregate:
-          type: string
-          description: Indicates whether the procedure is an aggregate function (YES) or not (NO).
-        pipelined:
-          type: string
-          description: Indicates whether the procedure is a pipelined table function (YES) or not (NO).
-        impltypeowner:
-          type: string
-          description: Owner of the implementation type, if any.
-        impltypename:
-          type: string
-          description: Name of the implementation type, if any.
-        parallel:
-          type: string
-          description: Indicates whether the procedure or function is parallel-enabled (YES) or not (NO).
-        interface:
-          type: string
-          description: YES, if the procedure/function is a table function implemented using the ODCI interface; otherwise NO.
-        deterministic:
-          type: string
-          description: YES, if the procedure/function is declared to be deterministic; otherwise NO.
-        authid:
-          type: string
-          description: Indicates whether the procedure/function is declared to execute as DEFINER or CURRENT_USER (invoker).
-        result_cache:
-          type: string
-          description: Indicates whether the function is result???cached (YES) or not (NO).
-        origin_con_id:
+          description: The actual index from which the item resources are returned.
+        count:
           type: integer
-          description: The ID of the container where the data originates.
-        polymorphic:
-          type: string
-          description: The type of polymorphic table function.
+          description: Total number of records in the current response.
         links:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
+    DatabaseObjectsPartitionsItem:
       type: object
+      description: This object represents partition-level partitioning information, partition storage parameters, and partition statistics generated by the DBMS_STATS package for a partition in the database. The list of attributes may vary depending on database version.
       properties:
-        rel:
+        table_owner:
           type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    DatabaseObjectsForeignKeysItem:
-      type: object
-      description: Describes a foreign key constraint for referential integrity.
-      properties:
-        owner:
-          type: string
-          description: Owner of the constraint definition.
-        constraint_name:
-          type: string
-          description: Owner of the constraint definition.
-        constraint_type:
-          type: string
-          description: Type of constraint.
+          description: Owner of the table.
         table_name:
           type: string
-          description: Name associated with the table (or view) with the constraint definition.
-        r_owner:
+          description: Name of the table.
+        composite:
           type: string
-          description: Owner of the table referred to in a referential constraint.
-        r_constraint_name:
+          description: Indicates whether the table is composite-partitioned (YES) or not (NO).
+        partition_name:
           type: string
-          description: Owner of the constraint definition.
-        columns:
-          type: object
-          description: Describes all the columns that make reference to  owner, constraint_name.
-          properties:
-            r_column_name:
-              type: string
-              description: Name of the column referred to in a referential constraint.
-            r_table_name:
-              type: string
-              description: Name of the table referred to in a referential constraint.
-            column_name:
-              type: string
-              description: Name of the column or attribute of the object type column specified in the constraint definition.
-            position:
-              type: integer
-              description: The position of the column_name and referenced r_column_name.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsFunctionsItem:
-      type: object
-      description: Describes a function available in the database, along with associated properties. The list of attributes may vary depending on database version.
-      properties:
-        owner:
-          type: string
-          description: Owner of the function.
-        object_name:
-          type: string
-          description: Name of the top-level function.
-        procedure_name:
-          type: string
-          description: Name of the procedure.
-        object_id:
+          description: Name of the partition.
+        subpartition_count:
           type: integer
-          description: Object number of the object.
-        subprogram_id:
+          description: If this is a composite partitioned table, the number of subpartitions in the partition.
+        high_value:
+          type: number
+          description: Partition bound value expression.
+        high_value_length:
           type: integer
-          description: Unique subprogram identifier.
-        overload:
-          type: string
-          description: Overload unique identifier.
-        object_type:
-          type: string
-          description: The typename of the object.
-        aggregate:
-          type: string
-          description: Indicates whether the procedure is an aggregate function (YES) or not (NO).
-        pipelined:
-          type: string
-          description: Indicates whether the procedure is a pipelined table function (YES) or not (NO).
-        impltypeowner:
-          type: string
-          description: Owner of the implementation type, if any.
-        impltypename:
-          type: string
-          description: Name of the implementation type, if any.
-        parallel:
-          type: string
-          description: Indicates whether the procedure or function is parallel-enabled (YES) or not (NO).
-        interface:
-          type: string
-          description: YES, if the procedure/function is a table function implemented using the ODCI interface; otherwise NO.
-        deterministic:
-          type: string
-          description: YES, if the procedure/function is declared to be deterministic; otherwise NO.
-        authid:
-          type: string
-          description: Indicates whether the procedure/function is declared to execute as DEFINER or CURRENT_USER (invoker).
-        result_cache:
-          type: string
-          description: Indicates whether the function is result???cached (YES) or not (NO).
-        origin_con_id:
+          description: Length of the partition bound value expression.
+        partition_position:
           type: integer
-          description: The ID of the container where the data originates.
-        polymorphic:
+          description: Position of the partition within the table.
+        tablespace_name:
           type: string
-          description: The type of polymorphic table function.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseLinks:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseLinksItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
+          description: Name of the tablespace containing the partition.
+        pct_free:
           type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
+          description: Minimum percentage of free space in a block.
+        pct_used:
           type: integer
-          description: The actual index from which the item resources are returned.
-        count:
+          description: Minimum percentage of used space in a block.
+        ini_trans:
           type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    Filter:
-      type: object
-      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
-      externalDocs:
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      anyOf:
-      - type: object
-        description: Any key / value pair for specifying a Filter Criteria.
-      - type: object
-        properties:
-          $orderby:
-            description: Specify which properties to order the result set by.
-            type: object
-          $asof:
-            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
-            type: object
-    DatabaseObjectsMaterializedViewLogs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseObjectsMaterializedViewLogsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
+          description: Initial number of transactions.
+        max_trans:
           type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
+          description: Maximum number of transactions.
+        initial_extent:
           type: integer
-          description: The actual index from which the item resources are returned.
-        count:
+          description: Size of the initial extent in bytes (for a range partition); size of the initial extent in blocks (for a composite partition).
+        next_extent:
           type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsFunctions:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseObjectsFunctionsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
+          description: Size of secondary extents in bytes (for a range partition); size of secondary extents in blocks (for a composite partition).
+        min_extent:
           type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
+          description: Minimum number of extents allowed in the segment.
+        max_extent:
           type: integer
-          description: The actual index from which the item resources are returned.
-        count:
+          description: Maximum number of extents allowed in the segment.
+        max_size:
           type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsPartitions:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatabaseObjectsPartitionsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
+          description: Maximum number of blocks allowed in the segment.
+        pct_increase:
           type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
+          description: Percentage increase in extent size.
+        freelists:
           type: integer
-          description: The actual index from which the item resources are returned.
-        count:
+          description: Number of process freelists allocated in this segment.
+        freelist_groups:
           type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsItem:
-      type: object
-      description: A description of an object in the database.
-      properties:
-        owner:
+          description: Number of freelist groups allocated in this segment.
+        logging:
           type: string
-          description: Owner of the object.
-        object_name:
+          description: Indicates whether or not changes to the table are logged.
+        compression:
           type: string
-          description: Name of the object.
-        subobject_name:
+          description: Indicates the actual compression property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
+        compress_for:
           type: string
-          description: Name of the subobject (for example, partition).
-        object_id:
+          description: Default compression for what kind of operations.
+        num_rows:
           type: integer
-          description: Dictionary object number of the object.
-        data_object_id:
+          description: Number of rows in the partition.
+        blocks:
           type: integer
-          description: Dictionary object number of the segment that contains the object.
-        object_type:
-          type: string
-          description: Type of the object (such as TABLE, INDEX).
-        created:
-          type: string
-          description: Timestamp for the creation of the object.
-        last_ddl_time:
-          type: string
-          description: Timestamp for the last modification of the object and dependent objects resulting from a DDL statement (including grants and revokes).
-        timestamp:
-          type: string
-          description: Timestamp for the specification of the object (character data).
-        status:
-          type: string
-          description: Status of the object.
-        temporary:
-          type: string
-          description: Indicates whether the object is temporary (the current session can see only data that it placed in this object itself) (Y) or not (N).
-        generated:
-          type: string
-          description: Indicates whether the name of this object was system-generated (Y) or not (N).
-        secondary:
-          type: string
-          description: Indicates whether this is a secondary object created by the ODCIIndexCreate method of the Oracle Data Cartridge (Y) or not (N).
-        namespace:
+          description: Number of used data blocks in the partition.
+        empty_blocks:
           type: integer
-          description: Namespace for the object.
-        edition_name:
-          type: string
-          description: Name of the edition in which the object is actual.
-        sharing:
-          type: string
-          description: Indicates if the object is a metadata-linked, data-linked or not linked.
-        editionable:
-          type: string
-          description: Indicates if the object editionable in the database.
-        oracle_maintained:
-          type: string
-          description: Denotes whether the object was created, and is maintained, by Oracle-supplied scripts (such as catalog.sql or catproc.sql). An object for which this column has the value Y must not be changed in any way except by running an Oracle-supplied script.
-        application:
-          type: string
-          description: Indicates whether the object is an Application common object (Y) or not (N).
-        default_collation:
-          type: string
-          description: Default collation for the object.
-        duplicated:
-          type: string
-          description: Indicates whether this object is duplicated on this shard (Y) or not (N).
-        sharded:
-          type: string
-          description: Indicates whether this object is sharded (Y) or not (N).
-        created_appid:
+          description: Number of empty (never used) data blocks in the partition. This column is populated only if you collect statistics on the table using the DBMS_STATS package.
+        avg_space:
           type: integer
-          description: ID of the Application that created the object.
-        created_vsnid:
+          description: Average amount of free space, in bytes, in a data block allocated to the partition.
+        chain_cnt:
           type: integer
-          description: ID of the Application Version that created the object.
-        modified_appid:
+          description: Number of rows in the partition that are chained from one data block to another, or which have migrated to a new block, requiring a link to preserve the old ROWID.
+        avg_row_len:
           type: integer
-          description: ID of the Application that last modified the object.
-        modified_vsnid:
+          description: Average length of a row in the partition (in bytes).
+        sample_size:
           type: integer
-          description: ID of the Application Version that last modified the object.
+          description: Sample size used in analyzing this partition.
+        last_analyzed:
+          type: string
+          description: Date on which this partition was most recently analyzed.
+        buffer_pool:
+          type: string
+          description: Buffer pool to be used for the partition blocks.
+        flash_cache:
+          type: string
+          description: Buffer pool to be used for the partition blocks.
+        cell_flash_cache:
+          type: string
+          description: Cell flash cache hint to be used for partition blocks.
+        global_stats:
+          type: string
+          description: GLOBAL_STATS will be YES if statistics are gathered or incrementally maintained, otherwise it will be NO.
+        user_stats:
+          type: string
+          description: Indicates whether statistics were entered directly by the user (YES) or not (NO).
+        is_nested:
+          type: string
+          description: Indicates whether this is a nested table partition (YES) or not (NO).
+        parent_table_partition:
+          type: string
+          description: Parent table's corresponding partition.
+        interval:
+          type: string
+          description: Indicates whether the partition is in the interval section of an interval partitioned table (YES) or whether the partition is in the range section (NO).
+        segment_created:
+          type: string
+          description: Indicates the actual segment creation property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
+        indexing:
+          type: string
+          description: Indicates the actual indexing property for a partition of a simple partitioned table, or the default (if specified) for subpartitions for composite partitioned tables, otherwise NONE.
+        read_only:
+          type: string
+          description: Indicates the default setting for the partition.
+        inmemory:
+          type: string
+          description: Indicates whether the In-Memory Column Store (IM column store) is enabled (ENABLED) or disabled (DISABLED) for this partition.
+        inmemory_priority:
+          type: string
+          description: Indicates the priority for In-Memory Column Store (IM column store) population.
+        inmemory_distribute:
+          type: string
+          description: Indicates how the IM column store is distributed in an Oracle Real Application Clusters (Oracle RAC) environment.
+        inmemory_compression:
+          type: string
+          description: Indicates the compression level for the IM column store.
+        inmemory_duplicate:
+          type: string
+          description: Indicates the duplicate setting for the IM column store in an Oracle RAC environment.
+        cellmemory:
+          type: string
+          description: The value for columnar compression in the storage cell flash cache.
+        inmemory_service:
+          type: string
+          description: Indicates how the IM column store is populated on various instances.
+        inmemory_service_name:
+          type: string
+          description: Indicates the service name for the service on which the IM column store should be populated. This column has a value only when the corresponding INMEMORY_SERVICE is USER_DEFINED. In all other cases, this column is null.
+        memoptimize_read:
+          type: string
+          description: Indicates whether the table is enabled for Fast Key Based Access (ENABLED) or not (DISABLED).
         links:
           type: array
           items:
@@ -2157,180 +2258,136 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsMaterializedViewLogsItem:
+    DatabaseObjectsColumnsItem:
       type: object
-      description: This object describes a materialized view log in the database.
-      properties:
-        log_owner:
-          type: string
-          description: Owner of the materialized view log.
-        master:
-          type: string
-          description: Name of the master table or master materialized view whose changes are logged.
-        log_table:
-          type: string
-          description: Name of the table where the changes to the master table or master materialized view are logged.
-        rowids:
-          type: string
-          description: Indicates whether rowid information is recorded (YES) or not (NO).
-        primary_key:
-          type: string
-          description: Indicates whether primary key information is recorded (YES) or not (NO).
-        object_id:
-          type: string
-          description: Indicates whether object identifier information in an object table is recorded (YES) or not (NO).
-        filter_columns:
-          type: string
-          description: Indicates whether filter column information is recorded (YES) or not (NO).
-        sequence:
-          type: string
-          description: Indicates whether the sequence value, which provides additional ordering information, is recorded (YES) or not (NO).
-        include_new_values:
-          type: string
-          description: Indicates whether both old and new values are recorded (YES) or old values are recorded but new values are not recorded (NO).
-        purge_asynchronous:
-          type: string
-          description: Indicates whether the materialized view log is purged asynchronously (YES) or not (NO).
-        purge_deferred:
-          type: string
-          description: Indicates whether the materialized view log is purged in a deferred manner (YES) or not (NO).
-        purge_start:
-          type: string
-          description: For deferred purge, the purge start date.
-        purge_interval:
-          type: string
-          description: For deferred purge, the purge interval.
-        last_purge_date:
-          type: string
-          description: Date of the last purge.
-        last_purge_status:
-          type: integer
-          description: Status of the last purge (error code or 0 for success).
-        num_rows_purged:
-          type: integer
-          description: Number of rows purged in the last purge.
-        commit_scn_based:
-          type: string
-          description: Indicates whether the materialized view log is commit SCN-based (YES) or not (NO).
-        staging_log:
-          type: string
-          description: Indicates whether the materialized view log is a staging log for synchronous refresh (YES) or not (NO).
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsTypesItem:
-      type: object
-      description: This object describes an object type in the database.
+      description: Describes the column of table, view, or cluster in the database.
       properties:
         owner:
           type: string
-          description: Owner of the type.
-        type_name:
-          type: string
-          description: Name of the type.
-        type_oid:
-          type: string
-          description: Object identifier (OID) of the type.
-        typecode:
-          type: string
-          description: Typecode of the type.
-        attributes:
-          type: integer
-          description: Number of attributes (if any) in the type.
-        methods:
-          type: integer
-          description: Number of methods (if any) in the type.
-        predefined:
-          type: string
-          description: Indicates whether the type is a predefined type (YES) or not (NO).
-        incomplete:
-          type: string
-          description: Indicates whether the type is an incomplete type (YES) or not (NO).
-        final:
-          type: string
-          description: Indicates whether the type is a final type (YES) or not (NO).
-        instantiable:
-          type: string
-          description: Indicates whether the type is an instantiable type (YES) or not (NO).
-        persistable:
-          type: string
-          description: Indicates whether the type is a persistable type (YES) or not (NO).
-        supertype_owner:
-          type: string
-          description: Owner of the supertype (NULL if type is not a subtype).
-        supertype_name:
-          type: string
-          description: Name of the supertype (NULL if type is not a subtype).
-        local_attributes:
-          type: integer
-          description: Number of local (not inherited) attributes (if any) in the subtype.
-        local_methods:
-          type: integer
-          description: Number of local (not inherited) methods (if any) in the subtype.
-        typeid:
-          type: string
-          description: Type ID value of the type.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseObjectsSynonymsItem:
-      type: object
-      description: This object describes a synonym in the database. The list of attributes may vary depending on database version.
-      properties:
-        owner:
-          type: string
-          description: Owner of the synonym.
-        synonym_name:
-          type: string
-          description: Name of the synonym.
-        table_owner:
-          type: string
-          description: Owner of the object referenced by the synonym, or creator of the referring synonym if the target is a public synonym (that is, the object referred to by TABLE_NAME). Although the column is called TABLE_OWNER, the object owned is not necessarily a table. It can be any general object such as a view, sequence, stored procedure, synonym, and so on.
+          description: Owner of the table, view, or cluster.
         table_name:
           type: string
-          description: Name of the object referenced by the synonym. Although the column is called TABLE_NAME, the object does not necessarily have to be a table. It can be any general object such as a view, sequence, stored procedure, synonym, and so on.
-        db_link:
+          description: Name of the table, view, or cluster.
+        column_name:
           type: string
-          description: Name of the database link referenced, if any.
-        origin_con_id:
+          description: Column name.
+        data_type:
+          type: string
+          description: Data type of the column.
+        data_type_mod:
+          type: string
+          description: Data type modifier of the column.
+        data_type_owner:
+          type: string
+          description: Owner of the data type of the column.
+        data_length:
           type: integer
-          description: The ID of the container where the data originates.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabaseLinksItem:
-      type: object
-      description: A database link is a connection between two physical database servers that allows a client to access them as one logical database.
-      properties:
-        owner:
+          description: Length of the column (in bytes).
+        data_precision:
+          type: integer
+          description: Decimal precision for NUMBER data type; binary precision for FLOAT data type; NULL for all other data types.
+        data_scale:
+          type: integer
+          description: Digits to the right of the decimal point in a number.
+        nullable:
           type: string
-          description: Owner of the database link.
-        db_link:
+          description: Indicates whether a column allows NULLs. The value is N if there is a NOT NULL constraint on the column or if the column is part of a PRIMARY KEY. The constraint should be in an ENABLE VALIDATE state.
+        column_id:
+          type: integer
+          description: Sequence number of the column as created.
+        default_length:
+          type: number
+          description: Length of the default value for the column.
+        data_default:
+          type: integer
+          description: Default value for the column.
+        num_distinct:
+          type: number
+          description: Number of distinct values in the column.
+        low_value:
           type: string
-          description: Name of the database link.
-        username:
+          description: Low value in the column.
+        high_value:
           type: string
-          description: Name of the user when logging in.
-        host:
+          description: High value in the column.
+        density:
+          type: number
+          description: If a histogram is available on COLUMN_NAME, then this column displays the selectivity of a value that spans fewer than 2 endpoints in the histogram. It does not represent the selectivity of values that span 2 or more endpoints. If a histogram is not available on COLUMN_NAME, then the value of this column is 1/NUM_DISTINCT.
+        num_nulls:
+          type: integer
+          description: Number of NULLs in the column.
+        num_buckets:
+          type: integer
+          description: Number of buckets in the histogram for the column.
+        last_analyzed:
           type: string
-          description: Oracle Net connect string.
-        created:
+          description: Date on which this column was most recently analyzed.
+        sample_size:
+          type: integer
+          description: Sample size used in analyzing this column.
+        character_set_name:
           type: string
-          description: Creation time of the database link.
-        shard_internal:
+          description: Name of the character set.
+        char_col_decl_length:
+          type: number
+          description: Declaration length of the character type column.
+        global_stats:
           type: string
-          description: Indicates whether the database link is used to support operations across sharded databases.
-        valid:
+          description: GLOBAL_STATS will be YES if statistics are gathered or incrementally maintained, otherwise it will be NO.
+        user_stats:
           type: string
-          description: Indicates whether the database link is valid and usable.
+          description: Indicates whether statistics were entered directly by the user (YES) or not (NO).
+        avg_col_len:
+          type: integer
+          description: Average length of the column (in bytes).
+        char_length:
+          type: integer
+          description: Displays the length of the column in characters.
+        char_used:
+          type: string
+          description: 'Indicates that the column uses BYTE length semantics (B) or CHAR length semantics (C), or whether the data type is not any of the following (NULL): CHAR, VARCHAR2, NCHAR, NVARCHAR2.'
+        v80_fmt_image:
+          type: string
+          description: Indicates whether the column data is in release 8.0 image format (YES) or not (NO).
+        data_upgraded:
+          type: string
+          description: Indicates whether the column data has been upgraded to the latest type version format (YES) or not (NO).
+        histogram:
+          type: string
+          description: Indicates existence/type of histogram.
+        default_on_null:
+          type: string
+          description: Indicates whether the column has DEFAULT ON NULL semantics (YES) or not (NO).
+        identity_column:
+          type: string
+          description: Indicates whether this is an identity column (YES) or not (NO).
+        sensitive_column:
+          type: string
+          description: Indicates whether this is a sensitive column (YES) or not (NO).
+        evaluation_edition:
+          type: string
+          description: Name of the edition in which editioned objects referenced in an expression column are resolved.
+        unusable_before:
+          type: string
+          description: Name of the oldest edition in which the index may be used as part of a query plan.
+        unusable_beginning:
+          type: string
+          description: Name of the edition for which the index may not be used as part of a query plan in this edition or any of its descendants.
+        collation:
+          type: string
+          description: Collation for the column. Only applies to columns with character data types.
         links:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
   examples:
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
     FilterCriteria:
       summary: Implicit EQUALS operator for a number. Supports String and Dates too.
       value:
@@ -2341,13 +2398,6 @@ components:
         $orderby:
           SALARY: ASC
           ENAME: DESC
-    FilterAndOrder:
-      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
-      value:
-        ENAME:
-          $like: AX%
-        $orderby:
-          ENAME: ASC
   parameters:
     Filter:
       name: q

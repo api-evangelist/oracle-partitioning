@@ -1,14 +1,8 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
-  title: Oracle REST Data Services Pluggable Database Lifecycle Management API
+  title: Oracle REST Data Services Pluggable Database Lifecycle…
   contact:
     name: Oracle REST Data Services
     url: https://www.oracle.com/database/technologies/appdev/rest.html
@@ -35,6 +29,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableDatabases'
       x-internal-id: database-pdbs--get
       x-filename-id: database-pdbs-get
+      operationId: getDatabasePdbs
+      x-operation-id-source: derived
     post:
       tags:
       - Pluggable Database Lifecycle Management
@@ -158,6 +154,8 @@ paths:
                 $ref: '#/components/schemas/SchedulerJobsItem'
       x-internal-id: database-pdbs--post
       x-filename-id: database-pdbs-post
+      operationId: postDatabasePdbs
+      x-operation-id-source: derived
   /database/pdbs/{pdb_name}:
     get:
       tags:
@@ -180,6 +178,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
       x-internal-id: database-pdbs-{pdb_name}-get
       x-filename-id: database-pdbs-pdb_name-get
+      operationId: getDatabasePdbsByPdbName
+      x-operation-id-source: derived
     patch:
       tags:
       - Pluggable Database Lifecycle Management
@@ -266,6 +266,8 @@ paths:
           description: Bad request, it could be the pdb name in URL does not exist
       x-internal-id: database-pdbs-{pdb_name}-patch
       x-filename-id: database-pdbs-pdb_name-patch
+      operationId: patchDatabasePdbsByPdbName
+      x-operation-id-source: derived
     delete:
       tags:
       - Pluggable Database Lifecycle Management
@@ -303,6 +305,8 @@ paths:
           description: The response will indicate the successful execution of a series of PL/SQL statements.
       x-internal-id: database-pdbs-{pdb_name}-delete
       x-filename-id: database-pdbs-pdb_name-delete
+      operationId: deleteDatabasePdbsByPdbName
+      x-operation-id-source: derived
   /database/pdb_snapshots/:
     get:
       tags:
@@ -321,6 +325,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshots'
       x-internal-id: database-pdb_snapshots--get
       x-filename-id: database-pdb_snapshots-get
+      operationId: getDatabasePdbSnapshots
+      x-operation-id-source: derived
   /database/pdb_snapshots/{pdb_name}/:
     get:
       tags:
@@ -343,6 +349,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshots'
       x-internal-id: database-pdb_snapshots-{pdb_name}--get
       x-filename-id: database-pdb_snapshots-pdb_name-get
+      operationId: getDatabasePdbSnapshotsByPdbName
+      x-operation-id-source: derived
   /database/pdb_snapshots/{pdb_name}/{snapshot_name}:
     get:
       tags:
@@ -371,27 +379,113 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotWithFileItem'
       x-internal-id: database-pdb_snapshots-{pdb_name}-{snapshot_name}-get
       x-filename-id: database-pdb_snapshots-pdb_name-snapshot_name-get
+      operationId: getDatabasePdbSnapshotsByPdbNameBySnapshotName
+      x-operation-id-source: derived
 components:
+  examples:
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
+    OrderByProperty:
+      summary: Order by with literals.
+      value:
+        $orderby:
+          SALARY: ASC
+          ENAME: DESC
+    FilterCriteria:
+      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
+      value:
+        SALARY: 1000
   schemas:
-    DatabasePluggableDatabases:
+    Filter:
       type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
+    DatabasePluggableSnapshotItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots associated with the current instance.
       properties:
-        items:
+        con_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        con_uid:
+          type: integer
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
+          type: integer
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        links:
           type: array
           items:
-            $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
+            $ref: '#/components/schemas/LinkRelation'
+    DatabasePluggableSnapshotWithFileItem:
+      type: object
+      description: This object describes Pluggable Database Snapshots and snapshot files associated with the current instance.
+      properties:
+        con_id:
           type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
+          description: The ID of the container to which the data pertains.
+        con_uid:
           type: integer
-          description: The actual index from which the item resources are returned.
-        count:
+          description: Unique identifier associated with the PDB.
+        con_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_name:
+          type: string
+          description: Snapshot name of the PDB.
+        snapshot_scn:
           type: integer
-          description: Total number of records in the current response.
+          description: SCN at which the snapshot was taken.
+        previous_snapshot_scn:
+          type: integer
+          description: SCN at which the previous snapshot for the PDB was taken
+        snapshot_time:
+          type: integer
+          description: Timestamp at which the snapshot was taken.
+        previous_snapshot_time:
+          type: integer
+          description: Timestamp of the previous snapshot for this PDB.
+        full_snapshot_path:
+          type: string
+          description: Full path for the snapshot.
+        snapshot_files:
+          type: string
+          description: The snapshot files.
         links:
           type: array
           items:
@@ -503,44 +597,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    DatabasePluggableSnapshotWithFileItem:
-      type: object
-      description: This object describes Pluggable Database Snapshots and snapshot files associated with the current instance.
-      properties:
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        con_uid:
-          type: integer
-          description: Unique identifier associated with the PDB.
-        con_name:
-          type: string
-          description: Name of the PDB.
-        snapshot_name:
-          type: string
-          description: Snapshot name of the PDB.
-        snapshot_scn:
-          type: integer
-          description: SCN at which the snapshot was taken.
-        previous_snapshot_scn:
-          type: integer
-          description: SCN at which the previous snapshot for the PDB was taken
-        snapshot_time:
-          type: integer
-          description: Timestamp at which the snapshot was taken.
-        previous_snapshot_time:
-          type: integer
-          description: Timestamp of the previous snapshot for this PDB.
-        full_snapshot_path:
-          type: string
-          description: Full path for the snapshot.
-        snapshot_files:
-          type: string
-          description: The snapshot files.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     LinkRelation:
       type: object
       properties:
@@ -551,13 +607,13 @@ components:
       required:
       - rel
       - href
-    DatabasePluggableSnapshots:
+    DatabasePluggableDatabases:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+            $ref: '#/components/schemas/DatabasePluggableDatabasesItem'
         hasMore:
           type: boolean
           description: Indicates if there are more records to be retrieved.
@@ -570,57 +626,6 @@ components:
         count:
           type: integer
           description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    Filter:
-      type: object
-      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
-      externalDocs:
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      anyOf:
-      - type: object
-        description: Any key / value pair for specifying a Filter Criteria.
-      - type: object
-        properties:
-          $orderby:
-            description: Specify which properties to order the result set by.
-            type: object
-          $asof:
-            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
-            type: object
-    DatabasePluggableSnapshotItem:
-      type: object
-      description: This object describes Pluggable Database Snapshots associated with the current instance.
-      properties:
-        con_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        con_uid:
-          type: integer
-          description: Unique identifier associated with the PDB.
-        con_name:
-          type: string
-          description: Name of the PDB.
-        snapshot_name:
-          type: string
-          description: Snapshot name of the PDB.
-        snapshot_scn:
-          type: integer
-          description: SCN at which the snapshot was taken.
-        previous_snapshot_scn:
-          type: integer
-          description: SCN at which the previous snapshot for the PDB was taken
-        snapshot_time:
-          type: integer
-          description: Timestamp at which the snapshot was taken.
-        previous_snapshot_time:
-          type: integer
-          description: Timestamp of the previous snapshot for this PDB.
-        full_snapshot_path:
-          type: string
-          description: Full path for the snapshot.
         links:
           type: array
           items:
@@ -831,24 +836,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-  examples:
-    FilterCriteria:
-      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
-      value:
-        SALARY: 1000
-    OrderByProperty:
-      summary: Order by with literals.
-      value:
-        $orderby:
-          SALARY: ASC
-          ENAME: DESC
-    FilterAndOrder:
-      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
-      value:
-        ENAME:
-          $like: AX%
-        $orderby:
-          ENAME: ASC
+    DatabasePluggableSnapshots:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
   parameters:
     Filter:
       name: q

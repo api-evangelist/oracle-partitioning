@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Vector Database/Vector Tables API
   contact:
@@ -22,7 +16,7 @@ paths:
       tags:
       - Vector Database/Vector Tables
       operationId: list_vector_tables
-      summary: List vector tables.
+      summary: List vector tables
       description: Returns all vector tables available to the caller.
       security:
       - BasicAuth: []
@@ -41,7 +35,7 @@ paths:
       tags:
       - Vector Database/Vector Tables
       operationId: create_vector_table
-      summary: Create a vector table.
+      summary: Create a vector table
       description: Creates a new vector table. Exactly one of vectorType or embedParams must be provided. If both or neither are provided, the request is rejected.
       security:
       - BasicAuth: []
@@ -127,7 +121,7 @@ paths:
       tags:
       - Vector Database/Vector Tables
       operationId: describe_vector_table
-      summary: Describe a vector table.
+      summary: Describe a vector table
       description: Returns metadata for the specified vector table.
       security:
       - BasicAuth: []
@@ -157,7 +151,7 @@ paths:
       tags:
       - Vector Database/Vector Tables
       operationId: drop_vector_table
-      summary: Delete a vector table.
+      summary: Delete a vector table
       description: Drops the specified vector table.
       security:
       - BasicAuth: []
@@ -185,7 +179,7 @@ paths:
       tags:
       - Vector Database/Vector Tables
       operationId: update_vector_table_annotation
-      summary: Update table description and annotations.
+      summary: Update table description and annotations
       description: Updates metadata for the specified table. Only description and annotations are supported. Debug flags may be provided for troubleshooting.
       security:
       - BasicAuth: []
@@ -228,6 +222,48 @@ paths:
       x-filename-id: vecdb-vector-tables-vector_table_name-patch
 components:
   schemas:
+    VecDBTableItem:
+      allOf:
+      - $ref: '#/components/schemas/VecDBTableNoLinks'
+      - type: object
+        properties:
+          links:
+            type: array
+            items:
+              $ref: '#/components/schemas/LinkRelation'
+    VectorIndexParams:
+      description: Index configuration for the table.
+      type: object
+      properties:
+        indexing:
+          type: string
+          enum:
+          - manual
+          - auto
+          default: auto
+        organization:
+          type: string
+          enum:
+          - PARTITIONS
+          - INMEMORY GRAPH
+          default: PARTITIONS
+        distance_metric:
+          type: string
+          enum:
+          - COSINE
+          - MANHATTAN
+          - HAMMING
+          - JACCARD
+          - DOT
+          - EUCLIDEAN
+          - L2_SQUARED
+          - EUCLIDEAN_SQUARED
+        accuracy:
+          type: integer
+          minimum: 0
+          maximum: 100
+        advanced_params:
+          type: object
     VectorDebugFlags:
       type: object
       description: Debug flags to be used to trace vector modules
@@ -340,58 +376,6 @@ components:
           - low
           - medium
           - high
-    VecDBTableItem:
-      allOf:
-      - $ref: '#/components/schemas/VecDBTableNoLinks'
-      - type: object
-        properties:
-          links:
-            type: array
-            items:
-              $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    VectorIndexParams:
-      description: Index configuration for the table.
-      type: object
-      properties:
-        indexing:
-          type: string
-          enum:
-          - manual
-          - auto
-          default: auto
-        organization:
-          type: string
-          enum:
-          - PARTITIONS
-          - INMEMORY GRAPH
-          default: PARTITIONS
-        distance_metric:
-          type: string
-          enum:
-          - COSINE
-          - MANHATTAN
-          - HAMMING
-          - JACCARD
-          - DOT
-          - EUCLIDEAN
-          - L2_SQUARED
-          - EUCLIDEAN_SQUARED
-        accuracy:
-          type: integer
-          minimum: 0
-          maximum: 100
-        advanced_params:
-          type: object
     VecDBTableNoLinks:
       type: object
       properties:
@@ -487,25 +471,16 @@ components:
           - 'null'
           format: date-time
           description: Creation timestamp of the vector table.
-    VecDBTableCollection:
+    LinkRelation:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/VecDBTableItem'
-        hasMore:
-          type: boolean
-        limit:
-          type: number
-        offset:
-          type: number
-        count:
-          type: number
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
     ORDSErrorResponse:
       type: object
       required:
@@ -526,6 +501,25 @@ components:
           type: string
         stackTrace:
           type: string
+    VecDBTableCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VecDBTableItem'
+        hasMore:
+          type: boolean
+        limit:
+          type: number
+        offset:
+          type: number
+        count:
+          type: number
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
   securitySchemes:
     BasicAuth:
       type: http

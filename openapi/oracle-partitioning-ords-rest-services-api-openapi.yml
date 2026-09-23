@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services ORDS REST Services API
   contact:
@@ -273,6 +267,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-modules--get
       x-filename-id: ords-rest-modules-get
+      operationId: getOrdsRestModules
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -328,6 +324,8 @@ paths:
           description: No name or base_path parameter provided.
       x-internal-id: ords-rest-modules--post
       x-filename-id: ords-rest-modules-post
+      operationId: postOrdsRestModules
+      x-operation-id-source: derived
   /ords/rest/modules/{id}:
     get:
       tags:
@@ -350,6 +348,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-modules-{id}-get
       x-filename-id: ords-rest-modules-id-get
+      operationId: getOrdsRestModulesById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -406,6 +406,8 @@ paths:
           description: A module name or base path already exists.
       x-internal-id: ords-rest-modules-{id}-put
       x-filename-id: ords-rest-modules-id-put
+      operationId: putOrdsRestModulesById
+      x-operation-id-source: derived
   /ords/rest/modules/{id}/source:
     get:
       tags:
@@ -430,6 +432,8 @@ paths:
           description: Module does not exist.
       x-internal-id: ords-rest-modules-{id}-source-get
       x-filename-id: ords-rest-modules-id-source-get
+      operationId: getOrdsRestModulesByIdSource
+      x-operation-id-source: derived
   /ords/rest/templates/:
     get:
       tags:
@@ -448,6 +452,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-templates--get
       x-filename-id: ords-rest-templates-get
+      operationId: getOrdsRestTemplates
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -499,6 +505,8 @@ paths:
           description: A template with that pattern already exists.
       x-internal-id: ords-rest-templates--post
       x-filename-id: ords-rest-templates-post
+      operationId: postOrdsRestTemplates
+      x-operation-id-source: derived
   /ords/rest/templates/{id}:
     get:
       tags:
@@ -521,6 +529,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-templates-{id}-get
       x-filename-id: ords-rest-templates-id-get
+      operationId: getOrdsRestTemplatesById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -574,6 +584,8 @@ paths:
           description: Template pattern already exists in the module.
       x-internal-id: ords-rest-templates-{id}-put
       x-filename-id: ords-rest-templates-id-put
+      operationId: putOrdsRestTemplatesById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -591,6 +603,8 @@ paths:
           description: Confirmation that the REST module template has been delete.
       x-internal-id: ords-rest-templates-{id}-delete
       x-filename-id: ords-rest-templates-id-delete
+      operationId: deleteOrdsRestTemplatesById
+      x-operation-id-source: derived
   /ords/rest/handlers/:
     get:
       tags:
@@ -609,6 +623,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-handlers--get
       x-filename-id: ords-rest-handlers-get
+      operationId: getOrdsRestHandlers
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -663,6 +679,8 @@ paths:
           description: Handler already exists.
       x-internal-id: ords-rest-handlers--post
       x-filename-id: ords-rest-handlers-post
+      operationId: postOrdsRestHandlers
+      x-operation-id-source: derived
   /ords/rest/handlers/{id}:
     get:
       tags:
@@ -685,6 +703,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-handlers-{id}-get
       x-filename-id: ords-rest-handlers-id-get
+      operationId: getOrdsRestHandlersById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -741,6 +761,8 @@ paths:
           description: Handler already exists.
       x-internal-id: ords-rest-handlers-{id}-put
       x-filename-id: ords-rest-handlers-id-put
+      operationId: putOrdsRestHandlersById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -760,6 +782,8 @@ paths:
           description: Handler not found
       x-internal-id: ords-rest-handlers-{id}-delete
       x-filename-id: ords-rest-handlers-id-delete
+      operationId: deleteOrdsRestHandlersById
+      x-operation-id-source: derived
   /ords/rest/handlers/{id}/source:
     get:
       tags:
@@ -782,6 +806,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-handlers-{id}-source-get
       x-filename-id: ords-rest-handlers-id-source-get
+      operationId: getOrdsRestHandlersByIdSource
+      x-operation-id-source: derived
   /ords/rest/parameters/:
     get:
       tags:
@@ -800,6 +826,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-parameters--get
       x-filename-id: ords-rest-parameters-get
+      operationId: getOrdsRestParameters
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -854,6 +882,8 @@ paths:
           description: Parameter name or bind variable already exists.
       x-internal-id: ords-rest-parameters--post
       x-filename-id: ords-rest-parameters-post
+      operationId: postOrdsRestParameters
+      x-operation-id-source: derived
   /ords/rest/parameters/{id}:
     get:
       tags:
@@ -876,6 +906,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-parameters-{id}-get
       x-filename-id: ords-rest-parameters-id-get
+      operationId: getOrdsRestParametersById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -937,6 +969,8 @@ paths:
           description: Parameter name or bind variable already exists.
       x-internal-id: ords-rest-parameters-{id}-put
       x-filename-id: ords-rest-parameters-id-put
+      operationId: putOrdsRestParametersById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -954,6 +988,8 @@ paths:
           description: Confirmation that the REST handler parameter has been deleted.
       x-internal-id: ords-rest-parameters-{id}-delete
       x-filename-id: ords-rest-parameters-id-delete
+      operationId: deleteOrdsRestParametersById
+      x-operation-id-source: derived
   /ords/rest/roles/:
     get:
       tags:
@@ -972,6 +1008,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-roles--get
       x-filename-id: ords-rest-roles-get
+      operationId: getOrdsRestRoles
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -1005,6 +1043,8 @@ paths:
           description: A role with that name already exists.
       x-internal-id: ords-rest-roles--post
       x-filename-id: ords-rest-roles-post
+      operationId: postOrdsRestRoles
+      x-operation-id-source: derived
   /ords/rest/roles/{id}:
     get:
       tags:
@@ -1027,6 +1067,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-roles-{id}-get
       x-filename-id: ords-rest-roles-id-get
+      operationId: getOrdsRestRolesById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -1073,6 +1115,8 @@ paths:
           description: Role not found.
       x-internal-id: ords-rest-roles-{id}-put
       x-filename-id: ords-rest-roles-id-put
+      operationId: putOrdsRestRolesById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -1090,6 +1134,8 @@ paths:
           description: Confirmation that the ORDS role has been delete.
       x-internal-id: ords-rest-roles-{id}-delete
       x-filename-id: ords-rest-roles-id-delete
+      operationId: deleteOrdsRestRolesById
+      x-operation-id-source: derived
   /ords/rest/roles/{id}/privileges/:
     get:
       tags:
@@ -1112,6 +1158,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-roles-{id}-privileges--get
       x-filename-id: ords-rest-roles-id-privileges-get
+      operationId: getOrdsRestRolesByIdPrivileges
+      x-operation-id-source: derived
   /ords/rest/privileges/:
     get:
       tags:
@@ -1130,6 +1178,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-privileges--get
       x-filename-id: ords-rest-privileges-get
+      operationId: getOrdsRestPrivileges
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -1183,6 +1233,8 @@ paths:
           description: A privilege with that name already exists.
       x-internal-id: ords-rest-privileges--post
       x-filename-id: ords-rest-privileges-post
+      operationId: postOrdsRestPrivileges
+      x-operation-id-source: derived
   /ords/rest/privileges/{id}:
     get:
       tags:
@@ -1205,6 +1257,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-privileges-{id}-get
       x-filename-id: ords-rest-privileges-id-get
+      operationId: getOrdsRestPrivilegesById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -1262,6 +1316,8 @@ paths:
           description: A privilege or role name or module name o does not existname does not exist.
       x-internal-id: ords-rest-privileges-{id}-put
       x-filename-id: ords-rest-privileges-id-put
+      operationId: putOrdsRestPrivilegesById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -1279,6 +1335,8 @@ paths:
           description: Confirmation that the ORDS privilege has been delete.
       x-internal-id: ords-rest-privileges-{id}-delete
       x-filename-id: ords-rest-privileges-id-delete
+      operationId: deleteOrdsRestPrivilegesById
+      x-operation-id-source: derived
   /ords/rest/privileges/{id}/modules/:
     get:
       tags:
@@ -1301,6 +1359,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-privileges-{id}-modules--get
       x-filename-id: ords-rest-privileges-id-modules-get
+      operationId: getOrdsRestPrivilegesByIdModules
+      x-operation-id-source: derived
   /ords/rest/privileges/{id}/patterns/:
     get:
       tags:
@@ -1323,6 +1383,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-privileges-{id}-patterns--get
       x-filename-id: ords-rest-privileges-id-patterns-get
+      operationId: getOrdsRestPrivilegesByIdPatterns
+      x-operation-id-source: derived
   /ords/rest/privileges/{id}/roles/:
     get:
       tags:
@@ -1345,6 +1407,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-privileges-{id}-roles--get
       x-filename-id: ords-rest-privileges-id-roles-get
+      operationId: getOrdsRestPrivilegesByIdRoles
+      x-operation-id-source: derived
   /ords/rest/privilege/modules/:
     get:
       tags:
@@ -1363,6 +1427,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-privilege-modules--get
       x-filename-id: ords-rest-privilege-modules-get
+      operationId: getOrdsRestPrivilegeModules
+      x-operation-id-source: derived
   /ords/rest/clients/:
     get:
       tags:
@@ -1381,6 +1447,8 @@ paths:
                 $ref: '#/components/schemas/RestClientCollection'
       x-internal-id: ords-rest-clients--get
       x-filename-id: ords-rest-clients-get
+      operationId: getOrdsRestClients
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -1443,6 +1511,8 @@ paths:
           description: An oauth client with that name already exists.
       x-internal-id: ords-rest-clients--post
       x-filename-id: ords-rest-clients-post
+      operationId: postOrdsRestClients
+      x-operation-id-source: derived
   /ords/rest/clients/{id}:
     get:
       tags:
@@ -1465,6 +1535,8 @@ paths:
                 $ref: '#/components/schemas/RestClientCollectionItem'
       x-internal-id: ords-rest-clients-{id}-get
       x-filename-id: ords-rest-clients-id-get
+      operationId: getOrdsRestClientsById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -1529,6 +1601,8 @@ paths:
           description: An oauth client with that name already exists.
       x-internal-id: ords-rest-clients-{id}-put
       x-filename-id: ords-rest-clients-id-put
+      operationId: putOrdsRestClientsById
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
@@ -1550,11 +1624,13 @@ paths:
           description: You do not have permission to delete this oauth client.
       x-internal-id: ords-rest-clients-{id}-delete
       x-filename-id: ords-rest-clients-id-delete
+      operationId: deleteOrdsRestClientsById
+      x-operation-id-source: derived
   /ords/rest/clients/{id}/logo/:
     post:
       tags:
       - ORDS REST Services
-      summary: Updates the ORDS OAuth client avatar image.
+      summary: Updates the ORDS OAuth client avatar image
       description: Updates the ORDS OAuth client avatar image.
       parameters:
       - name: id
@@ -1589,11 +1665,13 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-clients-{id}-logo--post
       x-filename-id: ords-rest-clients-id-logo-post
+      operationId: postOrdsRestClientsByIdLogo
+      x-operation-id-source: derived
   /ords/rest/clients/{id}/secret/{slotid}:
     post:
       tags:
       - ORDS REST Services
-      summary: Register or Rotate the ORDS OAuth client secret.
+      summary: Register or Rotate the ORDS OAuth client secret
       description: Register or Rotate the ORDS OAuth client secret.
       parameters:
       - name: id
@@ -1629,10 +1707,12 @@ paths:
                 $ref: '#/components/schemas/RestClientSecretItem'
       x-internal-id: ords-rest-clients-{id}-secret-{slotid}-post
       x-filename-id: ords-rest-clients-id-secret-slotid-post
+      operationId: postOrdsRestClientsByIdSecretBySlotid
+      x-operation-id-source: derived
     delete:
       tags:
       - ORDS REST Services
-      summary: Revoke the ORDS OAuth client secret.
+      summary: Revoke the ORDS OAuth client secret
       description: Revoke the ORDS OAuth client secret.
       parameters:
       - name: id
@@ -1658,6 +1738,8 @@ paths:
           description: Confirmation that the ORDS OAuth secret has been successfully revoked.
       x-internal-id: ords-rest-clients-{id}-secret-{slotid}-delete
       x-filename-id: ords-rest-clients-id-secret-slotid-delete
+      operationId: deleteOrdsRestClientsByIdSecretBySlotid
+      x-operation-id-source: derived
   /ords/rest/clients/{id}/privileges/:
     get:
       tags:
@@ -1680,6 +1762,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-clients-{id}-privileges--get
       x-filename-id: ords-rest-clients-id-privileges-get
+      operationId: getOrdsRestClientsByIdPrivileges
+      x-operation-id-source: derived
   /ords/rest/clients/{id}/roles/:
     get:
       tags:
@@ -1702,6 +1786,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-clients-{id}-roles--get
       x-filename-id: ords-rest-clients-id-roles-get
+      operationId: getOrdsRestClientsByIdRoles
+      x-operation-id-source: derived
   /ords/rest/autorest/:
     get:
       tags:
@@ -1720,6 +1806,8 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-autorest--get
       x-filename-id: ords-rest-autorest-get
+      operationId: getOrdsRestAutorest
+      x-operation-id-source: derived
     post:
       tags:
       - ORDS REST Services
@@ -1763,6 +1851,8 @@ paths:
           description: You do not have permission to enable a REST object.
       x-internal-id: ords-rest-autorest--post
       x-filename-id: ords-rest-autorest-post
+      operationId: postOrdsRestAutorest
+      x-operation-id-source: derived
   /ords/rest/autorest/{id}:
     get:
       tags:
@@ -1785,6 +1875,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-autorest-{id}-get
       x-filename-id: ords-rest-autorest-id-get
+      operationId: getOrdsRestAutorestById
+      x-operation-id-source: derived
     put:
       tags:
       - ORDS REST Services
@@ -1831,6 +1923,8 @@ paths:
           description: A REST enabled object with that alias already exists.
       x-internal-id: ords-rest-autorest-{id}-put
       x-filename-id: ords-rest-autorest-id-put
+      operationId: putOrdsRestAutorestById
+      x-operation-id-source: derived
   /ords/rest/autorest/summary:
     get:
       tags:
@@ -1846,6 +1940,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-autorest-summary-get
       x-filename-id: ords-rest-autorest-summary-get
+      operationId: getOrdsRestAutorestSummary
+      x-operation-id-source: derived
   /ords/rest/autorest/{id}/metadata:
     get:
       tags:
@@ -1872,11 +1968,13 @@ paths:
           description: A REST Object does not exist.
       x-internal-id: ords-rest-autorest-{id}-metadata-get
       x-filename-id: ords-rest-autorest-id-metadata-get
+      operationId: getOrdsRestAutorestByIdMetadata
+      x-operation-id-source: derived
   /ords/rest/overview/:
     get:
       tags:
       - ORDS REST Services
-      summary: Get current ORDS schema and count of all current schema REST objects and count of all REST modules
+      summary: Get current ORDS schema and count of all current schema REST objects and count…
       description: Describes the current ORDS schema and summarizes all the REST objects in the current schema and Summary of all the published, unpublished, fully protected, partially protected and unique protected REST modules, get current ORDS schema auto-REST authorization
       responses:
         '200':
@@ -1887,6 +1985,8 @@ paths:
                 $ref: '#/components/schemas/ResourceItem'
       x-internal-id: ords-rest-overview--get
       x-filename-id: ords-rest-overview-get
+      operationId: getOrdsRestOverview
+      x-operation-id-source: derived
   /ords/rest/overview/objects_recent:
     get:
       tags:
@@ -1905,38 +2005,44 @@ paths:
                 $ref: '#/components/schemas/ItemsCollection'
       x-internal-id: ords-rest-overview-objects_recent-get
       x-filename-id: ords-rest-overview-objects_recent-get
+      operationId: getOrdsRestOverviewObjectsRecent
+      x-operation-id-source: derived
 components:
+  examples:
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
+    OrderByProperty:
+      summary: Order by with literals.
+      value:
+        $orderby:
+          SALARY: ASC
+          ENAME: DESC
+    FilterCriteria:
+      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
+      value:
+        SALARY: 1000
   schemas:
-    RestClientSecretItem:
+    Filter:
       type: object
-      description: This object represents a new client secret .
-      properties:
-        id:
-          type: integer
-          description: The original generated client identifier.
-        name:
-          type: string
-          description: The name for the client.
-        client_secret:
-          type: string
-          description: The client secret for slot 1.
-        client_secret_2:
-          type: string
-          description: The client secret for slot 2.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
     RestClientCollectionItem:
       type: object
       description: ORDS OAuth clients
@@ -2029,22 +2135,59 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    Filter:
+    RestClientSecretItem:
       type: object
-      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
-      externalDocs:
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      anyOf:
-      - type: object
-        description: Any key / value pair for specifying a Filter Criteria.
-      - type: object
-        properties:
-          $orderby:
-            description: Specify which properties to order the result set by.
-            type: object
-          $asof:
-            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
-            type: object
+      description: This object represents a new client secret .
+      properties:
+        id:
+          type: integer
+          description: The original generated client identifier.
+        name:
+          type: string
+          description: The name for the client.
+        client_secret:
+          type: string
+          description: The client secret for slot 1.
+        client_secret_2:
+          type: string
+          description: The client secret for slot 2.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    ItemsCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
     RestClientCollection:
       type: object
       properties:
@@ -2076,48 +2219,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    ItemsCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-  examples:
-    FilterCriteria:
-      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
-      value:
-        SALARY: 1000
-    OrderByProperty:
-      summary: Order by with literals.
-      value:
-        $orderby:
-          SALARY: ASC
-          ENAME: DESC
-    FilterAndOrder:
-      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
-      value:
-        ENAME:
-          $like: AX%
-        $orderby:
-          ENAME: ASC
   parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        format: int32
     Filter:
       name: q
       in: query
@@ -2132,14 +2242,6 @@ components:
           $ref: '#/components/examples/OrderByProperty'
         FilterAndOrderExample:
           $ref: '#/components/examples/FilterAndOrder'
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of records to return.
-      required: false
-      schema:
-        type: integer
-        format: int32
   securitySchemes:
     BasicAuth:
       type: http

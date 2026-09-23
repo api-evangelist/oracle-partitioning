@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Vector Database/Vector Indexes API
   contact:
@@ -22,7 +16,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: create_index
-      summary: Creates an IVF or HNSW vector index using create_index API.
+      summary: Creates an IVF or HNSW vector index using create_index API
       description: Creates a vector index using create_index API.
       security:
       - BasicAuth: []
@@ -76,7 +70,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: list_index_jobs
-      summary: Retrieve all schedulled vector indexes jobs.
+      summary: Retrieve all schedulled vector indexes jobs
       description: Describes all of the jobs scheduled to create or rebuild a vector index.
       security:
       - BasicAuth: []
@@ -96,7 +90,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: describe_index_job
-      summary: Retrieve details of an schedulled vector index job.
+      summary: Retrieve details of an schedulled vector index job
       description: Describes the specified job scheduled to create a vector index.
       security:
       - BasicAuth: []
@@ -129,7 +123,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: get_index_job_log
-      summary: Get the logs associated to a scheduled vector index job.
+      summary: Get the logs associated to a scheduled vector index job
       description: Returns the log associated to a given vector index job.
       security:
       - BasicAuth: []
@@ -162,7 +156,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: rebuild_index
-      summary: Updates an existing IVF or HNSW vector index using the rebuild_index API.
+      summary: Updates an existing IVF or HNSW vector index using the rebuild_index API
       description: Rebuilds the index associated to the specified vector table. A index can be rebuilded with different parameters
       security:
       - BasicAuth: []
@@ -217,7 +211,7 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: describe_index
-      summary: Retrieves the status of the vector index associated to the requested vector table.
+      summary: Retrieves the status of the vector index associated to the requested vector…
       description: Get information about the status of a vector index.
       security:
       - BasicAuth: []
@@ -258,8 +252,8 @@ paths:
       tags:
       - Vector Database/Vector Indexes
       operationId: drop_index
-      summary: Drops a vector index.
-      description: 'Drops the vector index associated to the specified vector table. '
+      summary: Drops a vector index
+      description: Drops the vector index associated to the specified vector table.
       security:
       - BasicAuth: []
       - BearerAuth: []
@@ -297,6 +291,52 @@ paths:
       x-filename-id: vecdb-vector-indexes-vector_table_name-delete
 components:
   schemas:
+    VecDBJobLogItem:
+      type: object
+      properties:
+        log_date:
+          type: string
+        job_name:
+          type: string
+        status:
+          type: string
+        error#:
+          type: integer
+        additional_info:
+          type:
+          - string
+          - 'null'
+        actual_start_date:
+          type: string
+        run_duration:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    VecDBJobCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VecDBJobItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
     VectorDebugFlags:
       type: object
       description: Debug flags to be used to trace vector modules
@@ -409,29 +449,6 @@ components:
           - low
           - medium
           - high
-    VecDBJobLogItem:
-      type: object
-      properties:
-        log_date:
-          type: string
-        job_name:
-          type: string
-        status:
-          type: string
-        error#:
-          type: integer
-        additional_info:
-          type:
-          - string
-          - 'null'
-        actual_start_date:
-          type: string
-        run_duration:
-          type: string
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     LinkRelation:
       type: object
       properties:
@@ -442,29 +459,26 @@ components:
       required:
       - rel
       - href
-    VecDBJobCollection:
+    ORDSErrorResponse:
       type: object
+      required:
+      - code
+      - message
+      - type
+      - instance
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/VecDBJobItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        instance:
+          type: string
+        diagnosticTrace:
+          type: string
+        stackTrace:
+          type: string
     VecDBJobItem:
       type: object
       properties:
@@ -486,26 +500,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    ORDSErrorResponse:
-      type: object
-      required:
-      - code
-      - message
-      - type
-      - instance
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-        instance:
-          type: string
-        diagnosticTrace:
-          type: string
-        stackTrace:
-          type: string
   securitySchemes:
     BasicAuth:
       type: http

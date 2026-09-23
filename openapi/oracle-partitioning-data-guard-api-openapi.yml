@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Data Guard API
   contact:
@@ -32,6 +26,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationItem'
       x-internal-id: database-dataguard-configuration--get
       x-filename-id: database-dataguard-configuration-get
+      operationId: getDatabaseDataguardConfiguration
+      x-operation-id-source: derived
     post:
       tags:
       - Data Guard
@@ -77,6 +73,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-configuration--post
       x-filename-id: database-dataguard-configuration-post
+      operationId: postDatabaseDataguardConfiguration
+      x-operation-id-source: derived
     put:
       tags:
       - Data Guard
@@ -122,6 +120,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-configuration--put
       x-filename-id: database-dataguard-configuration-put
+      operationId: putDatabaseDataguardConfiguration
+      x-operation-id-source: derived
     delete:
       tags:
       - Data Guard
@@ -148,6 +148,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-configuration--delete
       x-filename-id: database-dataguard-configuration-delete
+      operationId: deleteDatabaseDataguardConfiguration
+      x-operation-id-source: derived
   /database/dataguard/configuration/properties/:
     get:
       tags:
@@ -163,6 +165,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationPropertiesCollection'
       x-internal-id: database-dataguard-configuration-properties--get
       x-filename-id: database-dataguard-configuration-properties-get
+      operationId: getDatabaseDataguardConfigurationProperties
+      x-operation-id-source: derived
   /database/dataguard/configuration/properties/{property}:
     get:
       tags:
@@ -185,6 +189,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
       x-internal-id: database-dataguard-configuration-properties-{property}-get
       x-filename-id: database-dataguard-configuration-properties-property-get
+      operationId: getDatabaseDataguardConfigurationPropertiesByProperty
+      x-operation-id-source: derived
     put:
       tags:
       - Data Guard
@@ -233,6 +239,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-configuration-properties-{property}-put
       x-filename-id: database-dataguard-configuration-properties-property-put
+      operationId: putDatabaseDataguardConfigurationPropertiesByProperty
+      x-operation-id-source: derived
   /database/dataguard/databases/:
     get:
       tags:
@@ -248,6 +256,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationCollection'
       x-internal-id: database-dataguard-databases--get
       x-filename-id: database-dataguard-databases-get
+      operationId: getDatabaseDataguardDatabases
+      x-operation-id-source: derived
     post:
       tags:
       - Data Guard
@@ -293,6 +303,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-databases--post
       x-filename-id: database-dataguard-databases-post
+      operationId: postDatabaseDataguardDatabases
+      x-operation-id-source: derived
   /database/dataguard/databases/{database}:
     get:
       tags:
@@ -315,6 +327,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationItemLinks'
       x-internal-id: database-dataguard-databases-{database}-get
       x-filename-id: database-dataguard-databases-database-get
+      operationId: getDatabaseDataguardDatabasesByDatabase
+      x-operation-id-source: derived
     put:
       tags:
       - Data Guard
@@ -372,6 +386,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-databases-{database}-put
       x-filename-id: database-dataguard-databases-database-put
+      operationId: putDatabaseDataguardDatabasesByDatabase
+      x-operation-id-source: derived
     delete:
       tags:
       - Data Guard
@@ -405,6 +421,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-databases-{database}-delete
       x-filename-id: database-dataguard-databases-database-delete
+      operationId: deleteDatabaseDataguardDatabasesByDatabase
+      x-operation-id-source: derived
   /database/dataguard/databases/{database}/instances/:
     get:
       tags:
@@ -427,6 +445,8 @@ paths:
                 $ref: '#/components/schemas/DataguardInstanceCollection'
       x-internal-id: database-dataguard-databases-{database}-instances--get
       x-filename-id: database-dataguard-databases-database-instances-get
+      operationId: getDatabaseDataguardDatabasesByDatabaseInstances
+      x-operation-id-source: derived
   /database/dataguard/databases/{database}/instances/{instance}:
     delete:
       tags:
@@ -467,6 +487,8 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-databases-{database}-instances-{instance}-delete
       x-filename-id: database-dataguard-databases-database-instances-instance-delete
+      operationId: deleteDatabaseDataguardDatabasesByDatabaseInstancesByInstance
+      x-operation-id-source: derived
   /database/dataguard/databases/{database}/properties/:
     get:
       tags:
@@ -489,6 +511,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationPropertiesCollection'
       x-internal-id: database-dataguard-databases-{database}-properties--get
       x-filename-id: database-dataguard-databases-database-properties-get
+      operationId: getDatabaseDataguardDatabasesByDatabaseProperties
+      x-operation-id-source: derived
   /database/dataguard/databases/{database}/properties/{property}:
     get:
       tags:
@@ -517,6 +541,8 @@ paths:
                 $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
       x-internal-id: database-dataguard-databases-{database}-properties-{property}-get
       x-filename-id: database-dataguard-databases-database-properties-property-get
+      operationId: getDatabaseDataguardDatabasesByDatabasePropertiesByProperty
+      x-operation-id-source: derived
     put:
       tags:
       - Data Guard
@@ -572,8 +598,142 @@ paths:
               description: Status of the Data Guard operation.
       x-internal-id: database-dataguard-databases-{database}-properties-{property}-put
       x-filename-id: database-dataguard-databases-database-properties-property-put
+      operationId: putDatabaseDataguardDatabasesByDatabasePropertiesByProperty
+      x-operation-id-source: derived
 components:
   schemas:
+    DataguardInstanceCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardInstanceItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardConfigurationItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationPropertiesCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationItemLinks:
+      type: object
+      properties:
+        inst_id:
+          type: integer
+        database:
+          type: string
+        connection_identifier:
+          type: string
+        dataguard_role:
+          type: string
+        redo_source:
+          type: string
+        enabled:
+          type: string
+        status:
+          type: integer
+        severity:
+          type: string
+        status_message:
+          type: string
+        version:
+          type: string
+        con_id:
+          type: integer
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    DataguardConfigurationPropertyItem:
+      type: object
+      properties:
+        property:
+          type: string
+        property_type:
+          type: string
+        value:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    ErrorObject:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        instance:
+          type: string
     DataguardInstanceItem:
       type: object
       properties:
@@ -626,115 +786,6 @@ components:
           type: string
         database_type:
           type: string
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    ErrorObject:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-        instance:
-          type: string
-    DataguardConfigurationPropertyItem:
-      type: object
-      properties:
-        property:
-          type: string
-        property_type:
-          type: string
-        value:
-          type: string
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DataguardConfigurationItemLinks:
-      type: object
-      properties:
-        inst_id:
-          type: integer
-        database:
-          type: string
-        connection_identifier:
-          type: string
-        dataguard_role:
-          type: string
-        redo_source:
-          type: string
-        enabled:
-          type: string
-        status:
-          type: integer
-        severity:
-          type: string
-        status_message:
-          type: string
-        version:
-          type: string
-        con_id:
-          type: integer
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DataguardConfigurationPropertiesCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataguardConfigurationPropertyItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DataguardInstanceCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataguardInstanceItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     DataguardConfigurationItem:
       type: object
       properties:
@@ -760,29 +811,6 @@ components:
           type: string
         con_id:
           type: integer
-    DataguardConfigurationCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataguardConfigurationItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
   securitySchemes:
     BasicAuth:
       type: http

@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Vector Database/Models API
   contact:
@@ -41,7 +35,7 @@ paths:
       tags:
       - Vector Database/Models
       operationId: load_model
-      summary: Load an ONNX model into de database.
+      summary: Load an ONNX model into de database
       description: Load an ONNX model into de database.
       security:
       - BasicAuth: []
@@ -137,7 +131,7 @@ paths:
       tags:
       - Vector Database/Models
       operationId: drop_model
-      summary: Delete an ONNX model from de database.
+      summary: Delete an ONNX model from de database
       description: Delete an ONNX model from de database.
       security:
       - BasicAuth: []
@@ -173,36 +167,6 @@ paths:
       x-filename-id: vecdb-models-model_name-delete
 components:
   schemas:
-    ORDSErrorResponse:
-      type: object
-      required:
-      - code
-      - message
-      - type
-      - instance
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        type:
-          type: string
-        instance:
-          type: string
-        diagnosticTrace:
-          type: string
-        stackTrace:
-          type: string
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
     ModelItem:
       type: object
       properties:
@@ -218,34 +182,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ModelAttributeItem'
-    ModelItemWithLinks:
-      allOf:
-      - $ref: '#/components/schemas/ModelItem'
-      - type: object
-        properties:
-          links:
-            type: array
-            items:
-              $ref: '#/components/schemas/LinkRelation'
-    ModelsCollection:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelItemWithLinks'
-        hasMore:
-          type: boolean
-        limit:
-          type: number
-        offset:
-          type: number
-        count:
-          type: number
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
     ModelAttributeItem:
       type: object
       properties:
@@ -261,6 +197,15 @@ components:
           type:
           - string
           - 'null'
+    ModelItemWithLinks:
+      allOf:
+      - $ref: '#/components/schemas/ModelItem'
+      - type: object
+        properties:
+          links:
+            type: array
+            items:
+              $ref: '#/components/schemas/LinkRelation'
     VectorDebugFlags:
       type: object
       description: Debug flags to be used to trace vector modules
@@ -373,6 +318,55 @@ components:
           - low
           - medium
           - high
+    ModelsCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelItemWithLinks'
+        hasMore:
+          type: boolean
+        limit:
+          type: number
+        offset:
+          type: number
+        count:
+          type: number
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    ORDSErrorResponse:
+      type: object
+      required:
+      - code
+      - message
+      - type
+      - instance
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        instance:
+          type: string
+        diagnosticTrace:
+          type: string
+        stackTrace:
+          type: string
   securitySchemes:
     BasicAuth:
       type: http

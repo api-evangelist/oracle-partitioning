@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Scheduler API
   contact:
@@ -22,7 +16,7 @@ paths:
       tags:
       - Scheduler
       summary: Get all Oracle Scheduler jobs
-      description: Returns records from DBA_SCHEDULER_JOBS or ALL_SCHEDULER_JOBS view depending on the role at runtime.  This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator or SQL Developer role to invoke this service.
+      description: Returns records from DBA_SCHEDULER_JOBS or ALL_SCHEDULER_JOBS view depending on the role at runtime. This service requires db.cdb.adminUser credentials to be set in the pool configuration. A client requires SQL Administrator or SQL Developer role to invoke this service.
       parameters:
       - $ref: '#/components/parameters/Limit'
       - $ref: '#/components/parameters/Filter'
@@ -35,6 +29,8 @@ paths:
                 $ref: '#/components/schemas/SchedulerJobs'
       x-internal-id: database-scheduler-jobs--get
       x-filename-id: database-scheduler-jobs-get
+      operationId: getDatabaseSchedulerJobs
+      x-operation-id-source: derived
   /database/scheduler/jobs/{owner},{job_name}:
     get:
       tags:
@@ -63,8 +59,44 @@ paths:
                 $ref: '#/components/schemas/SchedulerJobsItem'
       x-internal-id: database-scheduler-jobs-{owner},{job_name}-get
       x-filename-id: database-scheduler-jobs-owner-job_name-get
+      operationId: getDatabaseSchedulerJobsByOwner},{jobName
+      x-operation-id-source: derived
 components:
+  examples:
+    FilterAndOrder:
+      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
+      value:
+        ENAME:
+          $like: AX%
+        $orderby:
+          ENAME: ASC
+    OrderByProperty:
+      summary: Order by with literals.
+      value:
+        $orderby:
+          SALARY: ASC
+          ENAME: DESC
+    FilterCriteria:
+      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
+      value:
+        SALARY: 1000
   schemas:
+    Filter:
+      type: object
+      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
+      externalDocs:
+        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
+      anyOf:
+      - type: object
+        description: Any key / value pair for specifying a Filter Criteria.
+      - type: object
+        properties:
+          $orderby:
+            description: Specify which properties to order the result set by.
+            type: object
+          $asof:
+            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
+            type: object
     SchedulerJobs:
       type: object
       properties:
@@ -98,22 +130,6 @@ components:
       required:
       - rel
       - href
-    Filter:
-      type: object
-      description: See Oracle REST Data Services production documentation 'Filtering in Queries' section.
-      externalDocs:
-        url: https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/
-      anyOf:
-      - type: object
-        description: Any key / value pair for specifying a Filter Criteria.
-      - type: object
-        properties:
-          $orderby:
-            description: Specify which properties to order the result set by.
-            type: object
-          $asof:
-            description: Specify a time related query parameter to limit the results. Parameter value can be a System Change Number or a Date.
-            type: object
     SchedulerJobsItem:
       description: Represents a row in ALL_SCHEDULER_JOBS or DBA_SCHEDULER_JOBS views. See Oracle Database Reference documenation for more details.
       type: object
@@ -320,25 +336,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-  examples:
-    FilterCriteria:
-      summary: Implicit EQUALS operator for a number. Supports String and Dates too.
-      value:
-        SALARY: 1000
-    OrderByProperty:
-      summary: Order by with literals.
-      value:
-        $orderby:
-          SALARY: ASC
-          ENAME: DESC
-    FilterAndOrder:
-      summary: Filter criteria supports a wide range of operators. In this example LIKE operator ($like) is used. See Oracle REST Data Services production documentation 'Filtering in Queries' section for further information on the operators available.
-      value:
-        ENAME:
-          $like: AX%
-        $orderby:
-          ENAME: ASC
   parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        format: int32
     Filter:
       name: q
       in: query
@@ -353,14 +359,6 @@ components:
           $ref: '#/components/examples/OrderByProperty'
         FilterAndOrderExample:
           $ref: '#/components/examples/FilterAndOrder'
-    Limit:
-      name: limit
-      in: query
-      description: The maximum number of records to return.
-      required: false
-      schema:
-        type: integer
-        format: int32
   securitySchemes:
     BasicAuth:
       type: http

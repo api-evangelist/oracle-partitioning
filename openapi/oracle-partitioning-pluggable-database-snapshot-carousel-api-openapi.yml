@@ -1,14 +1,8 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
-  title: Oracle REST Data Services Pluggable Database Snapshot Carousel API
+  title: Oracle REST Data Services Pluggable Database Snapshot…
   contact:
     name: Oracle REST Data Services
     url: https://www.oracle.com/database/technologies/appdev/rest.html
@@ -32,6 +26,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
       x-internal-id: database-snapshots--get
       x-filename-id: database-snapshots-get
+      operationId: getDatabaseSnapshots
+      x-operation-id-source: derived
     post:
       tags:
       - Pluggable Database Snapshot Carousel
@@ -46,10 +42,12 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
       x-internal-id: database-snapshots--post
       x-filename-id: database-snapshots-post
+      operationId: postDatabaseSnapshots
+      x-operation-id-source: derived
     put:
       tags:
       - Pluggable Database Snapshot Carousel
-      summary: Configure automatic PDB snapshots.
+      summary: Configure automatic PDB snapshots
       description: Configure max snapshot and snapshot mode for the current PDB.
       requestBody:
         required: true
@@ -85,6 +83,8 @@ paths:
           description: Confirmation that snapshot setting has been updated.
       x-internal-id: database-snapshots--put
       x-filename-id: database-snapshots-put
+      operationId: putDatabaseSnapshots
+      x-operation-id-source: derived
   /database/snapshots/{snapshot_name}:
     get:
       tags:
@@ -107,10 +107,12 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotWithFileItem'
       x-internal-id: database-snapshots-{snapshot_name}-get
       x-filename-id: database-snapshots-snapshot_name-get
+      operationId: getDatabaseSnapshotsBySnapshotName
+      x-operation-id-source: derived
     post:
       tags:
       - Pluggable Database Snapshot Carousel
-      summary: Create snapshot of the current pluggable databases, the name will be {snapshotName}
+      summary: Create snapshot of the current pluggable databases, the name will be…
       description: Returns created snapshot record. A client requires SQL Administrator role to invoke this service.
       parameters:
       - name: snapshot_name
@@ -128,6 +130,8 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotItem'
       x-internal-id: database-snapshots-{snapshot_name}-post
       x-filename-id: database-snapshots-snapshot_name-post
+      operationId: postDatabaseSnapshotsBySnapshotName
+      x-operation-id-source: derived
     delete:
       tags:
       - Pluggable Database Snapshot Carousel
@@ -145,6 +149,8 @@ paths:
           description: Confirmation that the snapshot has been delete.
       x-internal-id: database-snapshots-{snapshot_name}-delete
       x-filename-id: database-snapshots-snapshot_name-delete
+      operationId: deleteDatabaseSnapshotsBySnapshotName
+      x-operation-id-source: derived
   /database/snapshot_mode:
     get:
       tags:
@@ -160,8 +166,40 @@ paths:
                 $ref: '#/components/schemas/DatabasePluggableSnapshotModeItem'
       x-internal-id: database-snapshot_mode-get
       x-filename-id: database-snapshot_mode-get
+      operationId: getDatabaseSnapshotMode
+      x-operation-id-source: derived
 components:
   schemas:
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    DatabasePluggableSnapshotModeItem:
+      type: object
+      description: This object describes Pluggable Database Snapshot mode associated with the current instance.
+      properties:
+        pdb_id:
+          type: integer
+          description: The ID of the container to which the data pertains.
+        pdb_name:
+          type: string
+          description: Name of the PDB.
+        snapshot_mode:
+          type: string
+          description: AUTO, MANUAL or NONE.
+        snapshot_interval:
+          type: integer
+          description: Pluggable database snapshot interval, in minutes.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
     DatabasePluggableSnapshotItem:
       type: object
       description: This object describes Pluggable Database Snapshots associated with the current instance.
@@ -193,26 +231,6 @@ components:
         full_snapshot_path:
           type: string
           description: Full path for the snapshot.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    DatabasePluggableSnapshotModeItem:
-      type: object
-      description: This object describes Pluggable Database Snapshot mode associated with the current instance.
-      properties:
-        pdb_id:
-          type: integer
-          description: The ID of the container to which the data pertains.
-        pdb_name:
-          type: string
-          description: Name of the PDB.
-        snapshot_mode:
-          type: string
-          description: AUTO, MANUAL or NONE.
-        snapshot_interval:
-          type: integer
-          description: Pluggable database snapshot interval, in minutes.
         links:
           type: array
           items:
@@ -255,16 +273,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
   securitySchemes:
     BasicAuth:
       type: http

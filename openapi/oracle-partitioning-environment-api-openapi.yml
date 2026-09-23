@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Environment API
   contact:
@@ -32,6 +26,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDatabases'
       x-internal-id: environment-databases--get
       x-filename-id: environment-databases-get
+      operationId: getEnvironmentDatabases
+      x-operation-id-source: derived
     post:
       tags:
       - Environment
@@ -49,6 +45,8 @@ paths:
                 type: string
       x-internal-id: environment-databases--post
       x-filename-id: environment-databases-post
+      operationId: postEnvironmentDatabases
+      x-operation-id-source: derived
   /environment/databases/{databaseName}:
     get:
       tags:
@@ -71,11 +69,13 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDatabasesItem'
       x-internal-id: environment-databases-{databaseName}-get
       x-filename-id: environment-databases-databasename-get
+      operationId: getEnvironmentDatabasesByDatabaseName
+      x-operation-id-source: derived
   /environment/dbca/jobs/:
     get:
       tags:
       - Environment
-      summary: Get a list of the DBCA jobs created through ORDS Database API in the default Oracle Home
+      summary: Get a list of the DBCA jobs created through ORDS Database API in the default…
       description: Returns a description of all DBCA jobs created through ORDS Database API in the default Oracle Home. This Oracle Home is specified by $ORACLE_HOME environment variable and is expected to be on the same host as the Oracle REST Data Services server instance. A client requires System Administrator role to invoke this service. The implementation is only available for Unix based operating systems.
       responses:
         '200':
@@ -86,6 +86,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobs'
       x-internal-id: environment-dbca-jobs--get
       x-filename-id: environment-dbca-jobs-get
+      operationId: getEnvironmentDbcaJobs
+      x-operation-id-source: derived
     post:
       tags:
       - Environment
@@ -102,11 +104,13 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
       x-internal-id: environment-dbca-jobs--post
       x-filename-id: environment-dbca-jobs-post
+      operationId: postEnvironmentDbcaJobs
+      x-operation-id-source: derived
   /environment/dbca/jobs/{jobId}/:
     get:
       tags:
       - Environment
-      summary: Get a specified DBCA jobs created through ORDS Database API in the default Oracle Home
+      summary: Get a specified DBCA jobs created through ORDS Database API in the default…
       description: Returns a description of the DBCA job created through ORDS Database API in the default Oracle Home. The default Oracle Home is specified by $ORACLE_HOME environment variable and is expected to be on the same host as the Oracle REST Data Services server instance. A client requires System Administrator role to invoke this service. The implementation is only available for Unix based operating systems.
       parameters:
       - name: jobId
@@ -124,6 +128,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
       x-internal-id: environment-dbca-jobs-{jobId}--get
       x-filename-id: environment-dbca-jobs-jobid-get
+      operationId: getEnvironmentDbcaJobsByJobId
+      x-operation-id-source: derived
     delete:
       tags:
       - Environment
@@ -141,11 +147,13 @@ paths:
           description: Confirmation that the DBCA job has been delete.
       x-internal-id: environment-dbca-jobs-{jobId}--delete
       x-filename-id: environment-dbca-jobs-jobid-delete
+      operationId: deleteEnvironmentDbcaJobsByJobId
+      x-operation-id-source: derived
   /environment/dbca/jobs/{jobId}/log:
     get:
       tags:
       - Environment
-      summary: Get the DBCA log file content for a specified DBCA jobs created through ORDS Database API in the default Oracle Home
+      summary: Get the DBCA log file content for a specified DBCA jobs created through ORDS…
       description: Returns the DBCA log file content from the DBCA job created through ORDS Database API in the specified Oracle Home. The Oracle Home is specified by $ORACLE_HOME environment variable. This Oracle Home is expected to be on the same host as the Oracle REST Data Services server instance. A client requires System Administrator role to invoke this service. The implementation is only available for Unix based operating systems.
       parameters:
       - name: jobId
@@ -163,6 +171,8 @@ paths:
                 type: string
       x-internal-id: environment-dbca-jobs-{jobId}-log-get
       x-filename-id: environment-dbca-jobs-jobid-log-get
+      operationId: getEnvironmentDbcaJobsByJobIdLog
+      x-operation-id-source: derived
   /environment/dbca/templates/:
     get:
       tags:
@@ -178,6 +188,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaTemplates'
       x-internal-id: environment-dbca-templates--get
       x-filename-id: environment-dbca-templates-get
+      operationId: getEnvironmentDbcaTemplates
+      x-operation-id-source: derived
   /environment/dbca/templates/{filename}:
     get:
       tags:
@@ -200,6 +212,8 @@ paths:
                 type: string
       x-internal-id: environment-dbca-templates-{filename}-get
       x-filename-id: environment-dbca-templates-filename-get
+      operationId: getEnvironmentDbcaTemplatesByFilename
+      x-operation-id-source: derived
   /environment/homes/:
     get:
       tags:
@@ -215,6 +229,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentHomes'
       x-internal-id: environment-homes--get
       x-filename-id: environment-homes-get
+      operationId: getEnvironmentHomes
+      x-operation-id-source: derived
   /environment/homes/{homeName}/databases/:
     get:
       tags:
@@ -237,6 +253,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDatabases'
       x-internal-id: environment-homes-{homeName}-databases--get
       x-filename-id: environment-homes-homename-databases-get
+      operationId: getEnvironmentHomesByHomeNameDatabases
+      x-operation-id-source: derived
     post:
       tags:
       - Environment
@@ -261,6 +279,8 @@ paths:
                 type: string
       x-internal-id: environment-homes-{homeName}-databases--post
       x-filename-id: environment-homes-homename-databases-post
+      operationId: postEnvironmentHomesByHomeNameDatabases
+      x-operation-id-source: derived
   /environment/homes/{homeName}/databases/{databaseName}:
     get:
       tags:
@@ -289,6 +309,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDatabasesItem'
       x-internal-id: environment-homes-{homeName}-databases-{databaseName}-get
       x-filename-id: environment-homes-homename-databases-databasename-get
+      operationId: getEnvironmentHomesByHomeNameDatabasesByDatabaseName
+      x-operation-id-source: derived
   /environment/homes/{homeName}/dbca/jobs/:
     get:
       tags:
@@ -311,6 +333,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobs'
       x-internal-id: environment-homes-{homeName}-dbca-jobs--get
       x-filename-id: environment-homes-homename-dbca-jobs-get
+      operationId: getEnvironmentHomesByHomeNameDbcaJobs
+      x-operation-id-source: derived
     post:
       tags:
       - Environment
@@ -334,11 +358,13 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
       x-internal-id: environment-homes-{homeName}-dbca-jobs--post
       x-filename-id: environment-homes-homename-dbca-jobs-post
+      operationId: postEnvironmentHomesByHomeNameDbcaJobs
+      x-operation-id-source: derived
   /environment/homes/{homeName}/dbca/jobs/{jobId}/:
     get:
       tags:
       - Environment
-      summary: Get a specified DBCA jobs created through ORDS Database API in the specified Oracle Home
+      summary: Get a specified DBCA jobs created through ORDS Database API in the specified…
       description: Returns a description of the DBCA job created through ORDS Database API in the specified Oracle Home. This Oracle Home is expected to be on the same host as the Oracle REST Data Services server instance. A client requires System Administrator role to invoke this service. The implementation is only available for Unix based operating systems.
       parameters:
       - name: homeName
@@ -362,6 +388,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
       x-internal-id: environment-homes-{homeName}-dbca-jobs-{jobId}--get
       x-filename-id: environment-homes-homename-dbca-jobs-jobid-get
+      operationId: getEnvironmentHomesByHomeNameDbcaJobsByJobId
+      x-operation-id-source: derived
     delete:
       tags:
       - Environment
@@ -385,11 +413,13 @@ paths:
           description: Confirmation that the DBCA job has been delete.
       x-internal-id: environment-homes-{homeName}-dbca-jobs-{jobId}--delete
       x-filename-id: environment-homes-homename-dbca-jobs-jobid-delete
+      operationId: deleteEnvironmentHomesByHomeNameDbcaJobsByJobId
+      x-operation-id-source: derived
   /environment/homes/{homeName}/dbca/jobs/{jobId}/log:
     get:
       tags:
       - Environment
-      summary: Get the DBCA log file content for a specified DBCA jobs created through ORDS Database API in the specified Oracle Home
+      summary: Get the DBCA log file content for a specified DBCA jobs created through ORDS…
       description: Returns DBCA log file content from the DBCA job created through ORDS Database API in the specified Oracle Home. This Oracle Home is expected to be on the same host as the Oracle REST Data Services server instance. A client requires System Administrator role to invoke this service. The implementation is only available for Unix based operating systems.
       parameters:
       - name: homeName
@@ -413,6 +443,8 @@ paths:
                 type: string
       x-internal-id: environment-homes-{homeName}-dbca-jobs-{jobId}-log-get
       x-filename-id: environment-homes-homename-dbca-jobs-jobid-log-get
+      operationId: getEnvironmentHomesByHomeNameDbcaJobsByJobIdLog
+      x-operation-id-source: derived
   /environment/homes/{homeName}/dbca/templates/:
     get:
       tags:
@@ -435,6 +467,8 @@ paths:
                 $ref: '#/components/schemas/EnvironmentDbcaTemplates'
       x-internal-id: environment-homes-{homeName}-dbca-templates--get
       x-filename-id: environment-homes-homename-dbca-templates-get
+      operationId: getEnvironmentHomesByHomeNameDbcaTemplates
+      x-operation-id-source: derived
   /environment/homes/{homeName}/dbca/templates/{filename}:
     get:
       tags:
@@ -463,276 +497,10 @@ paths:
                 type: string
       x-internal-id: environment-homes-{homeName}-dbca-templates-{filename}-get
       x-filename-id: environment-homes-homename-dbca-templates-filename-get
+      operationId: getEnvironmentHomesByHomeNameDbcaTemplatesByFilename
+      x-operation-id-source: derived
 components:
-  schemas:
-    EnvironmentDbcaJobs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentDbcaJobsItem:
-      type: object
-      description: Describes a Database Configuration Assistant job.
-      properties:
-        job_id:
-          type: string
-          description: Unique identifier for the DBCA job in the Oracle Home.
-        description:
-          type: string
-          description: DBCA job description.
-        status:
-          type: string
-          description: DBCA job status.
-        submitted:
-          type: string
-          description: Timestamp for when the DBCA job request was submitted.
-        finished:
-          type: string
-          description: Timestamp for when the DBCA job request finished.
-        job_request:
-          type: object
-          description: Describes the DBCA job request.
-          properties:
-            operation:
-              type: string
-              description: 'The DBCA operation to be performed: CREATE or DELETE.'
-            container_configuration:
-              type: object
-              description: This object represents container configuration details for a CDB.
-              properties:
-                number_of_pdbs:
-                  type: string
-                  description: Number of PDBs to create.
-                pdb_name:
-                  type: string
-                  description: Base name of each PDB. A number is appended to each name if number_of_pdbs is greater than 1.
-            database_system_identifier:
-              type: string
-              description: The database identifier.
-            global_database_name:
-              type: string
-              description: Global database name.
-            response_file:
-              type: string
-              description: Path for response file for DBCA to use when creating a database.
-            template_name:
-              type: string
-              description: Path for the database template for DBCA to use when creating a database.
-            total_memory:
-              type: string
-              description: Total memory parameter to provide to DBCA when creating a database.
-            username:
-              type: string
-              description: The sysdba username for DBCA to use when deleting a database.
-        dbca_log:
-          type: array
-          description: The output from the DBCA process as it executes.
-          items:
-            type: string
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentHomes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvironmentHomesItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    LinkRelation:
-      type: object
-      properties:
-        rel:
-          type: string
-        href:
-          type: string
-      required:
-      - rel
-      - href
-    EnvironmentHomesItem:
-      type: object
-      description: An Oracle home is a directory into which Oracle software is installed.
-      properties:
-        name:
-          type: string
-          description: The name of the Oracle home.
-        version:
-          type: string
-          description: The product version.
-        default:
-          type: boolean
-          description: Indicates if the Oracle home is specified by the $ORACLE_HOME environment variable.
-        read_only_home:
-          type: boolean
-          description: Indicates if the Oracle home is configured in read only mode.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentDatabases:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvironmentDatabasesItem'
-        hasMore:
-          type: boolean
-          description: Indicates if there are more records to be retrieved.
-        limit:
-          type: integer
-          description: The actual page size limit on number of records applied by the server.
-        offset:
-          type: integer
-          description: The actual index from which the item resources are returned.
-        count:
-          type: integer
-          description: Total number of records in the current response.
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentDbcaTemplates:
-      type: object
-      description: Represents a list of the DBCA Database Templates in the Oracle Home.
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              filename:
-                type: string
-                description: Name of the template file.
-              size:
-                type: integer
-                description: Size (in bytes) of the template file.
-              updated:
-                type: string
-                description: The last update date of the template file.
-              links:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LinkRelation'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
-    EnvironmentDatabasesItem:
-      type: object
-      description: A database has a unique name within the context of the Oracle home it belongs to.
-      properties:
-        name:
-          type: string
-          description: The name of the database.
-        type:
-          type: string
-          description: The type of database. Either CDB or NON_CDB
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRelation'
   requestBodies:
-    createDatabase:
-      description: A payload for creating a database.
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              global_database_name:
-                type: string
-                description: Global Database Name.
-              template_name:
-                type: string
-                description: The name of the template file for DBCA to use.
-              response_file:
-                type: string
-                description: The name of the response file for DBCA to use.
-              system_user_password:
-                type: string
-                description: The password for the system user in the new database.
-              sys_user_password:
-                type: string
-                description: The password for the sys user in the new database.
-              container_configuration:
-                type: object
-                description: This object specifies that a Container Database is to be created with the PDB settings provided.
-                items:
-                  type: object
-                  required:
-                  - number_of_pdbs
-                  - pdb_administrator_password
-                  - pdb_name
-                  properties:
-                    number_of_pdbs:
-                      type: integer
-                      description: The number of Pluggable Databases to create.
-                    pdb_administrator_password:
-                      type: string
-                      description: The password for the PDBADMIN user created in each Pluggable Database.
-                    pdb_name:
-                      type: string
-                      description: The name prefix to use for each Pluggable Database created.
-              total_memory:
-                type: integer
-                description: Total amount of physical memory, in megabytes, that can be used by the new database.
-          examples:
-            create_cdb:
-              summary: This is an example request body to create a container database with two pluggable databases. The General_Purpose.dbc template file from the Oracle Home dbca templates directory will be used. It is by providing container_configuration property in the request that indicates a container database is to be created. The container database name will be devcdb1 and the pluggable database names will be pdbtest1 and pdbtest2 in this scenario. The response to this request will be the location of the DBCA job that has been created to process the request.
-              value:
-                global_database_name: devcdb1
-                template_name: General_Purpose.dbc
-                sys_user_password: W3lc0m31
-                system_user_password: W3lc0m31
-                container_configuration:
-                  number_of_pdbs: 2
-                  pdb_name: pdbtest
-                  pdb_administrator_password: W3lc0m31
-            create_noncdb:
-              summary: This is an example request body to create a non-container database. The non-container database will be called devdb1, based on the General_Purpose.dbc template, and a predefined response file used to set additional configuration properties. The response to this request will be the location of the DBCA job that has been created to process the request.
-              value:
-                global_database_name: devdb1
-                template_name: General_Purpose.dbc
-                sys_user_password: W3lc0m31
-                system_user_password: W3lc0m31
-                response_file: /disk1/oracle/install_oracle_for_dev.rsp
     createDBCAJob:
       description: A payload for creating a DBCA job.
       required: true
@@ -810,6 +578,274 @@ components:
                 global_database_name: devdb1
                 username: sys
                 password: W3lc0m31
+    createDatabase:
+      description: A payload for creating a database.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              global_database_name:
+                type: string
+                description: Global Database Name.
+              template_name:
+                type: string
+                description: The name of the template file for DBCA to use.
+              response_file:
+                type: string
+                description: The name of the response file for DBCA to use.
+              system_user_password:
+                type: string
+                description: The password for the system user in the new database.
+              sys_user_password:
+                type: string
+                description: The password for the sys user in the new database.
+              container_configuration:
+                type: object
+                description: This object specifies that a Container Database is to be created with the PDB settings provided.
+                items:
+                  type: object
+                  required:
+                  - number_of_pdbs
+                  - pdb_administrator_password
+                  - pdb_name
+                  properties:
+                    number_of_pdbs:
+                      type: integer
+                      description: The number of Pluggable Databases to create.
+                    pdb_administrator_password:
+                      type: string
+                      description: The password for the PDBADMIN user created in each Pluggable Database.
+                    pdb_name:
+                      type: string
+                      description: The name prefix to use for each Pluggable Database created.
+              total_memory:
+                type: integer
+                description: Total amount of physical memory, in megabytes, that can be used by the new database.
+          examples:
+            create_cdb:
+              summary: This is an example request body to create a container database with two pluggable databases. The General_Purpose.dbc template file from the Oracle Home dbca templates directory will be used. It is by providing container_configuration property in the request that indicates a container database is to be created. The container database name will be devcdb1 and the pluggable database names will be pdbtest1 and pdbtest2 in this scenario. The response to this request will be the location of the DBCA job that has been created to process the request.
+              value:
+                global_database_name: devcdb1
+                template_name: General_Purpose.dbc
+                sys_user_password: W3lc0m31
+                system_user_password: W3lc0m31
+                container_configuration:
+                  number_of_pdbs: 2
+                  pdb_name: pdbtest
+                  pdb_administrator_password: W3lc0m31
+            create_noncdb:
+              summary: This is an example request body to create a non-container database. The non-container database will be called devdb1, based on the General_Purpose.dbc template, and a predefined response file used to set additional configuration properties. The response to this request will be the location of the DBCA job that has been created to process the request.
+              value:
+                global_database_name: devdb1
+                template_name: General_Purpose.dbc
+                sys_user_password: W3lc0m31
+                system_user_password: W3lc0m31
+                response_file: /disk1/oracle/install_oracle_for_dev.rsp
+  schemas:
+    EnvironmentHomesItem:
+      type: object
+      description: An Oracle home is a directory into which Oracle software is installed.
+      properties:
+        name:
+          type: string
+          description: The name of the Oracle home.
+        version:
+          type: string
+          description: The product version.
+        default:
+          type: boolean
+          description: Indicates if the Oracle home is specified by the $ORACLE_HOME environment variable.
+        read_only_home:
+          type: boolean
+          description: Indicates if the Oracle home is configured in read only mode.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentHomes:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentHomesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentDbcaTemplates:
+      type: object
+      description: Represents a list of the DBCA Database Templates in the Oracle Home.
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              filename:
+                type: string
+                description: Name of the template file.
+              size:
+                type: integer
+                description: Size (in bytes) of the template file.
+              updated:
+                type: string
+                description: The last update date of the template file.
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LinkRelation'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentDbcaJobsItem:
+      type: object
+      description: Describes a Database Configuration Assistant job.
+      properties:
+        job_id:
+          type: string
+          description: Unique identifier for the DBCA job in the Oracle Home.
+        description:
+          type: string
+          description: DBCA job description.
+        status:
+          type: string
+          description: DBCA job status.
+        submitted:
+          type: string
+          description: Timestamp for when the DBCA job request was submitted.
+        finished:
+          type: string
+          description: Timestamp for when the DBCA job request finished.
+        job_request:
+          type: object
+          description: Describes the DBCA job request.
+          properties:
+            operation:
+              type: string
+              description: 'The DBCA operation to be performed: CREATE or DELETE.'
+            container_configuration:
+              type: object
+              description: This object represents container configuration details for a CDB.
+              properties:
+                number_of_pdbs:
+                  type: string
+                  description: Number of PDBs to create.
+                pdb_name:
+                  type: string
+                  description: Base name of each PDB. A number is appended to each name if number_of_pdbs is greater than 1.
+            database_system_identifier:
+              type: string
+              description: The database identifier.
+            global_database_name:
+              type: string
+              description: Global database name.
+            response_file:
+              type: string
+              description: Path for response file for DBCA to use when creating a database.
+            template_name:
+              type: string
+              description: Path for the database template for DBCA to use when creating a database.
+            total_memory:
+              type: string
+              description: Total memory parameter to provide to DBCA when creating a database.
+            username:
+              type: string
+              description: The sysdba username for DBCA to use when deleting a database.
+        dbca_log:
+          type: array
+          description: The output from the DBCA process as it executes.
+          items:
+            type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    LinkRelation:
+      type: object
+      properties:
+        rel:
+          type: string
+        href:
+          type: string
+      required:
+      - rel
+      - href
+    EnvironmentDatabases:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentDatabasesItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentDbcaJobs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentDbcaJobsItem'
+        hasMore:
+          type: boolean
+          description: Indicates if there are more records to be retrieved.
+        limit:
+          type: integer
+          description: The actual page size limit on number of records applied by the server.
+        offset:
+          type: integer
+          description: The actual index from which the item resources are returned.
+        count:
+          type: integer
+          description: Total number of records in the current response.
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
+    EnvironmentDatabasesItem:
+      type: object
+      description: A database has a unique name within the context of the Oracle home it belongs to.
+      properties:
+        name:
+          type: string
+          description: The name of the database.
+        type:
+          type: string
+          description: The type of database. Either CDB or NON_CDB
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRelation'
   securitySchemes:
     BasicAuth:
       type: http

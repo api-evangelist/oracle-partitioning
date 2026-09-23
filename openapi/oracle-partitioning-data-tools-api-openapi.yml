@@ -1,12 +1,6 @@
 openapi: 3.2.0
 info:
-  description: '<p>Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API. Depending on the database version and configuration, ORDS database APIs provide services such as manage pluggable databases, export data, and review database performance.</p><p>To install and configure Oracle REST Data Services refer to the <a href=https://docs.oracle.com/pls/topic/lookup?ctx=ords-latest&id=ORDIG> Oracle&reg REST Data Services Installation and Configuration Guide</a>.</p>
-
-    <p>An OpenAPI V3 document that describes the available ORDS database API services can be retrieved from a running ORDS instance. The API document can be imported into compatible development tools and invoked from there. The URL to retrieve the API document depends on the your configuration. <p><p>The pattern for the API document URL is: </p>
-
-    <code>https://&lt;server&gt;/&lt;context root&gt;/&lt;my database&gt;/&lt;my schema&gt;/_/db-api/stable/&lt;service path&gt;  </code>
-
-    <p>Where, the <code>&lt;my database&gt;</code> and  <code>&lt;my schema&gt;</code> variables can be optional, depending on the ORDS configuration and the service invoked.'
+  description: Provides the Oracle REST Data Services (ORDS) users the ability to perform Oracle Database management and monitoring operations through a user-friendly REST API.
   version: 2026.03.26
   title: Oracle REST Data Services Data Tools API
   contact:
@@ -19,7 +13,6 @@ tags:
 paths:
   /data-tools/data-loads/:
     post:
-      description: Creates data load jobs
       operationId: createDataLoadJobs
       tags:
       - Data Tools
@@ -36,7 +29,6 @@ paths:
       x-internal-id: data-tools-data-loads--post
       x-filename-id: data-tools-data-loads-post
     get:
-      description: Gets data load jobs
       operationId: getDataLoadJobs
       tags:
       - Data Tools
@@ -51,7 +43,6 @@ paths:
       x-filename-id: data-tools-data-loads-get
   /data-tools/data-loads/{owner},{data_load_job_id}:
     get:
-      description: Gets specific data load job
       operationId: getDataLoadJob
       tags:
       - Data Tools
@@ -78,7 +69,6 @@ paths:
       x-internal-id: data-tools-data-loads-{owner},{data_load_job_id}-get
       x-filename-id: data-tools-data-loads-owner-data_load_job_id-get
     delete:
-      description: Delete data load job
       operationId: deleteDataLoadJob
       tags:
       - Data Tools
@@ -106,7 +96,6 @@ paths:
       x-filename-id: data-tools-data-loads-owner-data_load_job_id-delete
   /data-tools/data-loads/{owner},{data_load_job_id}/progress:
     get:
-      description: Gets progress of data load job
       operationId: getDataLoadJobProgress
       tags:
       - Data Tools
@@ -134,7 +123,6 @@ paths:
       x-filename-id: data-tools-data-loads-owner-data_load_job_id-progress-get
   /data-tools/jobs/:
     post:
-      description: Creates a Data Tools job
       operationId: createDataToolsJobs
       tags:
       - Data Tools
@@ -151,7 +139,6 @@ paths:
       x-internal-id: data-tools-jobs--post
       x-filename-id: data-tools-jobs-post
     get:
-      description: Gets data tools jobs
       operationId: getDataToolsJobs
       tags:
       - Data Tools
@@ -166,7 +153,6 @@ paths:
       x-filename-id: data-tools-jobs-get
   /data-tools/jobs/run:
     post:
-      description: Runs a Data Tools job
       operationId: runDataToolsJobs
       tags:
       - Data Tools
@@ -182,7 +168,6 @@ paths:
       x-filename-id: data-tools-jobs-run-post
   /data-tools/jobs/activity:
     get:
-      description: Gets Data Tools jobs activity
       operationId: getDataToolsJobActivity
       tags:
       - Data Tools
@@ -198,7 +183,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-get
   /data-tools/jobs/activity/{owner},{job_name}:
     get:
-      description: Checks specific Data Tools job activity
       operationId: getDataToolsJobActivityByName
       tags:
       - Data Tools
@@ -227,7 +211,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-owner-job_name-get
   /data-tools/jobs/activity/{owner},{job_name}/{id}:
     get:
-      description: Checks specific Data Tools job run activity
       operationId: getDataToolsJobActivityById
       tags:
       - Data Tools
@@ -263,7 +246,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-owner-job_name-id-get
   /data-tools/jobs/activity-detail:
     get:
-      description: Gets Data Tools jobs activity detail
       operationId: getDataToolsJobActivityDetail
       tags:
       - Data Tools
@@ -279,7 +261,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-detail-get
   /data-tools/jobs/activity-detail/{owner},{job_name}:
     get:
-      description: Checks specific Data Tools job activity detail
       operationId: getDataToolsJobActivityDetailByName
       tags:
       - Data Tools
@@ -308,7 +289,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-detail-owner-job_name-get
   /data-tools/jobs/activity-detail/{owner},{job_name}/{id}:
     get:
-      description: Checks specific Data Tools job run activity detail
       operationId: getDataToolsJobActivityDetailById
       tags:
       - Data Tools
@@ -344,7 +324,6 @@ paths:
       x-filename-id: data-tools-jobs-activity-detail-owner-job_name-id-get
   /data-tools/jobs/running:
     get:
-      description: Gets running Data Tools jobs
       operationId: getDataToolsJobsRunning
       tags:
       - Data Tools
@@ -360,7 +339,6 @@ paths:
       x-filename-id: data-tools-jobs-running-get
   /data-tools/jobs/running/{owner},{job_name}:
     get:
-      description: Gets specific running Data Tools job
       operationId: getDataToolsJobsRunningByName
       tags:
       - Data Tools
@@ -389,7 +367,6 @@ paths:
       x-filename-id: data-tools-jobs-running-owner-job_name-get
   /data-tools/jobs/running/{owner},{job_name}/{id}:
     get:
-      description: Gets specific running Data Tools job run
       operationId: getDataToolsJobsRunningById
       tags:
       - Data Tools
@@ -425,7 +402,6 @@ paths:
       x-filename-id: data-tools-jobs-running-owner-job_name-id-get
   /data-tools/jobs/{owner},{job_name}:
     get:
-      description: Gets specific data tools job
       operationId: getDataToolsJob
       tags:
       - Data Tools
@@ -452,7 +428,6 @@ paths:
       x-internal-id: data-tools-jobs-{owner},{job_name}-get
       x-filename-id: data-tools-jobs-owner-job_name-get
     delete:
-      description: Delete Data Tools job
       operationId: deleteDataToolsJob
       tags:
       - Data Tools
@@ -479,7 +454,6 @@ paths:
       x-internal-id: data-tools-jobs-{owner},{job_name}-delete
       x-filename-id: data-tools-jobs-owner-job_name-delete
     patch:
-      description: Updates data tools job
       operationId: updateDataToolsJob
       tags:
       - Data Tools
@@ -507,7 +481,6 @@ paths:
       x-filename-id: data-tools-jobs-owner-job_name-patch
   /data-tools/surveys/:
     post:
-      description: Surveys input data
       operationId: createSurvey
       tags:
       - Data Tools
@@ -524,7 +497,6 @@ paths:
       x-filename-id: data-tools-surveys-post
   /data-tools/live-table-feeds/:
     post:
-      description: Creates Live Table Feed
       operationId: createLiveTableFeed
       tags:
       - Data Tools
@@ -546,7 +518,6 @@ paths:
       x-internal-id: data-tools-live-table-feeds--post
       x-filename-id: data-tools-live-table-feeds-post
     get:
-      description: Gets Live Table Feeds
       operationId: getLiveTableFeeds
       tags:
       - Data Tools
@@ -561,7 +532,6 @@ paths:
       x-filename-id: data-tools-live-table-feeds-get
   /data-tools/live-table-feeds/{owner},{feed_name}:
     get:
-      description: Gets specific Live Table Feed
       operationId: getLiveTableFeed
       tags:
       - Data Tools
@@ -587,7 +557,6 @@ paths:
       x-internal-id: data-tools-live-table-feeds-{owner},{feed_name}-get
       x-filename-id: data-tools-live-table-feeds-owner-feed_name-get
     put:
-      description: Modify Live Table Feed
       operationId: putLiveTableFeed
       tags:
       - Data Tools
@@ -613,7 +582,6 @@ paths:
       x-internal-id: data-tools-live-table-feeds-{owner},{feed_name}-put
       x-filename-id: data-tools-live-table-feeds-owner-feed_name-put
     delete:
-      description: Delete Live Table Feed
       operationId: deleteLiveTableFeed
       tags:
       - Data Tools
@@ -641,7 +609,6 @@ paths:
       x-filename-id: data-tools-live-table-feeds-owner-feed_name-delete
   /data-tools/live-table-feeds/{owner},{feed_name}/key:
     get:
-      description: Gets Live Table Feed notification key
       operationId: getLiveTableFeedKey
       tags:
       - Data Tools
@@ -695,7 +662,6 @@ paths:
       x-filename-id: data-tools-live-table-feeds-owner-feed_name-load_new_data-post
   /data-tools/cloud-storage-links/:
     post:
-      description: Creates Cloud Storage Link
       operationId: createCloudStorageLink
       tags:
       - Data Tools
@@ -717,7 +683,6 @@ paths:
       x-internal-id: data-tools-cloud-storage-links--post
       x-filename-id: data-tools-cloud-storage-links-post
     get:
-      description: Gets Cloud Storage Links
       operationId: getCloudStorageLinks
       tags:
       - Data Tools
@@ -732,7 +697,6 @@ paths:
       x-filename-id: data-tools-cloud-storage-links-get
   /data-tools/cloud-storage-links/{owner},{storage_link_name}:
     get:
-      description: Gets specific Cloud Storage Link
       operationId: getCloudStorageLink
       tags:
       - Data Tools
@@ -759,7 +723,6 @@ paths:
       x-internal-id: data-tools-cloud-storage-links-{owner},{storage_link_name}-get
       x-filename-id: data-tools-cloud-storage-links-owner-storage_link_name-get
     delete:
-      description: Delete a Cloud Storage Link
       operationId: deleteCloudStorageLink
       tags:
       - Data Tools
@@ -787,7 +750,6 @@ paths:
       x-filename-id: data-tools-cloud-storage-links-owner-storage_link_name-delete
   /data-tools/credentials/:
     post:
-      description: Creates credentials
       operationId: createCredentials
       tags:
       - Data Tools
@@ -805,7 +767,6 @@ paths:
       x-internal-id: data-tools-credentials--post
       x-filename-id: data-tools-credentials-post
     get:
-      description: Gets credentials
       operationId: getCredentials
       tags:
       - Data Tools
@@ -820,7 +781,6 @@ paths:
       x-filename-id: data-tools-credentials-get
   /data-tools/credentials/{owner},{credential_name}:
     get:
-      description: Gets specific credential
       operationId: getCredential
       tags:
       - Data Tools
@@ -847,7 +807,6 @@ paths:
       x-internal-id: data-tools-credentials-{owner},{credential_name}-get
       x-filename-id: data-tools-credentials-owner-credential_name-get
     delete:
-      description: Delete a credential
       operationId: deleteCredential
       tags:
       - Data Tools
@@ -875,61 +834,13 @@ paths:
       x-filename-id: data-tools-credentials-owner-credential_name-delete
 components:
   schemas:
-    object_filter_type:
-      type: string
-      description: Type of matching for object_filter
-      example: GLOB
-      enum:
-      - GLOB
-      - REGEX
-    cloud-storage-link:
+    data-tools-jobs:
       type: object
       properties:
-        storage_link_name:
-          $ref: '#/components/schemas/storage_link_name'
-        storage_link_description:
-          type: string
-          example: My bucket for CSV files
-          description: Description of Cloud Storage Link
-        credential_name:
-          type: string
-          example: MYCRED
-          description: Credential name used to access bucket
-        uri:
-          type: string
-          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/kdnmfs3kdj2x/b/my-bucket/o/
-          description: URI of bucket for Cloud Storage Links
-        sql_statements:
-          $ref: '#/components/schemas/sql_statements'
-    data_tools_job_name:
-      type: string
-      example: LOAD_AND_MODIFY_SALES
-    live-table-feeds:
-      type: object
-      properties:
-        live_table_feeds:
+        data_loads:
           type: array
           items:
-            $ref: '#/components/schemas/live-table-feed'
-    email-array:
-      type: array
-      example:
-      - data_studio_user@oracle.com
-      - oci_enthusiast@oracle.com
-      items:
-        description: Email address to notify
-        type: string
-        example: data_studio_user@oracle.com
-    data-load-job-id:
-      type: object
-      description: ID of data load job
-      properties:
-        data_load_job_id:
-          $ref: '#/components/schemas/data_load_job_id'
-    storage_link_name:
-      type: string
-      example: MY-BUCKET
-      description: Name of Cloud Storage Link
+            $ref: '#/components/schemas/data-tools-job'
     live_feed_object_type:
       type: string
       enum:
@@ -938,35 +849,100 @@ components:
       - XLSX
       - IMAGE
       - ICEBERG
-    cloud-storage-links:
+    data_tools_step:
+      type: object
+      description: Step of a Data Tools job
+      discriminator:
+        propertyName: type
+        mapping:
+          data_load: data_tools_step_data_load
+          smart_table: data_tools_step_smart_table
+          procedure: data_tools_step_procedure
+          live_feed: data_tools_step_live_feed
+          http: data_tools_step_http
+      properties:
+        type:
+          type: string
+          example: data_load
+          description: Type of step
+          enum:
+          - data_load
+          - smart_table
+          - procedure
+          - live_feed
+          - http
+        step_name:
+          type: string
+          example: LOAD_MY_TABLE
+          description: Optional name of step
+        on_errors:
+          type: string
+          example: continue
+          description: Action when encountering step error
+          enum:
+          - stop
+          - continue
+      required:
+      - type
+    live-table-feed:
       type: object
       properties:
-        cloud_storage_links:
-          type: array
-          items:
-            $ref: '#/components/schemas/cloud-storage-link'
-    data-tools-job-reporting-options:
-      type: object
-      properties:
-        smtp:
-          $ref: '#/components/schemas/email-array'
-    table_name:
+        live_table_feed_name:
+          $ref: '#/components/schemas/live_table_feed_name'
+        table_name:
+          $ref: '#/components/schemas/table_name'
+        table_schema:
+          $ref: '#/components/schemas/schema_name'
+        column_list:
+          $ref: '#/components/schemas/columns'
+        object_type:
+          $ref: '#/components/schemas/live_feed_object_type'
+        object_format:
+          $ref: '#/components/schemas/loader_format'
+        storage_link_name:
+          $ref: '#/components/schemas/storage_link_name'
+        object_filter:
+          $ref: '#/components/schemas/object_filter'
+        object_filter_type:
+          $ref: '#/components/schemas/object_filter_type'
+        scheduled:
+          type: boolean
+          example: true
+          description: Is the Live Table Feed scheduler job enabled?
+        scheduler_interval:
+          type: string
+          example: FREQ=DAILY;BYHOUR=9;BYMINUTE=30;BYDAY=MON,TUE,WED,THU,FRI
+          description: DBMS_SCHEDULER interval for Live Table Feed job
+        notifications:
+          type: boolean
+          example: false
+          description: Is the Live Table Feed enabled for notifications?
+        job_class:
+          $ref: '#/components/schemas/job_class'
+        start_date:
+          $ref: '#/components/schemas/live_feed_timestamp'
+          example: '2009-08-12T07:47:21.212121000-04:00'
+        end_date:
+          $ref: '#/components/schemas/live_feed_timestamp'
+          example: '2013-06-05T06:36:21.212121000-04:00'
+        sql_statements:
+          $ref: '#/components/schemas/sql_statements'
+    job_class:
       type: string
-      example: SALES
-      description: Table name to load
-    data-tools-job-reporting:
-      type: object
-      properties:
-        completed:
-          $ref: '#/components/schemas/data-tools-job-reporting-options'
-        errors:
-          $ref: '#/components/schemas/data-tools-job-reporting-options'
-        failed:
-          $ref: '#/components/schemas/data-tools-job-reporting-options'
-    data_load_job_id:
+      example: HIGH
+      description: Scheduler job class
+    sql_statements:
+      type: array
+      items:
+        description: SQL statement
+        type: string
+      description: SQL statements to perform database operation
+      example:
+      - CREATE TABLE "MYSCHEMA"."EXAMPLE_TABLE"("ID" NUMBER, "DATE_RECV" DATE);
+    object_filter:
       type: string
-      example: SALES-LOAD-20220529-112233-4567
-      description: Name of data load job
+      example: '*.csv'
+      description: Filter to select subset of files
     data-load:
       type: object
       properties:
@@ -1019,39 +995,6 @@ components:
           enum:
           - TABLE
           - EXTERNAL_TABLE
-    data_load_objects:
-      type: array
-      items:
-        $ref: '#/components/schemas/data_load_object'
-      example:
-      - object_name: sales1976.csv
-      - object_name: sales2009.csv
-      - object_name: sales2013.csv
-    credentials:
-      type: object
-      properties:
-        credentials:
-          type: array
-          items:
-            $ref: '#/components/schemas/credential'
-    data_load_name:
-      type: string
-      example: MY_LOAD_OF_SALES
-      description: Descriptive name for data load
-    data_load_object:
-      type: object
-      properties:
-        object_name:
-          type: string
-          description: Name of object to load
-          example: sales.csv
-    data-tools-jobs:
-      type: object
-      properties:
-        data_loads:
-          type: array
-          items:
-            $ref: '#/components/schemas/data-tools-job'
     data-load-statuses:
       type: object
       description: Status of data load jobs
@@ -1060,6 +1003,54 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/data-load-status'
+    cloud-storage-links:
+      type: object
+      properties:
+        cloud_storage_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/cloud-storage-link'
+    format:
+      type: object
+      example:
+        delimiter: ','
+        blankasnull: true
+        characterset: AL32UTF8
+      description: DBMS_CLOUD.COPY_DATA formatting options
+    live_table_feed_name:
+      type: string
+      example: SALES_FEED
+    survey-request:
+      type: object
+      properties:
+        survey_name:
+          $ref: '#/components/schemas/survey_name'
+        objects:
+          $ref: '#/components/schemas/data_load_objects'
+        storage_link_name:
+          $ref: '#/components/schemas/storage_link_name'
+        format:
+          $ref: '#/components/schemas/format'
+    columns:
+      type: array
+      items:
+        $ref: '#/components/schemas/column'
+      example:
+      - column_name: RECEIVED_DATE
+        datatype: DATE
+        columnId: 1
+        format: YYYY-MM-DD
+      - column_name: UNITS
+        datatype: NUMBER
+        columnId: 2
+        length: 38
+    object_filter_type:
+      type: string
+      description: Type of matching for object_filter
+      example: GLOB
+      enum:
+      - GLOB
+      - REGEX
     data-tools-job:
       type: object
       properties:
@@ -1112,17 +1103,62 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/survey-request'
-    survey-request:
+    data-tools-job-reporting-options:
       type: object
       properties:
-        survey_name:
-          $ref: '#/components/schemas/survey_name'
-        objects:
-          $ref: '#/components/schemas/data_load_objects'
-        storage_link_name:
-          $ref: '#/components/schemas/storage_link_name'
-        format:
-          $ref: '#/components/schemas/format'
+        smtp:
+          $ref: '#/components/schemas/email-array'
+    loader_format:
+      type: object
+      description: SQL Loader options
+      example:
+        ignoreblanklines: true
+        ignoremissingcolumns: true
+        blankasnull: true
+        rejectlimit: 10000
+        trimspaces: lrtrim
+        characterset: AL32UTF8
+        skipheaders: 1
+    data_load_objects:
+      type: array
+      items:
+        $ref: '#/components/schemas/data_load_object'
+      example:
+      - object_name: sales1976.csv
+      - object_name: sales2009.csv
+      - object_name: sales2013.csv
+    data-load-job-id:
+      type: object
+      description: ID of data load job
+      properties:
+        data_load_job_id:
+          $ref: '#/components/schemas/data_load_job_id'
+    data-loads:
+      type: object
+      properties:
+        data_loads:
+          type: array
+          items:
+            $ref: '#/components/schemas/data-load'
+    live-table-feed-key:
+      type: object
+      properties:
+        live_table_feed_key:
+          type: string
+          example: x17sSGjaXrCgy2QQKKIpMdMi1zESM_kRX9g4#f5Y6ZUNi#SYo4Y4qjJRyXKiOlTyWnU01vx#vF1lBS#bTzC4gNeZZ1Zih#iK3Qoo
+          description: Key for notification services to trigger the Live Feed
+    schema_name:
+      type: string
+      example: SH
+      description: Database object schema
+    data-load-job-ids:
+      type: object
+      description: List of data load job IDs
+      properties:
+        data_load_job_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/data-load-job-id'
     data-load-status:
       type: object
       description: Status of a data load job
@@ -1165,41 +1201,35 @@ components:
         exception_details:
           type: object
           description: Exception details for failed job
-    data_tools_step:
+    storage_link_name:
+      type: string
+      example: MY-BUCKET
+      description: Name of Cloud Storage Link
+    live-table-feeds:
       type: object
-      description: Step of a Data Tools job
-      discriminator:
-        propertyName: type
-        mapping:
-          data_load: data_tools_step_data_load
-          smart_table: data_tools_step_smart_table
-          procedure: data_tools_step_procedure
-          live_feed: data_tools_step_live_feed
-          http: data_tools_step_http
       properties:
-        type:
-          type: string
-          example: data_load
-          description: Type of step
-          enum:
-          - data_load
-          - smart_table
-          - procedure
-          - live_feed
-          - http
-        step_name:
-          type: string
-          example: LOAD_MY_TABLE
-          description: Optional name of step
-        on_errors:
-          type: string
-          example: continue
-          description: Action when encountering step error
-          enum:
-          - stop
-          - continue
-      required:
-      - type
+        live_table_feeds:
+          type: array
+          items:
+            $ref: '#/components/schemas/live-table-feed'
+    credentials:
+      type: object
+      properties:
+        credentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/credential'
+    data_tools_job_name:
+      type: string
+      example: LOAD_AND_MODIFY_SALES
+    column_name:
+      type: string
+      example: UNITS
+      description: Column name in table
+    live_feed_timestamp:
+      type: string
+      example: '2009-08-12T07:47:21.212121000-04:00'
+      description: A data and time of the format YYYY-MM-DDTHH24:MI:SS.FFTZH:TZM
     surveys:
       type: object
       properties:
@@ -1207,10 +1237,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/survey'
-    schema_name:
-      type: string
-      example: SH
-      description: Database object schema
+    data_load_object:
+      type: object
+      properties:
+        object_name:
+          type: string
+          description: Name of object to load
+          example: sales.csv
     credential:
       type: object
       properties:
@@ -1237,25 +1270,29 @@ components:
         enabled:
           type: string
           example: 'TRUE'
-    survey_name:
-      type: string
-      example: SALES-SURVEY-20220605-112233-4567
-      description: Name of input data survey
-    format:
+    cloud-storage-link:
       type: object
-      example:
-        delimiter: ','
-        blankasnull: true
-        characterset: AL32UTF8
-      description: DBMS_CLOUD.COPY_DATA formatting options
-    sql_statements:
-      type: array
-      items:
-        description: SQL statement
-        type: string
-      description: SQL statements to perform database operation
-      example:
-      - CREATE TABLE "MYSCHEMA"."EXAMPLE_TABLE"("ID" NUMBER, "DATE_RECV" DATE);
+      properties:
+        storage_link_name:
+          $ref: '#/components/schemas/storage_link_name'
+        storage_link_description:
+          type: string
+          example: My bucket for CSV files
+          description: Description of Cloud Storage Link
+        credential_name:
+          type: string
+          example: MYCRED
+          description: Credential name used to access bucket
+        uri:
+          type: string
+          example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/kdnmfs3kdj2x/b/my-bucket/o/
+          description: URI of bucket for Cloud Storage Links
+        sql_statements:
+          $ref: '#/components/schemas/sql_statements'
+    data_load_job_id:
+      type: string
+      example: SALES-LOAD-20220529-112233-4567
+      description: Name of data load job
     column:
       type: object
       properties:
@@ -1346,6 +1383,36 @@ components:
           type: string
           example: KM
           description: Unit of GEOJson data for column from SDO_UNITS_OF_MEASURE table
+    data-tools-job-reporting:
+      type: object
+      properties:
+        completed:
+          $ref: '#/components/schemas/data-tools-job-reporting-options'
+        errors:
+          $ref: '#/components/schemas/data-tools-job-reporting-options'
+        failed:
+          $ref: '#/components/schemas/data-tools-job-reporting-options'
+    data_load_name:
+      type: string
+      example: MY_LOAD_OF_SALES
+      description: Descriptive name for data load
+    survey_name:
+      type: string
+      example: SALES-SURVEY-20220605-112233-4567
+      description: Name of input data survey
+    table_name:
+      type: string
+      example: SALES
+      description: Table name to load
+    email-array:
+      type: array
+      example:
+      - data_studio_user@oracle.com
+      - oci_enthusiast@oracle.com
+      items:
+        description: Email address to notify
+        type: string
+        example: data_studio_user@oracle.com
     survey:
       type: object
       properties:
@@ -1359,151 +1426,68 @@ components:
           $ref: '#/components/schemas/format'
         columns:
           $ref: '#/components/schemas/columns'
-    column_name:
-      type: string
-      example: UNITS
-      description: Column name in table
-    live-table-feed:
-      type: object
-      properties:
-        live_table_feed_name:
-          $ref: '#/components/schemas/live_table_feed_name'
-        table_name:
-          $ref: '#/components/schemas/table_name'
-        table_schema:
-          $ref: '#/components/schemas/schema_name'
-        column_list:
-          $ref: '#/components/schemas/columns'
-        object_type:
-          $ref: '#/components/schemas/live_feed_object_type'
-        object_format:
-          $ref: '#/components/schemas/loader_format'
-        storage_link_name:
-          $ref: '#/components/schemas/storage_link_name'
-        object_filter:
-          $ref: '#/components/schemas/object_filter'
-        object_filter_type:
-          $ref: '#/components/schemas/object_filter_type'
-        scheduled:
-          type: boolean
-          example: true
-          description: Is the Live Table Feed scheduler job enabled?
-        scheduler_interval:
-          type: string
-          example: FREQ=DAILY;BYHOUR=9;BYMINUTE=30;BYDAY=MON,TUE,WED,THU,FRI
-          description: DBMS_SCHEDULER interval for Live Table Feed job
-        notifications:
-          type: boolean
-          example: false
-          description: Is the Live Table Feed enabled for notifications?
-        job_class:
-          $ref: '#/components/schemas/job_class'
-        start_date:
-          $ref: '#/components/schemas/live_feed_timestamp'
-          example: '2009-08-12T07:47:21.212121000-04:00'
-        end_date:
-          $ref: '#/components/schemas/live_feed_timestamp'
-          example: '2013-06-05T06:36:21.212121000-04:00'
-        sql_statements:
-          $ref: '#/components/schemas/sql_statements'
-    live_feed_timestamp:
-      type: string
-      example: '2009-08-12T07:47:21.212121000-04:00'
-      description: A data and time of the format YYYY-MM-DDTHH24:MI:SS.FFTZH:TZM
-    object_filter:
-      type: string
-      example: '*.csv'
-      description: Filter to select subset of files
-    loader_format:
-      type: object
-      description: SQL Loader options
-      example:
-        ignoreblanklines: true
-        ignoremissingcolumns: true
-        blankasnull: true
-        rejectlimit: 10000
-        trimspaces: lrtrim
-        characterset: AL32UTF8
-        skipheaders: 1
-    live-table-feed-key:
-      type: object
-      properties:
-        live_table_feed_key:
-          type: string
-          example: x17sSGjaXrCgy2QQKKIpMdMi1zESM_kRX9g4#f5Y6ZUNi#SYo4Y4qjJRyXKiOlTyWnU01vx#vF1lBS#bTzC4gNeZZ1Zih#iK3Qoo
-          description: Key for notification services to trigger the Live Feed
-    data-loads:
-      type: object
-      properties:
-        data_loads:
-          type: array
-          items:
-            $ref: '#/components/schemas/data-load'
-    job_class:
-      type: string
-      example: HIGH
-      description: Scheduler job class
-    live_table_feed_name:
-      type: string
-      example: SALES_FEED
-    data-load-job-ids:
-      type: object
-      description: List of data load job IDs
-      properties:
-        data_load_job_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/data-load-job-id'
-    columns:
-      type: array
-      items:
-        $ref: '#/components/schemas/column'
-      example:
-      - column_name: RECEIVED_DATE
-        datatype: DATE
-        columnId: 1
-        format: YYYY-MM-DD
-      - column_name: UNITS
-        datatype: NUMBER
-        columnId: 2
-        length: 38
-  responses:
-    data-tools-jobs:
-      description: Data Tools jobs
+  requestBodies:
+    data-tools-job:
+      description: Data Tools Job
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/data-tools-jobs'
+            $ref: '#/components/schemas/data-tools-job'
+    surveys:
+      description: Surveys to perform
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/survey-requests'
+    cloud-storage-links:
+      description: Cloud Storage Links to create
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/cloud-storage-links'
+    live-table-feeds:
+      description: Live Table Feeds to create
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/live-table-feeds'
+    credentials:
+      description: Credentials to create
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/credentials'
+    data-loads:
+      description: Data Loads to perform
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/data-loads'
+  responses:
+    data-load-statuses:
+      description: Status of multiple data loads
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/data-load-statuses'
     credentials:
       description: Multiple Credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/credentials'
-    surveys:
-      description: Surveys of input files
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/surveys'
-    cloud-storage-links:
-      description: Multiple Cloud Storage Links
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/cloud-storage-links'
-    live-table-feeds:
-      description: Live Table Feeds
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/live-table-feeds'
     data-tools-job:
       description: Data Tools job
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/data-tools-job'
+    surveys:
+      description: Surveys of input files
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/surveys'
     data-load-job-ids:
       description: List of Data Loads
       content:
@@ -1516,49 +1500,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/live-table-feed-key'
-    data-load-statuses:
-      description: Status of multiple data loads
+    data-tools-jobs:
+      description: Data Tools jobs
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/data-load-statuses'
-  requestBodies:
-    surveys:
-      description: Surveys to perform
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/survey-requests'
-    credentials:
-      description: Credentials to create
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/credentials'
+            $ref: '#/components/schemas/data-tools-jobs'
     live-table-feeds:
-      description: Live Table Feeds to create
+      description: Live Table Feeds
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/live-table-feeds'
     cloud-storage-links:
-      description: Cloud Storage Links to create
+      description: Multiple Cloud Storage Links
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/cloud-storage-links'
-    data-tools-job:
-      description: Data Tools Job
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/data-tools-job'
-    data-loads:
-      description: Data Loads to perform
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/data-loads'
   securitySchemes:
     BasicAuth:
       type: http
